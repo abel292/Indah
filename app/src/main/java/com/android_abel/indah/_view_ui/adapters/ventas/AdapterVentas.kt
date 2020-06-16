@@ -25,6 +25,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VentasViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+
         return VentasViewHolder(
             inflater,
             parent,
@@ -37,7 +38,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
 
     fun addProducto(producto: ProductoEntity) {
         list.add(0, producto)
-        listaVendido.add(0, ProductoVendido(producto.id, 1, producto.precioVenta, 0))
+        producto.id?.let { id -> ProductoVendido(id, 1, producto.precioVenta, 0) }?.let { listaVendido.add(0, it) }
         notifyItemInserted(0)
     }
 
@@ -85,8 +86,8 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
         private var editTextCantidad_ventas: TextInputEditText? = null
         private var editTextPrecioVenta_ventas: TextInputEditText? = null
 
-        private var cantidad = 1
-        private var precioVenta = 0
+        /*private var cantidad = 1
+        private var precioVenta = 0*/
 
         init {
             textViewNombreProducto_itemVenta = itemView.findViewById(R.id.textViewNombreProducto_itemVenta)
@@ -102,25 +103,33 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
             imageButtonRemoveItemCarrito?.setOnClickListener {
                 listenerCarrito.removeItem(producto, position)
             }
-            precioVenta = producto.precioVenta
+            editTextCantidad_ventas?.setText(listVendido[position].cantidad.toString())
+            editTextPrecioVenta_ventas?.setText(listVendido[position].precioVenta.toString())
 
-            editTextCantidad_ventas?.setText(cantidad.toString())
-            editTextPrecioVenta_ventas?.setText(precioVenta.toString())
-
-            setSubTotal(position, cantidad, precioVenta)
+            producto.id?.let { id ->
+                setSubTotal(
+                    id,
+                    editTextCantidad_ventas?.text.toString().toInt(),
+                    editTextPrecioVenta_ventas?.text.toString().toInt()
+                )
+            }
 
             editTextCantidad_ventas?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                 override fun afterTextChanged(editable: Editable) {
 
-                    cantidad = if (editable.toString().trim().isNotEmpty()) editable.toString().toInt() else 1
-                    setSubTotal(position, cantidad, precioVenta)
-
                     //modifico este para guardarlo en productos vendidos
-                    listVendido[position].cantidad = cantidad
-
-                    generateVentas()
+                    if (editable.toString().trim().isNotEmpty() &&
+                        editable.toString().trim().isNotBlank()
+                    )
+                        producto.id?.let { id ->
+                            setSubTotal(
+                                id,
+                                editTextCantidad_ventas?.text.toString().toInt(),
+                                editTextPrecioVenta_ventas?.text.toString().toInt()
+                            )
+                        }
                 }
             })
 
@@ -129,30 +138,42 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                 override fun afterTextChanged(editable: Editable) {
 
-                    precioVenta = if (editable.toString().trim().isNotEmpty()) editable.toString().toInt() else producto.precioVenta
-                    setSubTotal(position, cantidad, precioVenta)
-
                     //modifico este para guardarlo en productos vendidos
-                    listVendido[position].precioVenta = precioVenta
+                    if (editable.toString().trim().isNotEmpty() &&
+                        editable.toString().trim().isNotBlank()
+                    )
+                        producto.id?.let { id ->
+                            setSubTotal(
+                                id,
+                                editTextCantidad_ventas?.text.toString().toInt(),
+                                editTextPrecioVenta_ventas?.text.toString().toInt()
+                            )
+                        }
 
-                    generateVentas()
                 }
             })
 
             //enviamos la lista de productos ya modificada al fragment cada vez que se bindeé los items del recicler
-            generateVentas()
         }
 
-        fun setSubTotal(position: Int, cant: Int, price: Int) {
+        fun setSubTotal(idProducto: Int, cant: Int, price: Int) {
             val subTotal = price * cant
             textViewSubTotal?.text = subTotal.toString()
 
             //modifico este para guardarlo en productos vendidos
-            listVendido[position].subTotal = subTotal
+            listVendido.forEach {
+                if (idProducto == it.idProducto) {
+                    it.subTotal = textViewSubTotal?.text.toString().toInt()
+                    it.cantidad = editTextCantidad_ventas?.text.toString().toInt()
+                    it.precioVenta = editTextPrecioVenta_ventas?.text.toString().toInt()
+                    return@forEach
+                }
+            }
+            generateVentas()
         }
 
         fun generateVentas() {
-            configVentaListener.compilarProductosCarrito(listVendido)
+            configVentaListener.compilandoProductosCarrito(listVendido)
         }
 
         //PEQUEÑO PROBLEMA QUE NO ACTUALIZA EL SUBTOTAL CUANDO MODIFICO LUEGO DE AGREGAR UN 2DO PRODUCTO

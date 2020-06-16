@@ -2,11 +2,11 @@ package com.android_abel.indah._model.local.venta
 
 class ProductoVendido {
     var idProducto: Int? = null
-    var cantidad: Int? = null
-    var precioVenta: Int? = null
-    var subTotal: Int? = null
+    var cantidad: Int = 1
+    var precioVenta: Int = 0
+    var subTotal: Int = 0
 
-    constructor(idProducto: Int?, cantidad: Int?, precioVenta: Int?, subTotal: Int?) {
+    constructor(idProducto: Int, cantidad: Int, precioVenta: Int, subTotal: Int) {
         this.idProducto = idProducto
         this.cantidad = cantidad
         this.precioVenta = precioVenta

@@ -13,6 +13,7 @@ class AdapterProductos(private var list: List<ProductoEntity>) :
     RecyclerView.Adapter<AdapterProductos.ProductoViewHolder>() {
 
     lateinit var listener: OnClickItemProductoSearched
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ProductoViewHolder(

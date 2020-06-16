@@ -78,72 +78,54 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerViewProductosCarrito_f_ventas">
 
-                    <Button
-                        android:id="@+id/buttonTerminarVenta"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total  $ "
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textViewTotalVenta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <RadioButton
+                        android:id="@+id/radioButtonCobrar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/terminar_venta" />
+                        android:text="Por cobrar" />
+
+                    <RadioButton
+                        android:id="@+id/radioButtonPagado"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Pagado" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total  $ "
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/textViewTotalVenta"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="0"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/linearLayoutContentConfigACobrar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="10dp"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:layout_marginBottom="4dp"
-                                    android:text="@string/deuda" />
-
-                                <TextView
-                                    android:id="@+id/textViewDeudaRestante"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginBottom="4dp"
-                                    android:text="@string/_100"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
 
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="0dp"
@@ -159,29 +141,36 @@
 
                             </com.google.android.material.textfield.TextInputLayout>
 
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/deuda" />
+
+                                <TextView
+                                    android:id="@+id/textViewDeudaRestante"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/_100"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
                         </LinearLayout>
 
 
                     </LinearLayout>
 
-                    <RadioButton
-                        android:id="@+id/radioButtonCobrar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Por cobrar" />
-
-                    <RadioButton
-                        android:id="@+id/radioButtonPagado"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Pagado" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/forma_de_pago"
-                        android:orientation="horizontal"
-                        app:startIconDrawable="@drawable/googleg_standard_color_18">
+                        android:orientation="horizontal">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edittextFormaPago_venta"
@@ -194,8 +183,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="110dp"
                         android:hint="@string/informacion_adicional_de_la_venta"
-                        android:orientation="horizontal"
-                        app:startIconDrawable="@android:drawable/ic_menu_info_details">
+                        android:orientation="horizontal">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edittextDescripcion_venta"
@@ -208,8 +196,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/cliente"
-                        android:orientation="horizontal"
-                        app:startIconDrawable="@drawable/googleg_standard_color_18">
+                        android:orientation="horizontal">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edittextCliente_venta"
@@ -218,6 +205,11 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Button
+                        android:id="@+id/buttonTerminarVenta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/terminar_venta" />
 
                 </LinearLayout>
 

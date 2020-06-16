@@ -91,8 +91,26 @@ class VentasFragment : BaseFragment(), BasicMethods,
             }
         })
 
+        edittextPagoInicial_venta.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun afterTextChanged(editable: Editable) {
+                var restante= textViewTotalVenta.text.toString().toInt()
+                restante = if (editable.trim().isNotEmpty()) {
+                    textViewTotalVenta.text.toString().toInt() - edittextPagoInicial_venta.text.toString().toInt()
+                } else {
+                    textViewTotalVenta.text.toString().toInt() - 0
+                }
+                showCantidadRestantePagoInicial(restante)
+            }
+        })
+
         imageViewClearEdittext.setOnClickListener {
             clearBuscador()
+        }
+
+        buttonTerminarVenta.setOnClickListener {
+            val listCarrito = mAdapter.listaVendido
         }
     }
 
@@ -102,6 +120,14 @@ class VentasFragment : BaseFragment(), BasicMethods,
         mAdapter.listenerConfigVenta = this
         recyclerViewProductosCarrito_f_ventas.adapter = mAdapter
 
+    }
+
+    override fun compilandoProductosCarrito(listCarrito: ArrayList<ProductoVendido>) {
+        var precioTotal = 0
+        listCarrito.forEach { producto ->
+            precioTotal += producto.subTotal
+        }
+        textViewTotalVenta.text = precioTotal.toString()
     }
 
     private fun notifyRecyclerViewSearchProduct(list: List<ProductoEntity>) {
@@ -153,7 +179,7 @@ class VentasFragment : BaseFragment(), BasicMethods,
         autoCompleteTextViewVentas.clearFocus()
     }
 
-    override fun compilarProductosCarrito(listCarrito: ArrayList<ProductoVendido>) {
-        Log.e(TAG, "PROCUTOS A VENDER $listCarrito")
+    internal fun showCantidadRestantePagoInicial(cant: Int) {
+        textViewDeudaRestante.text = cant.toString()
     }
 }

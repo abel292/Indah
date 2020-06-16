@@ -14,11 +14,12 @@ import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._view_model.ProductosViewModel
 import com.android_abel.indah._view_ui.adapters.productos.AdapterProductos
+import com.android_abel.indah._view_ui.adapters.ventas.OnClickItemProductoSearched
 import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_productos.*
 
-class ProductosFragment : BaseFragment(), BasicMethods {
+class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearched {
 
     lateinit var productosView: View
     lateinit var mAdapter: AdapterProductos
@@ -30,8 +31,8 @@ class ProductosFragment : BaseFragment(), BasicMethods {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         productosView = inflater.inflate(R.layout.fragment_productos, container, false)
         return productosView
@@ -58,7 +59,7 @@ class ProductosFragment : BaseFragment(), BasicMethods {
     override fun initListeners() {
         floatingActionButtonAddProducto.setOnClickListener {
             it.findNavController()
-                    .navigate(R.id.action_productosFragment_to_creacionProyectoFragment)
+                .navigate(R.id.action_productosFragment_to_creacionProyectoFragment)
         }
 
         autoCompleteTextViewProductos.addTextChangedListener(object : TextWatcher {
@@ -71,12 +72,17 @@ class ProductosFragment : BaseFragment(), BasicMethods {
         })
     }
 
+    override fun onClickItemProductoSearched(productoEntity: ProductoEntity) {
+
+    }
+
     private fun notifyRecyclerViewItems(list: List<ProductoEntity>) {
         productos = list
         mAdapter =
             AdapterProductos(
                 list
             )
+        mAdapter.listener = this
         recyclerViewProductos.adapter = mAdapter
     }
 
