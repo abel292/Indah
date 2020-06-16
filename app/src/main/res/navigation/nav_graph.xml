@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_productosFragment"
+            app:destination="@id/productosFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ventasFragment"
+            app:destination="@id/ventasFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gestionFragment"
+            app:destination="@id/gestionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productosFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.productos.ProductosFragment"
+        android:label="fragment_productos"
+        tools:layout="@layout/fragment_productos" >
+        <action
+            android:id="@+id/action_productosFragment_to_creacionProyectoFragment"
+            app:destination="@id/creacionProyectoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gestionFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.gestion.GestionFragment"
+        android:label="fragment_gestion"
+        tools:layout="@layout/fragment_gestion" />
+    <fragment
+        android:id="@+id/ventasFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.ventas.VentasFragment"
+        android:label="fragment_ventas"
+        tools:layout="@layout/fragment_ventas" />
+    <fragment
+        android:id="@+id/creacionProyectoFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.creacionProducto.CreacionProyectoFragment"
+        android:label="fragment_creacion_proyecto"
+        tools:layout="@layout/fragment_creacion_proyecto" />
+</navigation>

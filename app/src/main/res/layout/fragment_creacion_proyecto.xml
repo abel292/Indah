@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="._view_ui.fragments.creacionProducto.CreacionProyectoFragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextNombreProducto_creacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="184dp"
+            android:ems="10"
+            android:hint="@string/nombre"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editTextCodigoProducto_creacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/codigo"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/editTextNombreProducto_creacion"
+            app:layout_constraintTop_toBottomOf="@+id/editTextNombreProducto_creacion" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:clickable="true"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:src="@drawable/common_google_signin_btn_icon_dark"
+            app:fabSize="mini"
+            app:layout_constraintStart_toEndOf="@+id/editTextCodigoProducto_creacion"
+            app:layout_constraintTop_toTopOf="@+id/editTextCodigoProducto_creacion"
+            android:focusable="true" />
+
+        <EditText
+            android:id="@+id/editTextCantidad_creacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/cantidad"
+            android:inputType="numberSigned"
+            app:layout_constraintStart_toStartOf="@+id/editTextCodigoProducto_creacion"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCodigoProducto_creacion" />
+
+        <EditText
+            android:id="@+id/editTextCantidadReserva_creacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/cantidad_reserva"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/editTextCantidad_creacion"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCantidad_creacion" />
+
+        <EditText
+            android:id="@+id/editTextPrecioCompra_creacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/precio_compra"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/editTextCantidadReserva_creacion"
+            app:layout_constraintTop_toBottomOf="@+id/editTextCantidadReserva_creacion" />
+
+        <EditText
+            android:id="@+id/editTextPrecioVenta_creacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/precio_venta"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="@+id/editTextPrecioCompra_creacion"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPrecioCompra_creacion" />
+
+        <EditText
+            android:id="@+id/editTextDescripcion_creacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/descripcion"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/editTextPrecioVenta_creacion"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPrecioVenta_creacion" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButtonGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:src="@android:drawable/ic_menu_save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Indah</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="productos">PRODUCTOS</string>
+    <string name="ventas">VENTAS</string>
+    <string name="gestion">GESTION</string>
+    <string name="buscar_producto">buscar producto</string>
+    <string name="nombre">Nombre</string>
+    <string name="codigo">Codigo</string>
+    <string name="unidad">Unidad</string>
+    <string name="cantidad">Cantidad</string>
+    <string name="cantidad_reserva">Cantidad reserva</string>
+    <string name="precio_compra">Precio compra</string>
+    <string name="precio_venta">Precio venta</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="la_cantidad_es_mayor_a_la_que_hay_en_stock">La cantidad es mayor a la que hay en stock</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="cliente">Cliente</string>
+    <string name="forma_de_pago">Forma de pago</string>
+    <string name="informacion_adicional_de_la_venta">Informacion adicional de la venta</string>
+    <string name="terminar_venta">Terminar venta</string>
+    <string name="pago_inicial">Pago inicial</string>
+    <string name="deuda">Deuda:</string>
+    <string name="_100">$100</string>
+</resources>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: org.abstractj.kalium:kalium:0.8.0@jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.abstractj.kalium/kalium/0.8.0/5df4d315614450396d247bddb8a5bd87958fe345/kalium-0.8.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.abstractj.kalium/kalium/0.8.0/45b5b93fd7d88768db6fd7c46c0d7fd338009563/kalium-0.8.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.abstractj.kalium/kalium/0.8.0/dc9a6b0f730eac5f1af51dc269177e7202d88dfe/kalium-0.8.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
