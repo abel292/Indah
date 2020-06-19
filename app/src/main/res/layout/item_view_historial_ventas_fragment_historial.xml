@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/fondoItemHistorial"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageViewIndicadorSemaforo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/textViewCliente_hsitorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/cliente"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewIndicadorSemaforo"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTotal_historial"
+        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintStart_toEndOf="@+id/imageViewIndicadorSemaforo"
+        app:layout_constraintTop_toTopOf="@+id/imageViewIndicadorSemaforo" />
+
+    <TextView
+        android:id="@+id/textViewListProductos_historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxLength="30"
+        android:text="ejemplo, ejemplo2, ejem..."
+        app:layout_constraintEnd_toStartOf="@+id/textViewFechaVenta_historial"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewCliente_hsitorial"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCliente_hsitorial" />
+
+    <TextView
+        android:id="@+id/textViewFechaVenta_historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="00/00/0000"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTotal_historial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:text="200"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewListProductos_historial"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCliente_hsitorial" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:text="$"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTotal_historial"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTotal_historial"
+        app:layout_constraintTop_toTopOf="@+id/textViewTotal_historial" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,11 @@
         android:id="@+id/gestionFragment"
         android:name="com.android_abel.indah._view_ui.fragments.gestion.GestionFragment"
         android:label="fragment_gestion"
-        tools:layout="@layout/fragment_gestion" />
+        tools:layout="@layout/fragment_gestion" >
+        <action
+            android:id="@+id/action_gestionFragment_to_historialVentasFragment"
+            app:destination="@id/historialVentasFragment" />
+    </fragment>
     <fragment
         android:id="@+id/ventasFragment"
         android:name="com.android_abel.indah._view_ui.fragments.ventas.VentasFragment"
@@ -44,4 +48,9 @@
         android:name="com.android_abel.indah._view_ui.fragments.creacionProducto.CreacionProyectoFragment"
         android:label="fragment_creacion_proyecto"
         tools:layout="@layout/fragment_creacion_proyecto" />
+    <fragment
+        android:id="@+id/historialVentasFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.historialVentas.HistorialVentasFragment"
+        android:label="fragment_historial_ventas"
+        tools:layout="@layout/fragment_historial_ventas" />
 </navigation>

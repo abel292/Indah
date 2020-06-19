@@ -9,6 +9,7 @@ import com.android_abel.indah._model.local.convertes.ConverterDate
 import com.android_abel.indah._model.local.convertes.ConverterProductoVendido
 import com.android_abel.indah._model.local.producto.ProductoDao
 import com.android_abel.indah._model.local.producto.ProductoEntity
+import com.android_abel.indah._model.local.venta.VentaDao
 import com.android_abel.indah._model.local.venta.VentaEntity
 
 
@@ -18,6 +19,8 @@ import com.android_abel.indah._model.local.venta.VentaEntity
 public abstract class DataBaseIndah : RoomDatabase() {
 
     abstract fun productoDao(): ProductoDao
+    abstract fun ventaDao(): VentaDao
+
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

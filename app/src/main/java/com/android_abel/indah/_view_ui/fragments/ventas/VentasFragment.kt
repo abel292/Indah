@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.venta.ProductoVendido
+import com.android_abel.indah._model.local.venta.VentaEntity
 import com.android_abel.indah._view_model.VentasViewModel
 import com.android_abel.indah._view_ui.adapters.productos.AdapterProductos
 import com.android_abel.indah._view_ui.adapters.ventas.AdapterVentas
@@ -22,6 +23,9 @@ import com.android_abel.indah._view_ui.adapters.ventas.OnClickItemProductoSearch
 import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_ventas.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class VentasFragment : BaseFragment(), BasicMethods,
@@ -54,7 +58,6 @@ class VentasFragment : BaseFragment(), BasicMethods,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initObservables()
         init()
         initListeners()
@@ -95,7 +98,7 @@ class VentasFragment : BaseFragment(), BasicMethods,
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
             override fun afterTextChanged(editable: Editable) {
-                var restante= textViewTotalVenta.text.toString().toInt()
+                var restante = textViewTotalVenta.text.toString().toInt()
                 restante = if (editable.trim().isNotEmpty()) {
                     textViewTotalVenta.text.toString().toInt() - edittextPagoInicial_venta.text.toString().toInt()
                 } else {
@@ -110,7 +113,10 @@ class VentasFragment : BaseFragment(), BasicMethods,
         }
 
         buttonTerminarVenta.setOnClickListener {
-            val listCarrito = mAdapter.listaVendido
+            val venta = generateVenta()
+            if (venta != null) {
+                ventasViewModel.insertVenta(venta)
+            }
         }
     }
 
@@ -181,5 +187,26 @@ class VentasFragment : BaseFragment(), BasicMethods,
 
     internal fun showCantidadRestantePagoInicial(cant: Int) {
         textViewDeudaRestante.text = cant.toString()
+    }
+
+    private fun generateVenta(): VentaEntity? {
+        return if (validateForms()) {
+            val venta = VentaEntity()
+            venta.productosVendidos = mAdapter.listaVendido
+            venta.total = textViewTotalVenta.text.toString().toInt()
+            venta.descripcion = edittextDescripcion_venta.text.toString()
+            venta.formaDePago = edittextFormaPago_venta.text.toString()
+            venta.idCliente = 0
+            venta.pagado = radioButtonPagado.isChecked
+
+            venta
+        } else {
+            null
+        }
+    }
+
+    private fun validateForms(): Boolean {
+        return (mAdapter.listaVendido.size > 0
+                && !edittextCliente_venta.text.isNullOrEmpty())
     }
 }

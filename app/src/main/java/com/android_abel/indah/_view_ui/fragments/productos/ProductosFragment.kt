@@ -21,11 +21,16 @@ import kotlinx.android.synthetic.main.fragment_productos.*
 
 class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearched {
 
+    //view
     lateinit var productosView: View
+
+    //adapters
     lateinit var mAdapter: AdapterProductos
 
+    //list
     lateinit var productos: List<ProductoEntity>
 
+    //viewModels
     val productoViewModel by lazy {
         ViewModelProviders.of(this).get(ProductosViewModel::class.java)
     }
@@ -53,7 +58,7 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearc
     }
 
     override fun init() {
-        recyclerViewProductos.layoutManager = LinearLayoutManager(getActivity());
+        recyclerViewProductos.layoutManager = LinearLayoutManager(getActivity())
     }
 
     override fun initListeners() {
