@@ -21,4 +21,9 @@ class VentasRepository(context: Context) {
     suspend fun insertLocal(ventaEntity: VentaEntity) = withContext(Dispatchers.IO) {
         dao.insert(ventaEntity)
     }
+
+    @WorkerThread
+    suspend fun update(ventaEntity: VentaEntity) = withContext(Dispatchers.IO) {
+        dao.insert(ventaEntity)
+    }
 }

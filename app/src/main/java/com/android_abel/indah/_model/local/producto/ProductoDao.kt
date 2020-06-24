@@ -15,6 +15,12 @@ interface ProductoDao {
     @Query("SELECT * from _PRODUCTOS")
     fun getProductosLive(): LiveData<List<ProductoEntity>>
 
+    @Query("SELECT * from _PRODUCTOS WHERE id= :id order by id asc")
+    fun getSingleProducto(id: Int): ProductoEntity?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(producto: ProductoEntity)
+
+    @Query("UPDATE _PRODUCTOS SET cantidad=:cant WHERE id = :id")
+    fun updateCantidad(cant: Int, id: Int)
 }

@@ -9,12 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.findNavController
+import com.android_abel.indah.R
 import com.phelat.navigationresult.BundleFragment
 
-abstract class BaseFragment : BundleFragment() {
+abstract class BaseFragment : BundleFragment(), BasicMethods {
 
-    protected val TAG = this.javaClass.simpleName
+    val TAG = this.javaClass.simpleName
     protected var activity: BaseActivity? = null
+
+    //views
+    protected lateinit var fragmentView: View
+
 
     companion object {
         const val REQUEST_CODE_COORD_MAP = 1000
@@ -27,21 +33,6 @@ abstract class BaseFragment : BundleFragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-        requireView().setOnClickListener { v: View? ->
-            Log.d(
-                TAG,
-                "click $TAG"
-            )
-        }
-
-        return view
-    }
 
     protected fun hideKeyBoard() {
 
@@ -67,25 +58,10 @@ abstract class BaseFragment : BundleFragment() {
         alertDialogBuilder.create().show()
     }
 
-    /*protected fun showCustomDialogMessage() {
-        val mDialogView = LayoutInflater.from(getActivity()!!).inflate(R.layout.dialog_confirm_approval, null)
+    fun View.goTo(action: Int) {
+        findNavController().navigate(action)
 
-        val alertDialogBuilder =
-            AlertDialog.Builder(getActivity()!!)
-                .setView(mDialogView)
-                *//*.setPositiveButton(
-                    resources.getString(R.string.ok)
-                ) { dialog: DialogInterface, which: Int -> dialog.dismiss() }*//*
-        val mAlertDialog = alertDialogBuilder.show()
-
-        mDialogView.dialogConfirmApproval_button_accept.setOnClickListener {
-
-        }
-        mDialogView.dialogConfirmApproval_button_cancel.setOnClickListener {
-            mAlertDialog.dismiss()
-        }
-        alertDialogBuilder.create().show()
-    }*/
+    }
 
     fun onBackPressed() {
         requireActivity().onBackPressed()

@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.android_abel.indah._model.local.cliente.ClienteEntity
+import com.android_abel.indah._model.local.cliente.ClientesDao
 import com.android_abel.indah._model.local.convertes.ConverterDate
 import com.android_abel.indah._model.local.convertes.ConverterProductoVendido
 import com.android_abel.indah._model.local.producto.ProductoDao
@@ -14,12 +16,17 @@ import com.android_abel.indah._model.local.venta.VentaEntity
 
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = [ProductoEntity::class, VentaEntity::class], version = 5, exportSchema = false)
+@Database(
+    entities = [ProductoEntity::class,
+        VentaEntity::class, ClienteEntity::class],
+    version = 7, exportSchema = false
+)
 @TypeConverters(ConverterProductoVendido::class, ConverterDate::class)
 public abstract class DataBaseIndah : RoomDatabase() {
 
     abstract fun productoDao(): ProductoDao
     abstract fun ventaDao(): VentaDao
+    abstract fun clientesDao(): ClientesDao
 
 
     companion object {
@@ -35,9 +42,9 @@ public abstract class DataBaseIndah : RoomDatabase() {
             }
             synchronized(this) {
                 val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        DataBaseIndah::class.java,
-                        "indah_database"
+                    context.applicationContext,
+                    DataBaseIndah::class.java,
+                    "indah_database"
                 ).build()
                 INSTANCE = instance
                 return instance

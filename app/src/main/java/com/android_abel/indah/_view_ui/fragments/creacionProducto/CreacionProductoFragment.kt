@@ -18,9 +18,8 @@ import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_creacion_proyecto.*
 
 
-class CreacionProyectoFragment : BaseFragment(), BasicMethods {
+class CreacionProductoFragment : BaseFragment(), BasicMethods {
 
-    lateinit var fragmentView: View
     val creacionProductoViewModel by lazy {
         ViewModelProviders.of(this).get(CreacionProductoViewModel::class.java)
     }

@@ -16,10 +16,6 @@ import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_historial_ventas.*
 
 class HistorialVentasFragment : BaseFragment(), BasicMethods {
-
-    //views
-    lateinit var fragmentView: View
-
     //viewModels
     val ventasViewModel by lazy {
         ViewModelProviders.of(this).get(VentasViewModel::class.java)

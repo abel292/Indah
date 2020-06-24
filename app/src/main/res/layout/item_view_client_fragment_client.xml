@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/fondoItemHistorial"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageViewPerfil_cliente"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/textViewCliente_cliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/cliente"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewPerfil_cliente"
+        app:layout_constraintStart_toEndOf="@+id/imageViewPerfil_cliente"
+        app:layout_constraintTop_toTopOf="@+id/imageViewPerfil_cliente" />
+
+    <TextView
+        android:id="@+id/textViewDescripcion_cliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxLength="30"
+        android:text="ejemplo, ejemplo2, ejem..."
+        app:layout_constraintStart_toStartOf="@+id/textViewCliente_cliente"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCliente_cliente" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

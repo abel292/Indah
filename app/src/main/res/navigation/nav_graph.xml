@@ -37,6 +37,12 @@
         <action
             android:id="@+id/action_gestionFragment_to_historialVentasFragment"
             app:destination="@id/historialVentasFragment" />
+        <action
+            android:id="@+id/action_gestionFragment_to_clientesFragment"
+            app:destination="@id/clientesFragment" />
+        <action
+            android:id="@+id/action_gestionFragment_to_ventasPorCobrarFragment"
+            app:destination="@id/ventasPorCobrarFragment" />
     </fragment>
     <fragment
         android:id="@+id/ventasFragment"
@@ -45,7 +51,7 @@
         tools:layout="@layout/fragment_ventas" />
     <fragment
         android:id="@+id/creacionProyectoFragment"
-        android:name="com.android_abel.indah._view_ui.fragments.creacionProducto.CreacionProyectoFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.creacionProducto.CreacionProductoFragment"
         android:label="fragment_creacion_proyecto"
         tools:layout="@layout/fragment_creacion_proyecto" />
     <fragment
@@ -53,4 +59,23 @@
         android:name="com.android_abel.indah._view_ui.fragments.historialVentas.HistorialVentasFragment"
         android:label="fragment_historial_ventas"
         tools:layout="@layout/fragment_historial_ventas" />
+    <fragment
+        android:id="@+id/clientesFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.clientes.ClientesFragment"
+        android:label="fragment_clientes"
+        tools:layout="@layout/fragment_clientes" >
+        <action
+            android:id="@+id/action_clientesFragment_to_agregarClienteFragment"
+            app:destination="@id/agregarClienteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ventasPorCobrarFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.ventasPorCobrar.VentasPorCobrarFragment"
+        android:label="fragment_ventas_por_cobrar"
+        tools:layout="@layout/fragment_ventas_por_cobrar" />
+    <fragment
+        android:id="@+id/agregarClienteFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.addClient.AgregarClienteFragment"
+        android:label="fragment_agregar_cliente"
+        tools:layout="@layout/fragment_agregar_cliente" />
 </navigation>

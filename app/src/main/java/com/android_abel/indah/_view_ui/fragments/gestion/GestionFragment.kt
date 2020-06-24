@@ -12,11 +12,7 @@ import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_gestion.*
 
-class GestionFragment : BaseFragment(), BasicMethods {
-
-    //views
-    private lateinit var fragmentView: View
-
+class GestionFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +38,18 @@ class GestionFragment : BaseFragment(), BasicMethods {
 
     override fun initListeners() {
         textViewHistorialVentas.setOnClickListener {
-            it.findNavController().navigate(R.id.action_gestionFragment_to_historialVentasFragment)
-
+            it.goTo(R.id.action_gestionFragment_to_historialVentasFragment)
         }
+
+        textViewVentasPorCobrar.setOnClickListener {
+            it.goTo(R.id.action_gestionFragment_to_ventasPorCobrarFragment)
+        }
+
+        textViewClientes.setOnClickListener {
+            it.goTo(R.id.action_gestionFragment_to_clientesFragment)
+        }
+
+
     }
 
 

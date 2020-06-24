@@ -1,5 +1,6 @@
 package com.android_abel.indah._view_ui.fragments.productos
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,12 +15,12 @@ import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._view_model.ProductosViewModel
 import com.android_abel.indah._view_ui.adapters.productos.AdapterProductos
-import com.android_abel.indah._view_ui.adapters.ventas.OnClickItemProductoSearched
+import com.android_abel.indah._view_ui.adapters.ventas.OnListenerItemRecyclerView
 import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_productos.*
 
-class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearched {
+class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerView<ProductoEntity> {
 
     //view
     lateinit var productosView: View
@@ -35,6 +36,8 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearc
         ViewModelProviders.of(this).get(ProductosViewModel::class.java)
     }
 
+    lateinit var mContext: Context
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +48,7 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearc
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        mContext = this.requireContext()
         initObservables()
         init()
         initListeners()
@@ -77,14 +80,11 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearc
         })
     }
 
-    override fun onClickItemProductoSearched(productoEntity: ProductoEntity) {
-
-    }
-
     private fun notifyRecyclerViewItems(list: List<ProductoEntity>) {
         productos = list
         mAdapter =
             AdapterProductos(
+                mContext,
                 list
             )
         mAdapter.listener = this
@@ -103,6 +103,10 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnClickItemProductoSearc
             }
         }
         mAdapter.filterList(filterdNames)
+    }
+
+    override fun onClickItem(objects: ProductoEntity, position: Int) {
+
     }
 
 

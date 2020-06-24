@@ -2,15 +2,18 @@ package com.android_abel.indah._view_ui.adapters.historialVentas
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.venta.VentaEntity
+import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecycler
+import com.android_abel.indah._view_ui.adapters.base.HolderBase
 
 
 class AdapterHistorial(private var list: List<VentaEntity>) :
-    RecyclerView.Adapter<AdapterHistorial.HistorialVentasViewHolder>() {
+    BaseAdapterRecycler<VentaEntity>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistorialVentasViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -20,9 +23,9 @@ class AdapterHistorial(private var list: List<VentaEntity>) :
         )
     }
 
-    override fun onBindViewHolder(holder: HistorialVentasViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HolderBase<VentaEntity>, position: Int) {
         val venta: VentaEntity = list[position]
-        holder.bind(venta)
+        holder.bind(venta, position)
     }
 
     override fun getItemCount(): Int = list.size
@@ -32,12 +35,9 @@ class AdapterHistorial(private var list: List<VentaEntity>) :
         inflater: LayoutInflater,
         parent: ViewGroup
     ) :
-        RecyclerView.ViewHolder(
-            inflater.inflate(
-                R.layout.item_view_historial_ventas_fragment_historial,
-                parent,
-                false
-            )
+        HolderBase<VentaEntity>(
+            inflater, parent,
+            R.layout.item_view_historial_ventas_fragment_historial
         ) {
 
         private var textViewFechaVenta_historial: TextView? = null
@@ -52,7 +52,7 @@ class AdapterHistorial(private var list: List<VentaEntity>) :
             textViewTotal_historial = itemView.findViewById(R.id.textViewTotal_historial)
         }
 
-        fun bind(venta: VentaEntity) {
+        override fun bind(venta: VentaEntity, position: Int) {
             textViewCliente_hsitorial?.text = venta.idCliente.toString()
             textViewTotal_historial?.text = venta.total.toString()
             var cadena = ""
@@ -63,7 +63,6 @@ class AdapterHistorial(private var list: List<VentaEntity>) :
                     "$cadena, " + _producto.idProducto.toString()
             }
             textViewListProductos_historial?.text = cadena
-
         }
 
     }

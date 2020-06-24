@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/traslucido"
-    android:layout_margin="10dp"
+    android:padding="10dp"
     >
 
     <ImageView
         android:id="@+id/imageViewProducto"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground" />
@@ -22,10 +20,61 @@
         android:id="@+id/textViewNombreProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:text="@string/productos"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageViewProducto"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewDescripcion_item_producto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="@+id/textViewNombreProducto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNombreProducto" />
+
+    <TextView
+        android:id="@+id/textViewPrecio_item_producto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:text="TextView"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textViewDescripcion_item_producto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion_item_producto" />
+
+    <TextView
+        android:id="@+id/textViewTitleCantidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cantidad"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitlePrice"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPrecio_item_producto"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textViewCantidad_item_producto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="0"
+        android:textColor="@color/verdeCantidadMayor"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewTitleCantidad"
+        app:layout_constraintStart_toEndOf="@+id/textViewTitleCantidad"
+        app:layout_constraintTop_toTopOf="@+id/textViewTitleCantidad" />
+
+    <TextView
+        android:id="@+id/textViewTitlePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewPrecio_item_producto"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPrecio_item_producto"
+        app:layout_constraintTop_toTopOf="@+id/textViewPrecio_item_producto" />
 </androidx.constraintlayout.widget.ConstraintLayout>

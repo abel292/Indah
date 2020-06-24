@@ -18,10 +18,18 @@
     <string name="la_cantidad_es_mayor_a_la_que_hay_en_stock">La cantidad es mayor a la que hay en stock</string>
     <string name="subtotal">Subtotal</string>
     <string name="cliente">Cliente</string>
+    <string name="clientes">Clientes</string>
     <string name="forma_de_pago">Forma de pago</string>
     <string name="informacion_adicional_de_la_venta">Informacion adicional de la venta</string>
     <string name="terminar_venta">Terminar venta</string>
     <string name="pago_inicial">Pago inicial</string>
     <string name="deuda">Deuda:</string>
     <string name="_100">$100</string>
+
+    <string name="urlEjemplo">https://d26lpennugtm8s.cloudfront.net/stores/440/495/products/mick-crack-adelante1-4641d170347183af5915808207950663-1024-1024.png</string>
+    <string name="ventas_por_cobrar">Ventas por cobrar</string>
+    <string name="historial_de_ventas">Historial de ventas</string>
+    <string name="celular">Celular</string>
+    <string name="direccion">Direccion</string>
+    <string name="informacion_adicional">Informacion adicional</string>
 </resources>

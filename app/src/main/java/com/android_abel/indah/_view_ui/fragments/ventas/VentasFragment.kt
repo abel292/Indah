@@ -1,9 +1,9 @@
 package com.android_abel.indah._view_ui.fragments.ventas
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,37 +11,34 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android_abel.indah.R
+import com.android_abel.indah._model.local.cliente.ClienteEntity
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.venta.ProductoVendido
 import com.android_abel.indah._model.local.venta.VentaEntity
 import com.android_abel.indah._view_model.VentasViewModel
+import com.android_abel.indah._view_ui.adapters.clientes.AdapterClientes
 import com.android_abel.indah._view_ui.adapters.productos.AdapterProductos
-import com.android_abel.indah._view_ui.adapters.ventas.AdapterVentas
-import com.android_abel.indah._view_ui.adapters.ventas.ConfigVentaListener
-import com.android_abel.indah._view_ui.adapters.ventas.ListenerCarrito
-import com.android_abel.indah._view_ui.adapters.ventas.OnClickItemProductoSearched
-import com.android_abel.indah._view_ui.base.BaseFragment
+import com.android_abel.indah._view_ui.adapters.ventas.*
+import com.android_abel.indah._view_ui.base.BaseFragmentRecycler
 import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_ventas.*
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
-class VentasFragment : BaseFragment(), BasicMethods,
-    OnClickItemProductoSearched,
-    ListenerCarrito, ConfigVentaListener {
-
-    //views
-    lateinit var fragmentView: View
+class VentasFragment : BaseFragmentRecycler(), BasicMethods,
+    OnListenerItemRecyclerView<ProductoEntity>,
+    ListenerCarrito, ConfigVentaListener, OnSecondListenerItemRecyclerView<ClienteEntity> {
 
     //adapters
     lateinit var mAdapter: AdapterVentas
     lateinit var mAdapterBuscarProducto: AdapterProductos
+    lateinit var mAdapterBuscarCliente: AdapterClientes
 
     //global var
     lateinit var productos: List<ProductoEntity>
+    lateinit var clientes: List<ClienteEntity>
     var carrito: ArrayList<ProductoEntity> = ArrayList()
+    lateinit var mContext: Context
 
 
     val ventasViewModel by lazy {
@@ -58,6 +55,7 @@ class VentasFragment : BaseFragment(), BasicMethods,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mContext = requireContext()
         initObservables()
         init()
         initListeners()
@@ -67,12 +65,17 @@ class VentasFragment : BaseFragment(), BasicMethods,
         ventasViewModel.productosLive.observe(viewLifecycleOwner, Observer {
             notifyRecyclerViewSearchProduct(it)
         })
+
+        ventasViewModel.clientesLive.observe(viewLifecycleOwner, Observer {
+            notifyRecyclerViewSearchClientes(it)
+        })
     }
 
     override fun init() {
         notifyRecyclerViewCarritoItemsVentas(carrito)
         recyclerViewProductosCarrito_f_ventas.layoutManager = LinearLayoutManager(getActivity())
         recyclerViewSearchProduct_ventas.layoutManager = LinearLayoutManager(getActivity())
+        recyclerViewClientes_ventas.layoutManager = LinearLayoutManager(getActivity())
     }
 
     override fun initListeners() {
@@ -89,6 +92,21 @@ class VentasFragment : BaseFragment(), BasicMethods,
                 } else {
                     hideListProductSearch()
                     imageViewClearEdittext.visibility = View.GONE
+                }
+
+            }
+        })
+
+        edittextCliente_venta.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+            override fun afterTextChanged(editable: Editable) {
+                //after the change calling the method and passing the search input
+                filterClients(editable.toString())
+                if (editable.trim().isNotEmpty()) {
+                    showListClientsSearch()
+                } else {
+                    hideListClientsSearch()
                 }
 
             }
@@ -138,14 +156,16 @@ class VentasFragment : BaseFragment(), BasicMethods,
 
     private fun notifyRecyclerViewSearchProduct(list: List<ProductoEntity>) {
         productos = list
-        mAdapterBuscarProducto = AdapterProductos(list)
+        mAdapterBuscarProducto = AdapterProductos(mContext, list)
         mAdapterBuscarProducto.listener = this
         recyclerViewSearchProduct_ventas.adapter = mAdapterBuscarProducto
     }
 
-    override fun onClickItemProductoSearched(productoEntity: ProductoEntity) {
-        addProductoCarrito(productoEntity)
-        clearBuscador()
+    private fun notifyRecyclerViewSearchClientes(list: List<ClienteEntity>) {
+        clientes = list
+        mAdapterBuscarCliente = AdapterClientes(mContext, list)
+        mAdapterBuscarCliente.listenerSecond = this
+        recyclerViewClientes_ventas.adapter = mAdapterBuscarCliente
     }
 
     override fun removeItem(productoEntity: ProductoEntity, position: Int) {
@@ -168,12 +188,33 @@ class VentasFragment : BaseFragment(), BasicMethods,
         mAdapterBuscarProducto.filterList(filterdNames)
     }
 
+    internal fun filterClients(text: String) {
+        val filterdNames: ArrayList<ClienteEntity> = ArrayList()
+        if (!clientes.isNullOrEmpty())
+            for (cliente in clientes) {
+                val nombre = cliente.nombre
+                if (nombre.toLowerCase().contains(text.toLowerCase())) {
+                    if (filterdNames.size < 2)
+                        filterdNames.add(cliente)
+                }
+            }
+        mAdapterBuscarCliente.filterList(filterdNames)
+    }
+
     internal fun hideListProductSearch() {
         recyclerViewSearchProduct_ventas.visibility = View.GONE
     }
 
     internal fun showListProductSearch() {
         recyclerViewSearchProduct_ventas.visibility = View.VISIBLE
+    }
+
+    internal fun hideListClientsSearch() {
+        recyclerViewClientes_ventas.visibility = View.GONE
+    }
+
+    internal fun showListClientsSearch() {
+        recyclerViewClientes_ventas.visibility = View.VISIBLE
     }
 
     private fun addProductoCarrito(productoEntity: ProductoEntity) {
@@ -208,5 +249,13 @@ class VentasFragment : BaseFragment(), BasicMethods,
     private fun validateForms(): Boolean {
         return (mAdapter.listaVendido.size > 0
                 && !edittextCliente_venta.text.isNullOrEmpty())
+    }
+
+    override fun onClickItem(productoEntity: ProductoEntity, position: Int) {
+        addProductoCarrito(productoEntity)
+        clearBuscador()
+    }
+
+    override fun onClickItemSecondListener(objects: ClienteEntity, position: Int) {
     }
 }
