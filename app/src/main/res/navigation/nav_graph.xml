@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_productosFragment_to_creacionProyectoFragment"
             app:destination="@id/creacionProyectoFragment" />
+        <action
+            android:id="@+id/action_productosFragment_to_visualizadorProductoFragment"
+            app:destination="@id/visualizadorProductoFragment" />
     </fragment>
     <fragment
         android:id="@+id/gestionFragment"
@@ -72,10 +75,24 @@
         android:id="@+id/ventasPorCobrarFragment"
         android:name="com.android_abel.indah._view_ui.fragments.ventasPorCobrar.VentasPorCobrarFragment"
         android:label="fragment_ventas_por_cobrar"
-        tools:layout="@layout/fragment_ventas_por_cobrar" />
+        tools:layout="@layout/fragment_ventas_por_cobrar" >
+        <action
+            android:id="@+id/action_ventasPorCobrarFragment_to_visualizadorVentasFragment"
+            app:destination="@id/visualizadorVentasFragment" />
+    </fragment>
     <fragment
         android:id="@+id/agregarClienteFragment"
-        android:name="com.android_abel.indah._view_ui.fragments.addClient.AgregarClienteFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.agregarClientes.AgregarClienteFragment"
         android:label="fragment_agregar_cliente"
         tools:layout="@layout/fragment_agregar_cliente" />
+    <fragment
+        android:id="@+id/visualizadorProductoFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.verProducto.VisualizadorProductoFragment"
+        android:label="fragment_visualizador_producto"
+        tools:layout="@layout/fragment_visualizador_producto" />
+    <fragment
+        android:id="@+id/visualizadorVentasFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.verVentaPorCobrar.VisualizadorVentasFragment"
+        android:label="fragment_visualizador_ventas"
+        tools:layout="@layout/fragment_visualizador_ventas" />
 </navigation>

@@ -15,7 +15,7 @@ import com.android_abel.indah.R
 import com.google.android.material.snackbar.Snackbar
 import com.phelat.navigationresult.BuildConfig
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), BasicMethods{
 
     protected val TAG = this.javaClass.simpleName
     private var currentFragment: Fragment? = null

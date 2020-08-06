@@ -18,6 +18,7 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
     var repositoryProducto = ProductoRepository(application)
     val repositoryVentas = VentasRepository(application)
     val clientesRepository = ClientesRepository(application)
+
     //data lives
     val productosLive: LiveData<List<ProductoEntity>> = repositoryProducto.productosLive
     val clientesLive: LiveData<List<ClienteEntity>> = clientesRepository.clientesLive
@@ -41,6 +42,12 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
     fun parseVentasToPreviewHistory(list: List<VentaEntity>) {
         val listPreview = ArrayList<PreviewHistorialVenta>()
 
+    }
+
+    fun getCliente(venta: VentaEntity) {
+        GlobalScope.launch {
+            var clienteEntity = clientesRepository.getClienteWithID(venta.idCliente ?: -1)
+        }
     }
 
 }

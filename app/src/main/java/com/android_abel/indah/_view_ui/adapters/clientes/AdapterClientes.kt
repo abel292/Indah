@@ -2,9 +2,13 @@ package com.android_abel.indah._view_ui.adapters.clientes
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.cliente.ClienteEntity
 import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecycler
@@ -34,7 +38,6 @@ class AdapterClientes(var context: Context, var list: List<ClienteEntity>) : Bas
         holder.bind(cliente, position)
     }
 
-
     //todo Holder
     class ClienteHolder(
         inflater: LayoutInflater,
@@ -47,20 +50,33 @@ class AdapterClientes(var context: Context, var list: List<ClienteEntity>) : Bas
 
         private var textViewCliente_cliente: TextView? = null
         private var textViewDescripcion_cliente: TextView? = null
+        private var imageViewQuitClient: ImageView? = null
+        private var contenedorPadre_item_view_client: ConstraintLayout? = null
 
         init {
             textViewCliente_cliente = itemView.findViewById(R.id.textViewCliente_cliente)
             textViewDescripcion_cliente = itemView.findViewById(R.id.textViewDescripcion_cliente)
+            imageViewQuitClient = itemView.findViewById(R.id.imageViewQuitClient)
+            contenedorPadre_item_view_client = itemView.findViewById(R.id.contenedorPadre_item_view_client)
 
         }
 
         override fun bind(client: ClienteEntity, position: Int) {
             textViewCliente_cliente?.text = client.nombre
             textViewDescripcion_cliente?.text = client.infoAdicional
+
             itemView.setOnClickListener {
                 listener?.onClickItem(client, position)
                 listenerSecond?.onClickItemSecondListener(client, position)
+                contenedorPadre_item_view_client?.setBackgroundColor(ContextCompat.getColor(context, R.color.verdeSelectedClient));
+
             }
+
+            imageViewQuitClient?.setOnClickListener {
+                listenerSecond?.removeItem(client, position)
+            }
+
+
         }
 
     }
@@ -69,5 +85,6 @@ class AdapterClientes(var context: Context, var list: List<ClienteEntity>) : Bas
         this.list = filterdNames
         notifyDataSetChanged()
     }
+
 
 }

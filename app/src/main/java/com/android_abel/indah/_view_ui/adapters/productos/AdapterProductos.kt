@@ -1,12 +1,10 @@
 package com.android_abel.indah._view_ui.adapters.productos
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecycler
@@ -31,7 +29,7 @@ class AdapterProductos(var context: Context, private var list: List<ProductoEnti
 
     override fun onBindViewHolder(holder: HolderBase<ProductoEntity>, position: Int) {
         val producto: ProductoEntity = list[position]
-        holder.bind(producto,position)
+        holder.bind(producto, position)
     }
 
     override fun getItemCount(): Int = list.size
@@ -46,7 +44,7 @@ class AdapterProductos(var context: Context, private var list: List<ProductoEnti
         HolderBase<ProductoEntity>(
             inflater, parent, R.layout.item_view_producto_fragment_productos
 
-            ) {
+        ) {
 
         private var textViewNombreProducto: TextView? = null
         private var textViewDescripcion_item_producto: TextView? = null
@@ -60,15 +58,14 @@ class AdapterProductos(var context: Context, private var list: List<ProductoEnti
             textViewDescripcion_item_producto = itemView.findViewById(R.id.textViewDescripcion_item_producto)
             textViewPrecio_item_producto = itemView.findViewById(R.id.textViewPrecio_item_producto)
             textViewCantidad_item_producto = itemView.findViewById(R.id.textViewCantidad_item_producto)
-
             imageViewProducto = itemView.findViewById(R.id.imageViewProducto)
         }
 
-        override fun bind(producto: ProductoEntity, position: Int) {
-            textViewNombreProducto?.text = producto.nombre
-            textViewPrecio_item_producto?.text = producto.precioVenta.toString()
-            textViewCantidad_item_producto?.text = producto.cantidad.toString()
-            textViewDescripcion_item_producto?.text = producto.descripcion ?: ""
+        override fun bind(objeto: ProductoEntity, position: Int) {
+            textViewNombreProducto?.text = objeto.nombre
+            textViewPrecio_item_producto?.text = objeto.precioVenta.toString()
+            textViewCantidad_item_producto?.text = objeto.cantidad.toString()
+            textViewDescripcion_item_producto?.text = objeto.descripcion ?: ""
 
             imageViewProducto?.let {
                 Glide.with(context)
@@ -78,7 +75,7 @@ class AdapterProductos(var context: Context, private var list: List<ProductoEnti
                     .override(200, 200).centerCrop().into(it)
             }
             itemView.setOnClickListener {
-                listener.onClickItem(producto,position)
+                listener.onClickItem(objeto, position)
             }
 
         }

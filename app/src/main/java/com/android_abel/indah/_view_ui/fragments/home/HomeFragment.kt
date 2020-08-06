@@ -11,9 +11,17 @@ import androidx.navigation.findNavController
 import com.android_abel.indah.R
 import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
+import com.android_abel.indah._view_ui.fragments.ventas.VentasFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : BaseFragment(), BasicMethods {
+class HomeFragment : BaseFragment() {
+
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            VentasFragment()
+    }
+
     lateinit var homeView: View
     lateinit var navController: NavController
     override fun onCreateView(

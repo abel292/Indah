@@ -15,7 +15,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerVentasPorCobrar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_venta_por_cobrar"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

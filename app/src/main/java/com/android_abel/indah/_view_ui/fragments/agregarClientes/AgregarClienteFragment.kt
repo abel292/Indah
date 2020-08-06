@@ -1,7 +1,6 @@
-package com.android_abel.indah._view_ui.fragments.addClient
+package com.android_abel.indah._view_ui.fragments.agregarClientes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

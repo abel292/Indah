@@ -21,4 +21,9 @@ class ClientesRepository(context: Context) {
         dao.insert(clienteEntity)
     }
 
+    @WorkerThread
+    suspend fun getClienteWithID(id: Int): ClienteEntity? = withContext(Dispatchers.Default)
+    {
+        return@withContext dao.getSingle(id)
+    }
 }

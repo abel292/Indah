@@ -1,6 +1,8 @@
 package com.android_abel.indah._model.local.venta
 
-class ProductoVendido {
+import java.io.Serializable
+
+class ProductoVendido : Serializable {
     var idProducto: Int? = null
     var cantidad: Int = 1
     var precioVenta: Int = 0

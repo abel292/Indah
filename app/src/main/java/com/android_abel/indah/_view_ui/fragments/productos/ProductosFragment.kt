@@ -22,9 +22,6 @@ import kotlinx.android.synthetic.main.fragment_productos.*
 
 class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerView<ProductoEntity> {
 
-    //view
-    lateinit var productosView: View
-
     //adapters
     lateinit var mAdapter: AdapterProductos
 
@@ -36,14 +33,21 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
         ViewModelProviders.of(this).get(ProductosViewModel::class.java)
     }
 
+    companion object {
+
+        @JvmStatic
+        fun newInstance() =
+            ProductosFragment()
+    }
+
     lateinit var mContext: Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        productosView = inflater.inflate(R.layout.fragment_productos, container, false)
-        return productosView
+        fragmentView = inflater.inflate(R.layout.fragment_productos, container, false)
+        return fragmentView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -106,7 +110,7 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
     }
 
     override fun onClickItem(objects: ProductoEntity, position: Int) {
-
+        fragmentView.goToWithProducto(R.id.action_productosFragment_to_visualizadorProductoFragment, objects)
     }
 
 

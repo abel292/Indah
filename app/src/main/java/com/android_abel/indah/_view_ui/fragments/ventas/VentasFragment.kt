@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,13 +23,17 @@ import com.android_abel.indah._view_ui.adapters.ventas.*
 import com.android_abel.indah._view_ui.base.BaseFragmentRecycler
 import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_ventas.*
-import kotlin.collections.ArrayList
 
 
 class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     OnListenerItemRecyclerView<ProductoEntity>,
     ListenerCarrito, ConfigVentaListener, OnSecondListenerItemRecyclerView<ClienteEntity> {
 
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            VentasFragment()
+    }
     //adapters
     lateinit var mAdapter: AdapterVentas
     lateinit var mAdapterBuscarProducto: AdapterProductos
@@ -37,6 +42,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     //global var
     lateinit var productos: List<ProductoEntity>
     lateinit var clientes: List<ClienteEntity>
+    var clienteSeleccionado: ClienteEntity? = null
     var carrito: ArrayList<ProductoEntity> = ArrayList()
     lateinit var mContext: Context
 
@@ -79,6 +85,36 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     override fun initListeners() {
+
+        //TODO clicks
+        radioButtonCobrar.setOnClickListener {
+            modeVentaPorCobrar()
+        }
+
+        radioButtonPagado.setOnClickListener {
+            modeVentaPagado()
+        }
+
+        imageViewClearEdittext.setOnClickListener {
+            clearBuscador()
+        }
+
+        buttonTerminarVenta.setOnClickListener {
+            val venta = generateVenta()
+            if (venta != null) {
+                ventasViewModel.insertVenta(venta)
+            }
+        }
+
+        //TODO listeners
+        scrollPadre_ventas.setOnScrollChangeListener { _: NestedScrollView, scrollX: Int, scrollY: Int, _: Int, _: Int ->
+
+            if (scrollY > 0 || scrollY < 0 && floatingActionButtonEscaner_ventas.isShown)
+                floatingActionButtonEscaner_ventas.hide()
+            else
+                floatingActionButtonEscaner_ventas.show()
+
+        }
 
         autoCompleteTextViewVentas.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
@@ -126,16 +162,6 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
             }
         })
 
-        imageViewClearEdittext.setOnClickListener {
-            clearBuscador()
-        }
-
-        buttonTerminarVenta.setOnClickListener {
-            val venta = generateVenta()
-            if (venta != null) {
-                ventasViewModel.insertVenta(venta)
-            }
-        }
     }
 
     private fun notifyRecyclerViewCarritoItemsVentas(list: ArrayList<ProductoEntity>) {
@@ -189,6 +215,8 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     internal fun filterClients(text: String) {
+        clienteSeleccionado = null
+
         val filterdNames: ArrayList<ClienteEntity> = ArrayList()
         if (!clientes.isNullOrEmpty())
             for (cliente in clientes) {
@@ -237,7 +265,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
             venta.total = textViewTotalVenta.text.toString().toInt()
             venta.descripcion = edittextDescripcion_venta.text.toString()
             venta.formaDePago = edittextFormaPago_venta.text.toString()
-            venta.idCliente = 0
+            venta.idCliente = clienteSeleccionado?.id ?: -1
             venta.pagado = radioButtonPagado.isChecked
 
             venta
@@ -257,5 +285,28 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     override fun onClickItemSecondListener(objects: ClienteEntity, position: Int) {
+        seccionarCliente(objects)
     }
+
+    override fun removeItem(objects: ClienteEntity, position: Int) {
+
+    }
+
+    fun modeVentaPorCobrar() {
+        radioButtonPagado.isChecked = false
+        linearLayoutContentConfigACobrar.visibility = View.VISIBLE
+    }
+
+    fun modeVentaPagado() {
+        radioButtonCobrar.isChecked = false
+        linearLayoutContentConfigACobrar.visibility = View.GONE
+    }
+
+    fun seccionarCliente(clienteEntity: ClienteEntity) {
+        clienteSeleccionado = clienteEntity
+        //Toast.makeText(mContext, "cliente seleccionado: $clienteEntity", Toast.LENGTH_SHORT).show()
+        //edittextCliente_venta.setText(clienteSeleccionado?.nombre?.toUpperCase())
+    }
+
+
 }

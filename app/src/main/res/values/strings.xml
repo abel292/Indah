@@ -32,4 +32,7 @@
     <string name="celular">Celular</string>
     <string name="direccion">Direccion</string>
     <string name="informacion_adicional">Informacion adicional</string>
+    <string name="pagos_realizados">Pagos realizados</string>
+    <string name="peso">$</string>
+    <string name="confirmar_el_pago_de_la_deuda">Confirmar el pago de la deuda</string>
 </resources>

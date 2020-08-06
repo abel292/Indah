@@ -9,8 +9,15 @@
     <color name="blanco">#ffffff</color>
     <color name="fondoItemHistorial">#EAC3C3</color>
     <color name="verdeCantidadMayor">#009846</color>
+    <color name="verdeSelectedClient">#99488062</color>
 
 
+    <color name="active">#fff</color>
+    <color name="inActive">#bbb</color>
+
+    <color name="colorUno">#7daff2</color>
+    <color name="colorDos">#ff6ade</color>
+    <color name="colorTres">#feae30</color>
 
 
 

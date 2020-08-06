@@ -3,9 +3,10 @@ package com.android_abel.indah._model.local.producto
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "_PRODUCTOS")
-class ProductoEntity() {
+class ProductoEntity() : Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

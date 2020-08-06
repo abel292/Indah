@@ -13,6 +13,12 @@ import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_gestion.*
 
 class GestionFragment : BaseFragment() {
+    companion object {
+
+        @JvmStatic
+        fun newInstance() =
+            GestionFragment()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
