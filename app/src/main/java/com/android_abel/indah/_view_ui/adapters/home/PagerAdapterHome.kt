@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.android_abel.indah._view_ui.fragments.gestion.GestionFragment
-import com.android_abel.indah._view_ui.fragments.home.HomeFragment
 import com.android_abel.indah._view_ui.fragments.productos.ProductosFragment
 import com.android_abel.indah._view_ui.fragments.ventas.VentasFragment
 

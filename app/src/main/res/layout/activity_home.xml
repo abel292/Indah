@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#000"
     app:layoutDescription="@xml/flutter_like_animation"
-    tools:context="._view_ui.activities.MainActivity">
+    tools:context="._view_ui.activities.HomeActivity">
 
     <TextView
         android:id="@+id/touch_view"

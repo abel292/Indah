@@ -22,6 +22,7 @@ import com.android_abel.indah._view_ui.adapters.productos.AdapterProductos
 import com.android_abel.indah._view_ui.adapters.ventas.*
 import com.android_abel.indah._view_ui.base.BaseFragmentRecycler
 import com.android_abel.indah._view_ui.base.BasicMethods
+import com.android_abel.indah.utils.CustomsConstantes
 import kotlinx.android.synthetic.main.fragment_ventas.*
 
 
@@ -34,6 +35,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         fun newInstance() =
             VentasFragment()
     }
+
     //adapters
     lateinit var mAdapter: AdapterVentas
     lateinit var mAdapterBuscarProducto: AdapterProductos
@@ -62,9 +64,27 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mContext = requireContext()
+
+        initArgument()
         initObservables()
         init()
         initListeners()
+    }
+
+    private fun initArgument() {
+        val argument = arguments
+        var isInit = argument?.getBoolean("isInit", true) ?: true
+
+        if (isInit)
+            content_padre_f_ventas.visibility = View.GONE
+        else
+            content_padre_f_ventas.visibility = View.VISIBLE
+
+        try {
+            initObservables()
+        } catch (e: Exception) {
+            showToast("No se pudo cargar el producto")
+        }
     }
 
     override fun initObservables() {

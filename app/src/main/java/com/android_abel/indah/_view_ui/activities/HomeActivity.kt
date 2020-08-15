@@ -5,21 +5,22 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.android_abel.indah.R
 import com.android_abel.indah._view_ui.adapters.home.PagerAdapterHome
 import com.android_abel.indah._view_ui.base.BaseActivity
-import com.android_abel.indah._view_ui.fragments.home.HomeFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import com.android_abel.indah.utils.CustomsConstantes
+import kotlinx.android.synthetic.main.activity_home.*
 
 
-class MainActivity : BaseActivity(), View.OnTouchListener {
+class HomeActivity : BaseActivity(), View.OnTouchListener {
 
     private val pagerAdapter by lazy {
         PagerAdapterHome(supportFragmentManager)
     }
+
+    lateinit var navController: NavController
 
     companion object {
         const val TAB_REARRANGEMENT_ANIM = 0
@@ -34,7 +35,7 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         initObservables()
         init()
@@ -45,6 +46,8 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
     }
 
     override fun init() {
+
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
     }
 
@@ -87,8 +90,8 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
                 transitionTabIndex = 0
                 currentAnim = TAB_SLIDE_ANIM
 
+                navController.navigate(R.id.productosFragment)
 
-                it.findNavController()
             }
         }
 
@@ -101,6 +104,11 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
                 transitionTabIndex = 1
                 currentAnim = TAB_SLIDE_ANIM
                 setTabIndicator()
+
+                val bundle = Bundle()
+                bundle.putBoolean(CustomsConstantes.EXTRAS_VIEW_VENTA, false)
+                navController.navigate(R.id.ventasFragment, bundle)
+
             }
         }
 
@@ -113,6 +121,9 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
                 motion_layout.transitionToEnd()
                 currentAnim = TAB_SLIDE_ANIM
                 setTabIndicator()
+
+                navController.navigate(R.id.gestionFragment)
+
             }
         }
 
@@ -177,17 +188,17 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
     }
 
     override fun onBackPressed() {
-        if (currentAnim == TAB_SLIDE_ANIM) {
-            currentAnim = TAB_REARRANGEMENT_ANIM
+         if (currentAnim == TAB_SLIDE_ANIM) {
+             currentAnim = TAB_REARRANGEMENT_ANIM
 
-            motion_layout.setTransition(R.id.start, lastEndTransition)
-            motion_layout.progress = 1f
-            motion_layout.setTransitionDuration(1000)
-            motion_layout.transitionToStart()
+             motion_layout.setTransition(R.id.start, lastEndTransition)
+             motion_layout.progress = 1f
+             motion_layout.setTransitionDuration(1000)
+             motion_layout.transitionToStart()
 
-            animProgress = 0f
-        }
-    }
+             animProgress = 0f
+         }
+     }
 
     private fun setTabIndicator() {
         when (transitionTabIndex) {

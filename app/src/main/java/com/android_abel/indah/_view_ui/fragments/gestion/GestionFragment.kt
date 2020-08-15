@@ -55,8 +55,8 @@ class GestionFragment : BaseFragment() {
             it.goTo(R.id.action_gestionFragment_to_clientesFragment)
         }
 
-
     }
+    
 
 
 }
