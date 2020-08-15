@@ -5,11 +5,15 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.android_abel.indah.R
 import com.android_abel.indah._view_ui.adapters.home.PagerAdapterHome
 import com.android_abel.indah._view_ui.base.BaseActivity
+import com.android_abel.indah._view_ui.fragments.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity(), View.OnTouchListener {
 
@@ -21,7 +25,6 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
         const val TAB_REARRANGEMENT_ANIM = 0
         const val TAB_SLIDE_ANIM = 1
     }
-
 
     private var transitionTabIndex = 0
     private var currentAnim = TAB_REARRANGEMENT_ANIM
@@ -42,7 +45,7 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
     }
 
     override fun init() {
-        setUpViewPager()
+
     }
 
     override fun initListeners() {
@@ -59,7 +62,6 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
             override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
                 if (currentAnim == TAB_REARRANGEMENT_ANIM && motion_layout.progress == 1f && transitionTabIndex != 0) {
                     currentAnim = TAB_SLIDE_ANIM
-                    setCurrentTab()
                 }
             }
         })
@@ -67,12 +69,10 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
         btn_back.setOnClickListener {
             if (currentAnim == TAB_SLIDE_ANIM) {
                 currentAnim = TAB_REARRANGEMENT_ANIM
-
                 motion_layout.setTransition(R.id.start, lastEndTransition)
                 motion_layout.progress = 1f
                 motion_layout.setTransitionDuration(1000)
                 motion_layout.transitionToStart()
-
                 animProgress = 0f
             }
         }
@@ -83,11 +83,12 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
                 motion_layout.setTransition(R.id.start, R.id.endFirst)
                 motion_layout.setTransitionDuration(1000)
                 motion_layout.transitionToEnd()
-
                 setTabIndicator()
                 transitionTabIndex = 0
-                setCurrentTab()
                 currentAnim = TAB_SLIDE_ANIM
+
+
+                it.findNavController()
             }
         }
 
@@ -97,9 +98,7 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
                 motion_layout.setTransition(R.id.start, R.id.endSecond)
                 motion_layout.setTransitionDuration(1000)
                 motion_layout.transitionToEnd()
-
                 transitionTabIndex = 1
-                setCurrentTab()
                 currentAnim = TAB_SLIDE_ANIM
                 setTabIndicator()
             }
@@ -107,15 +106,11 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
 
         third_image.setOnClickListener {
             if (currentAnim == TAB_REARRANGEMENT_ANIM) {
-
                 transitionTabIndex = 2
-                setCurrentTab()
-
                 lastEndTransition = R.id.endThird
                 motion_layout.setTransition(R.id.start, R.id.endThird)
                 motion_layout.setTransitionDuration(1000)
                 motion_layout.transitionToEnd()
-
                 currentAnim = TAB_SLIDE_ANIM
                 setTabIndicator()
             }
@@ -125,7 +120,7 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
             if (currentAnim == TAB_REARRANGEMENT_ANIM) {
 
                 transitionTabIndex = 3
-                setCurrentTab()
+                //no hace nada por que esta oculto
 
                 lastEndTransition = R.id.endFourth
                 motion_layout.setTransition(R.id.start, R.id.endFourth)
@@ -192,41 +187,6 @@ class MainActivity : BaseActivity(), View.OnTouchListener {
 
             animProgress = 0f
         }
-    }
-
-    fun setCurrentTab(smooth: Boolean = false) {
-        viewPager.setCurrentItem(transitionTabIndex, smooth)
-    }
-
-    private fun setUpViewPager() {
-        viewPager.adapter = pagerAdapter
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                if (currentAnim == TAB_SLIDE_ANIM) {
-                    val newProgress = (position + positionOffset) / 3
-
-                    motion_layout.setTransition(R.id.startTab, R.id.endTab)
-                    motion_layout.progress = newProgress
-                }
-
-                transitionTabIndex = position
-                setTabIndicator()
-                when (transitionTabIndex) {
-                    0 -> lastEndTransition = R.id.endFirst
-                    1 -> lastEndTransition = R.id.endSecond
-                    2 -> lastEndTransition = R.id.endThird
-                    3 -> lastEndTransition = R.id.endFourth
-                }
-            }
-
-            override fun onPageSelected(position: Int) {
-
-            }
-        })
     }
 
     private fun setTabIndicator() {

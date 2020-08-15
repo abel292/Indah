@@ -165,14 +165,17 @@
         app:layout_constraintStart_toStartOf="@id/fourth_image"
         app:layout_constraintTop_toBottomOf="@id/fourth_text" />
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#fff"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fourth_image" />
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

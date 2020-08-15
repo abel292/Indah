@@ -49,17 +49,18 @@ class HomeFragment : BaseFragment() {
 
     override fun initListeners() {
 
-        buttonIrProductos.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_productosFragment)
-        }
+    }
 
-        buttonIrVentas.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_ventasFragment)
-        }
+    fun goToProductos() {
+        buttonIrProductos.findNavController().navigate(R.id.action_homeFragment_to_productosFragment)
+    }
 
-        buttonIrGestion.setOnClickListener {
-            it.findNavController().navigate(R.id.action_homeFragment_to_gestionFragment)
-        }
+    fun goVentas() {
+        buttonIrVentas.findNavController().navigate(R.id.action_homeFragment_to_ventasFragment)
+    }
+
+    fun goToGestion() {
+        buttonIrGestion.findNavController().navigate(R.id.action_homeFragment_to_gestionFragment)
     }
 
 }

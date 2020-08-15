@@ -9,6 +9,7 @@
         android:roundIcon="@drawable/icon_indah"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name="._view_ui.activities.DataActivity"></activity>
         <activity android:name="._view_ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
