@@ -6,7 +6,7 @@
     <string name="productos">PRODUCTOS</string>
     <string name="ventas">VENTAS</string>
     <string name="gestion">GESTION</string>
-    <string name="buscar_producto">buscar producto</string>
+    <string name="buscar_producto">Buscar producto</string>
     <string name="nombre">Nombre</string>
     <string name="codigo">Codigo</string>
     <string name="unidad">Unidad</string>
@@ -35,4 +35,5 @@
     <string name="pagos_realizados">Pagos realizados</string>
     <string name="peso">$</string>
     <string name="confirmar_el_pago_de_la_deuda">Confirmar el pago de la deuda</string>
+    <string name="error_al_escanear">No se pudo escanear el codigo</string>
 </resources>

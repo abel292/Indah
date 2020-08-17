@@ -1,6 +1,8 @@
 package com.android_abel.indah._view_ui.base
 
+import android.Manifest
 import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -10,12 +12,16 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.android_abel.indah.R
+import com.android_abel.indah._view_ui.activities.EscanerActivity
+import com.android_abel.indah.utils.CustomsConstantes
 import com.google.android.material.snackbar.Snackbar
 import com.phelat.navigationresult.BuildConfig
 
-abstract class BaseActivity : AppCompatActivity(), BasicMethods{
+abstract class BaseActivity : AppCompatActivity(), BasicMethods {
 
     protected val TAG = this.javaClass.simpleName
     private var currentFragment: Fragment? = null
@@ -60,7 +66,7 @@ abstract class BaseActivity : AppCompatActivity(), BasicMethods{
         snack.show()
     }
 
-    fun showDialogError(code: Int, msg: String?,title: String) {
+    fun showDialogError(code: Int, msg: String?, title: String) {
         val alertDialogBuilder =
             AlertDialog.Builder(this)
                 .setTitle(title)
@@ -98,8 +104,20 @@ abstract class BaseActivity : AppCompatActivity(), BasicMethods{
         alertDialogBuilder.create().show()
     }
 
-    fun checkPermisssions(fragment: Fragment?) {
-
+    fun checkPermisssions() {
+        if (ContextCompat.checkSelfPermission(baseContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    Manifest.permission.CAMERA
+                )
+            ) {
+            } else {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.CAMERA), CustomsConstantes.MY_PERMISSIONS_REQUEST_CAMERA
+                )
+            }
+        }
     }
 
     fun hideSystemUI(mDecorView: View) { // Set the IMMERSIVE flag.

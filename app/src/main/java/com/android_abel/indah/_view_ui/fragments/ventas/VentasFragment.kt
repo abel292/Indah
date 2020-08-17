@@ -24,6 +24,8 @@ import com.android_abel.indah._view_ui.base.BaseFragmentRecycler
 import com.android_abel.indah._view_ui.base.BasicMethods
 import com.android_abel.indah.utils.CustomsConstantes
 import kotlinx.android.synthetic.main.fragment_ventas.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class VentasFragment : BaseFragmentRecycler(), BasicMethods,
@@ -73,7 +75,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
     private fun initArgument() {
         val argument = arguments
-        var isInit = argument?.getBoolean("isInit", true) ?: true
+        val isInit = argument?.getBoolean(CustomsConstantes.EXTRAS_VENTAS_MODO_INICIO, true) ?: true
 
         if (isInit)
             content_padre_f_ventas.visibility = View.GONE
@@ -225,13 +227,14 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
             for (producto in productos) {
                 val nombre = producto.nombre
                 if (nombre != null) {
-                    if (nombre.toLowerCase().contains(text.toLowerCase())) {
+                    if (nombre.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
                         if (filterdNames.size < 2)
                             filterdNames.add(producto)
                     }
                 }
             }
         mAdapterBuscarProducto.filterList(filterdNames)
+        recyclerViewSearchProduct_ventas.scrollBy(0,0)
     }
 
     internal fun filterClients(text: String) {
@@ -241,12 +244,13 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         if (!clientes.isNullOrEmpty())
             for (cliente in clientes) {
                 val nombre = cliente.nombre
-                if (nombre.toLowerCase().contains(text.toLowerCase())) {
+                if (nombre.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
                     if (filterdNames.size < 2)
                         filterdNames.add(cliente)
                 }
             }
         mAdapterBuscarCliente.filterList(filterdNames)
+        recyclerViewClientes_ventas.scrollBy(0,0)
     }
 
     internal fun hideListProductSearch() {

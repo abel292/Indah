@@ -18,9 +18,13 @@ import com.android_abel.indah._view_ui.adapters.productos.AdapterProductos
 import com.android_abel.indah._view_ui.adapters.ventas.OnListenerItemRecyclerView
 import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
+import com.android_abel.indah._view_ui.base.EscanerListener
+import com.android_abel.indah.utils.CustomsConstantes.Companion.STRING_VACIO
 import kotlinx.android.synthetic.main.fragment_productos.*
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerView<ProductoEntity> {
+class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerView<ProductoEntity>, EscanerListener {
 
     //adapters
     lateinit var mAdapter: AdapterProductos
@@ -65,13 +69,28 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
     }
 
     override fun init() {
-        recyclerViewProductos.layoutManager = LinearLayoutManager(getActivity())
+        val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
+        recyclerViewProductos.layoutManager = layoutManager
+
+        motionLayoutFProductos.setTransition(R.id.endSceneInitFProductos, R.id.startSceneInitFProductos)
+        motionLayoutFProductos.progress = 1f
+        motionLayoutFProductos.setTransitionDuration(700)
+        motionLayoutFProductos.transitionToStart()
     }
 
     override fun initListeners() {
+
         floatingActionButtonAddProducto.setOnClickListener {
             it.findNavController()
                 .navigate(R.id.action_productosFragment_to_creacionProyectoFragment)
+        }
+
+        floatingActionButtonBuscar.setOnClickListener {
+            searchWithKeyboard()
+        }
+
+        floatingActionButtonScan.setOnClickListener {
+            openScaner(this)
         }
 
         autoCompleteTextViewProductos.addTextChangedListener(object : TextWatcher {
@@ -99,19 +118,33 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
         val filterdNames: ArrayList<ProductoEntity> = ArrayList()
 
         for (producto in productos) {
-            val nombre = producto.nombre
-            if (nombre != null) {
-                if (nombre.toLowerCase().contains(text.toLowerCase())) {
-                    filterdNames.add(producto)
-                }
+            val nombre = producto.nombre ?: STRING_VACIO
+            val codigo = producto.codigo ?: STRING_VACIO
+
+            if (nombre.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT)) ||
+                codigo.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))
+            ) {
+                filterdNames.add(producto)
             }
         }
         mAdapter.filterList(filterdNames)
+        recyclerViewProductos.scrollBy(0, 0)
     }
 
     override fun onClickItem(objects: ProductoEntity, position: Int) {
         fragmentView.goToWithProducto(R.id.action_productosFragment_to_visualizadorProductoFragment, objects)
     }
 
+    private fun searchWithKeyboard() {
+        autoCompleteTextViewProductos.requestFocus()
+        autoCompleteTextViewProductos.showKeyboard()
+    }
 
+    override fun codeFromScanner(code: String) {
+        autoCompleteTextViewProductos.setText(code)
+    }
+
+    override fun codeNoFound() {
+        showToast(getString(R.string.error_al_escanear))
+    }
 }

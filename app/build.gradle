@@ -157,5 +157,7 @@ dependencies {
     //motion layout
     implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta6'
 
+    //scaner
+    implementation 'me.dm7.barcodescanner:zxing:1.9.13'
 
 }

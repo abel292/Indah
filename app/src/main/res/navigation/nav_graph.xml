@@ -9,19 +9,26 @@
         android:id="@+id/productosFragment"
         android:name="com.android_abel.indah._view_ui.fragments.productos.ProductosFragment"
         android:label="fragment_productos"
-        tools:layout="@layout/fragment_productos" >
+        tools:layout="@layout/fragment_productos">
         <action
             android:id="@+id/action_productosFragment_to_creacionProyectoFragment"
-            app:destination="@id/creacionProyectoFragment" />
+            app:destination="@id/creacionProyectoFragment"
+            app:enterAnim="@anim/slide_enter_up"
+            app:exitAnim="@anim/slide_exit_down" />
+
         <action
             android:id="@+id/action_productosFragment_to_visualizadorProductoFragment"
-            app:destination="@id/visualizadorProductoFragment" />
+            app:destination="@id/visualizadorProductoFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
     </fragment>
     <fragment
         android:id="@+id/gestionFragment"
         android:name="com.android_abel.indah._view_ui.fragments.gestion.GestionFragment"
         android:label="fragment_gestion"
-        tools:layout="@layout/fragment_gestion" >
+        tools:layout="@layout/fragment_gestion">
         <action
             android:id="@+id/action_gestionFragment_to_historialVentasFragment"
             app:destination="@id/historialVentasFragment" />
@@ -36,11 +43,11 @@
         android:id="@+id/ventasFragment"
         android:name="com.android_abel.indah._view_ui.fragments.ventas.VentasFragment"
         android:label="fragment_ventas"
-        tools:layout="@layout/fragment_ventas" >
+        tools:layout="@layout/fragment_ventas">
         <argument
             android:name="isInit"
-            app:argType="boolean"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/creacionProyectoFragment"
@@ -56,7 +63,7 @@
         android:id="@+id/clientesFragment"
         android:name="com.android_abel.indah._view_ui.fragments.clientes.ClientesFragment"
         android:label="fragment_clientes"
-        tools:layout="@layout/fragment_clientes" >
+        tools:layout="@layout/fragment_clientes">
         <action
             android:id="@+id/action_clientesFragment_to_agregarClienteFragment"
             app:destination="@id/agregarClienteFragment" />
@@ -65,7 +72,7 @@
         android:id="@+id/ventasPorCobrarFragment"
         android:name="com.android_abel.indah._view_ui.fragments.ventasPorCobrar.VentasPorCobrarFragment"
         android:label="fragment_ventas_por_cobrar"
-        tools:layout="@layout/fragment_ventas_por_cobrar" >
+        tools:layout="@layout/fragment_ventas_por_cobrar">
         <action
             android:id="@+id/action_ventasPorCobrarFragment_to_visualizadorVentasFragment"
             app:destination="@id/visualizadorVentasFragment" />

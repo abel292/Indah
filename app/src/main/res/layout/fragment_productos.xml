@@ -2,20 +2,27 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contentPadre_f_productos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="._view_ui.fragments.productos.ProductosFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motionLayoutFProductos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layoutDescription="@xml/fragment_productos_xml_constraintlayout_scene">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextViewProductos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:background="@color/colorDos"
             android:hint="@string/buscar_producto"
+            android:textAlignment="center"
+            android:textColor="@color/blanco"
+            android:textColorHint="@color/blanco"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +32,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="50dp"
+            android:background="@color/fondoProductos"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewProductos"
@@ -32,39 +43,42 @@
             tools:listitem="@layout/item_view_producto_fragment_productos" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton3"
+            android:id="@+id/floatingActionButtonScan"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="44dp"
+            android:backgroundTint="@color/colorTres"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_scan"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:focusable="true" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButtonAddProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/colorTres"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toTopOf="@+id/floatingActionButton3"
-            app:layout_constraintEnd_toEndOf="@+id/floatingActionButton3"
-            android:focusable="true" />
+            app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonScan"
+            app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonScan" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton5"
+            android:id="@+id/floatingActionButtonBuscar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/colorTres"
             android:clickable="true"
+            android:focusable="true"
             android:src="@drawable/ic_icon_search"
             app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonAddProducto"
-            app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAddProducto"
-            android:focusable="true" />
+            app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAddProducto" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </FrameLayout>

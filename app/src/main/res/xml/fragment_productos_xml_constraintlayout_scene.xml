@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/endSceneInitFProductos"
+        motion:constraintSetStart="@id/startSceneInitFProductos"
+        motion:duration="1000">
+        <KeyFrameSet></KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/startSceneInitFProductos">
+
+        <Constraint
+            android:id="@+id/floatingActionButtonAddProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/floatingActionButtonScan"
+            motion:layout_constraintEnd_toEndOf="@+id/floatingActionButtonScan" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/endSceneInitFProductos">
+        <Constraint
+            android:id="@+id/floatingActionButtonScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp">
+            <CustomAttribute
+                motion:attributeName="colorFilter"
+                motion:customColorValue="@color/blanco" />
+
+        </Constraint>
+        <Constraint
+            android:id="@+id/floatingActionButtonScan"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent">
+            <CustomAttribute
+                motion:attributeName="colorFilter"
+                motion:customColorValue="@color/blanco" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/floatingActionButtonBuscar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            motion:layout_constraintBottom_toTopOf="@+id/floatingActionButtonAddProducto"
+            motion:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAddProducto">
+            <CustomAttribute
+                motion:attributeName="colorFilter"
+                motion:customColorValue="@color/blanco" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/floatingActionButtonAddProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            motion:layout_constraintBottom_toTopOf="@+id/floatingActionButtonScan"
+            motion:layout_constraintEnd_toEndOf="@+id/floatingActionButtonScan">
+            <CustomAttribute
+                motion:attributeName="colorFilter"
+                motion:customColorValue="@color/blanco" />
+        </Constraint>
+
+
+    </ConstraintSet>
+
+
+</MotionScene>
