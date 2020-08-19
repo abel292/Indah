@@ -25,6 +25,11 @@ class ProductoRepository(context: Context) {
     }
 
     @WorkerThread
+    suspend fun updateProducto(productoEntity: ProductoEntity) = withContext(Dispatchers.IO) {
+        productoDao.update(productoEntity)
+    }
+
+    @WorkerThread
     suspend fun updateCantidadProducto(list: List<ProductoVendido>) = withContext(Dispatchers.IO) {
 
         list.forEach { productoVendido ->

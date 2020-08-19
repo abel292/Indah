@@ -15,10 +15,18 @@ import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._view_model.CreacionProductoViewModel
 import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
+import com.android_abel.indah._view_ui.base.EscanerListener
+import com.android_abel.indah._view_ui.base.FileListener
+import com.android_abel.indah.utils.CustomsConstantes
+import com.android_abel.indah.utils.extensiones.functionWithParams
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_creacion_proyecto.*
 
 
-class CreacionProductoFragment : BaseFragment(), BasicMethods {
+class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, FileListener {
+
+    private var productoEntity: ProductoEntity? = null
+    private var urlImage: String? = null
 
     val creacionProductoViewModel by lazy {
         ViewModelProviders.of(this).get(CreacionProductoViewModel::class.java)
@@ -35,9 +43,25 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initArgument()
         initObservables()
         init()
         initListeners()
+    }
+
+    private fun initArgument() {
+        val argumentProducto = arguments?.getSerializable(CustomsConstantes.EXTRAS_VIEW_PRODUCT)
+        if (argumentProducto != null) {
+            productoEntity = argumentProducto as ProductoEntity
+            try {
+                cargarDatosAVista()
+                functionWithParams(1000) {
+                    showToast(it)
+                }
+            } catch (e: Exception) {
+                showToast(getString(R.string.error_cargar_vista_con_producto))
+            }
+        }
     }
 
     override fun initObservables() {
@@ -48,14 +72,29 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods {
     }
 
     override fun initListeners() {
+
         floatingActionButtonGuardar.setOnClickListener {
             if (validate()) {
                 val produtoNuevo = generateProducto()
-                creacionProductoViewModel.insert(produtoNuevo)
+
+                if (productoEntity != null) {
+                    produtoNuevo.id = productoEntity!!.id
+                    creacionProductoViewModel.update(produtoNuevo)
+                } else {
+                    creacionProductoViewModel.insert(produtoNuevo)
+                }
                 clearForm()
             } else
-                Toast.makeText(context, "Error al insertar", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.error_insertar_producto), Toast.LENGTH_LONG).show()
 
+        }
+
+        floatingActionButtonScanner_creationProducto.setOnClickListener {
+            openScaner(this)
+        }
+
+        imageViewSelectPhoto.setOnClickListener {
+            pickUserImage(this)
         }
     }
 
@@ -71,6 +110,7 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods {
 
     private fun generateProducto(): ProductoEntity {
         val producto = ProductoEntity()
+        producto.urlImagen = urlImage
         producto.nombre = editTextNombreProducto_creacion.text.toString()
         producto.codigo = editTextCodigoProducto_creacion.text.toString()
         producto.cantidad = editTextCantidad_creacion.text.toString().toInt()
@@ -91,5 +131,35 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods {
         editTextPrecioVenta_creacion.setText("")
         editTextDescripcion_creacion.setText("")
     }
+
+    override fun codeFromScanner(code: String) {
+        editTextCodigoProducto_creacion.setText(code)
+    }
+
+    override fun codeNoFound() {
+
+    }
+
+    private fun cargarDatosAVista() {
+        editTextNombreProducto_creacion.setText(productoEntity?.nombre ?: "")
+        editTextCodigoProducto_creacion.setText(productoEntity?.codigo ?: "")
+        editTextCantidad_creacion.setText(productoEntity?.cantidad.toString())
+        editTextCantidadReserva_creacion.setText(productoEntity?.cantidadReserva.toString())
+        editTextPrecioCompra_creacion.setText(productoEntity?.precioCompra.toString())
+        editTextPrecioVenta_creacion.setText(productoEntity?.precioVenta.toString())
+        editTextDescripcion_creacion.setText(productoEntity?.descripcion ?: "")
+    }
+
+    override fun imageUrlSelected(url: String) {
+        urlImage = url
+        Glide.with(requireContext())
+            .load(url)
+            .placeholder(R.drawable.ic_scan)
+            .error(R.drawable.ic_scan)
+            .override(200, 200)
+            .centerCrop()
+            .into(imageViewImageProducto)
+    }
+
 
 }

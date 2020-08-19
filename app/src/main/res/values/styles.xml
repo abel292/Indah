@@ -6,10 +6,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/styleTextView</item>
+        <item name="android:editTextStyle">@style/styleEditText</item>
     </style>
 
-    <style name="themeTextViewIndah" parent="Widget.AppCompat.EditText">
-        <item name="android:textColor">@color/blanco</item>
+    <style name="styleEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:fontFamily">@font/champagne_limousines_bold</item>
+        <item name="android:backgroundTint">@color/colorUno</item>
+    </style>
+
+    <style name="styleTextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/champagne_limousines</item>
+    </style>
+
+    <style name="styleTextViewTitle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/champagne_limousines_bold</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

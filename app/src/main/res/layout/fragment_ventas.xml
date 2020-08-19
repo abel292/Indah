@@ -39,7 +39,6 @@
 
                 <EditText
                     android:id="@+id/autoCompleteTextViewVentas"
-                    style="@style/themeTextViewIndah"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@color/colorPrimary"

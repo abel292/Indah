@@ -15,4 +15,8 @@ class CreacionProductoViewModel(application: Application) : BaseViewModel(applic
     fun insert(productoEntity: ProductoEntity) = viewModelScope.launch(Dispatchers.IO) {
         productoRepository.insertProducto(productoEntity)
     }
+
+    fun update(productoEntity: ProductoEntity) = viewModelScope.launch(Dispatchers.IO) {
+        productoRepository.updateProducto(productoEntity)
+    }
 }

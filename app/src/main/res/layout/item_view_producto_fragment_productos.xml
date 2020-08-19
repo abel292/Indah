@@ -25,6 +25,7 @@
                 android:id="@+id/imageViewProducto"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:background="@drawable/shape_border_curve"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -32,6 +33,7 @@
 
             <TextView
                 android:id="@+id/textViewNombreProducto"
+                style="@style/styleTextViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -42,10 +44,12 @@
 
             <TextView
                 android:id="@+id/textViewDescripcion_item_producto"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/descripcion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textViewNombreProducto"
                 app:layout_constraintTop_toBottomOf="@+id/textViewNombreProducto" />
 
@@ -53,34 +57,35 @@
                 android:id="@+id/textViewPrecio_item_producto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/precio_venta"
+                android:textColor="@color/verdeCantidadMayor"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/textViewDescripcion_item_producto"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion_item_producto" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewTitleCantidad" />
 
             <TextView
                 android:id="@+id/textViewTitleCantidad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="@string/cantidad"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textViewTitlePrice"
-                app:layout_constraintTop_toBottomOf="@+id/textViewPrecio_item_producto"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintStart_toStartOf="@+id/textViewDescripcion_item_producto"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcion_item_producto" />
 
             <TextView
                 android:id="@+id/textViewCantidad_item_producto"
+                style="@style/styleTextViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/cantidad"
-                android:textColor="@color/verdeCantidadMayor"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textViewTitleCantidad"
                 app:layout_constraintStart_toEndOf="@+id/textViewTitleCantidad"
-                app:layout_constraintTop_toTopOf="@+id/textViewTitleCantidad" />
+                app:layout_constraintTop_toTopOf="@+id/textViewTitleCantidad"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/textViewTitlePrice"
@@ -91,6 +96,16 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textViewPrecio_item_producto"
                 app:layout_constraintEnd_toStartOf="@+id/textViewPrecio_item_producto"
                 app:layout_constraintTop_toTopOf="@+id/textViewPrecio_item_producto" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text=":"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewTitleCantidad"
+                app:layout_constraintStart_toEndOf="@+id/textViewTitleCantidad"
+                app:layout_constraintTop_toTopOf="@+id/textViewTitleCantidad" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

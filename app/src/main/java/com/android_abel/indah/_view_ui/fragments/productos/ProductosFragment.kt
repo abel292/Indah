@@ -1,5 +1,7 @@
 package com.android_abel.indah._view_ui.fragments.productos
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -72,6 +74,7 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         recyclerViewProductos.layoutManager = layoutManager
 
+        autoCompleteTextViewProductos.visibility = View.VISIBLE
         motionLayoutFProductos.setTransition(R.id.endSceneInitFProductos, R.id.startSceneInitFProductos)
         motionLayoutFProductos.progress = 1f
         motionLayoutFProductos.setTransitionDuration(700)
@@ -132,12 +135,30 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
     }
 
     override fun onClickItem(objects: ProductoEntity, position: Int) {
-        fragmentView.goToWithProducto(R.id.action_productosFragment_to_visualizadorProductoFragment, objects)
+        hideBuscador {
+            fragmentView.goToWithProducto(R.id.action_productosFragment_to_visualizadorProductoFragment, objects)
+        }
+
     }
 
     private fun searchWithKeyboard() {
+        autoCompleteTextViewProductos.visibility = View.VISIBLE
         autoCompleteTextViewProductos.requestFocus()
         autoCompleteTextViewProductos.showKeyboard()
+    }
+
+    private fun hideBuscador(task: () -> Unit) {
+        hideKeyBoard()
+        autoCompleteTextViewProductos.animate()
+            .scaleX(0.5f).scaleY(0.5f)
+            .alpha(0.5f)
+            .setDuration(300)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    autoCompleteTextViewProductos.visibility = View.GONE
+                    task.invoke()
+                }
+            })
     }
 
     override fun codeFromScanner(code: String) {

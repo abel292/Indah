@@ -21,6 +21,10 @@ interface ProductoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(producto: ProductoEntity)
 
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun update(producto: ProductoEntity)
+
     @Query("UPDATE _PRODUCTOS SET cantidad=:cant WHERE id = :id")
     fun updateCantidad(cant: Int, id: Int)
 }

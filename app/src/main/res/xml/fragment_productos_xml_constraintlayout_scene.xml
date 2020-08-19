@@ -16,7 +16,53 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             motion:layout_constraintBottom_toBottomOf="@+id/floatingActionButtonScan"
-            motion:layout_constraintEnd_toEndOf="@+id/floatingActionButtonScan" />
+            motion:layout_constraintEnd_toEndOf="@+id/floatingActionButtonScan" >
+            <CustomAttribute
+                motion:attributeName="colorFilter"
+                motion:customColorValue="@color/blanco" />
+        </Constraint>
+        <Constraint
+            motion:layout_constraintVertical_bias="1.0"
+            android:layout_height="match_parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="50dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            motion:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewProductos"
+            android:id="@+id/recyclerViewProductos" />
+        <Constraint
+            android:id="@+id/floatingActionButtonScan"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="44dp"
+            android:layout_marginEnd="32dp">
+            <CustomAttribute
+                motion:attributeName="colorFilter"
+                motion:customColorValue="@color/blanco" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/floatingActionButtonBuscar"
+            motion:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAddProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            motion:layout_constraintBottom_toTopOf="@+id/floatingActionButtonAddProducto">
+            <CustomAttribute
+                motion:attributeName="colorFilter"
+                motion:customColorValue="@color/blanco" />
+        </Constraint>
+        <Constraint
+            android:id="@+id/autoCompleteTextViewProductos"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
 
     </ConstraintSet>
 
@@ -65,6 +111,14 @@
                 motion:attributeName="colorFilter"
                 motion:customColorValue="@color/blanco" />
         </Constraint>
+        <Constraint
+            android:id="@+id/autoCompleteTextViewProductos"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:visibility="gone"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
 
 
     </ConstraintSet>

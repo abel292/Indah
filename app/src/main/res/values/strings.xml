@@ -7,7 +7,7 @@
     <string name="ventas">VENTAS</string>
     <string name="gestion">GESTION</string>
     <string name="buscar_producto">Buscar producto</string>
-    <string name="nombre">Nombre</string>
+    <string name="nombre">Nombre del producto</string>
     <string name="codigo">Codigo</string>
     <string name="unidad">Unidad</string>
     <string name="cantidad">Cantidad</string>
@@ -36,4 +36,8 @@
     <string name="peso">$</string>
     <string name="confirmar_el_pago_de_la_deuda">Confirmar el pago de la deuda</string>
     <string name="error_al_escanear">No se pudo escanear el codigo</string>
+    <string name="ganancia">Ganancia</string>
+    <string name="error_cargar_vista_con_producto">No se pudo cargar el producto</string>
+    <string name="error_insertar_producto">Error al insertar</string>
+    <string name="temp_url">TEMP_PHOTO_FILE</string>
 </resources>

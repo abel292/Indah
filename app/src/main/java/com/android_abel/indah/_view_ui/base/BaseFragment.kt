@@ -3,9 +3,13 @@ package com.android_abel.indah._view_ui.base
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -15,6 +19,7 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.findNavController
+import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.venta.VentaEntity
 import com.android_abel.indah._view_ui.activities.EscanerActivity
@@ -22,8 +27,11 @@ import com.android_abel.indah._view_ui.activities.HomeActivity
 import com.android_abel.indah._view_ui.fragments.productos.ProductosFragment
 import com.android_abel.indah.utils.CustomsConstantes
 import com.android_abel.indah.utils.CustomsConstantes.Companion.EXTRAS_CODIGO_ESCANEO
+import com.android_abel.indah.utils.CustomsConstantes.Companion.EXTRAS_SELECT_IMGAE
 import com.android_abel.indah.utils.CustomsConstantes.Companion.REQUEST_CODE_SCANNER
 import com.phelat.navigationresult.BundleFragment
+import java.io.File
+import java.io.IOException
 
 
 abstract class BaseFragment : BundleFragment(), BasicMethods {
@@ -35,6 +43,7 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
     protected lateinit var fragmentView: View
 
     lateinit var escanerListener: EscanerListener
+    var fileListener: FileListener? = null
 
 
     companion object {
@@ -104,8 +113,6 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
         } else {
             mActivity?.onBackPressed()
         }
-
-
     }
 
     private fun configStatusBar() {
@@ -142,6 +149,42 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
         startActivityForResult(intentScanear, REQUEST_CODE_SCANNER)
     }
 
+    fun pickUserImage(fileListener: FileListener) {
+        this.fileListener = fileListener
+        val photoPickerIntent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+        photoPickerIntent.type = "image/*"
+        photoPickerIntent.putExtra("crop", "true")
+        photoPickerIntent.putExtra("scale", true)
+        photoPickerIntent.putExtra("outputX", 256)
+        photoPickerIntent.putExtra("outputY", 256)
+        photoPickerIntent.putExtra("aspectX", 1)
+        photoPickerIntent.putExtra("aspectY", 1)
+        photoPickerIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString())
+        photoPickerIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempUri())
+        startActivityForResult(photoPickerIntent, EXTRAS_SELECT_IMGAE)
+
+    }
+
+    private fun getTempUri(): Uri? {
+        return Uri.fromFile(getTempFile())
+    }
+
+    private fun getTempFile(): File? {
+        return if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            val file = File(Environment.getExternalStorageDirectory(), getString(R.string.temp_url))
+            try {
+                file.createNewFile()
+            } catch (e: IOException) {
+            }
+            file
+        } else {
+            null
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_SCANNER) {
@@ -152,6 +195,14 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
                 escanerListener.codeNoFound()
             }
         }
+        if (requestCode == EXTRAS_SELECT_IMGAE) {
+            if (data != null) {
+                val uri = data.data
+                fileListener?.imageUrlSelected(uri.toString())
+                showToast(uri.toString())
+            }
 
+        }
     }
+
 }

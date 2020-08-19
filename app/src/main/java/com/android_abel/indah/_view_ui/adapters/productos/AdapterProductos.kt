@@ -62,14 +62,15 @@ class AdapterProductos(var context: Context, private var list: List<ProductoEnti
         }
 
         override fun bind(objeto: ProductoEntity, position: Int) {
-            textViewNombreProducto?.text = objeto.nombre
+            val name: String = (objeto.nombre?.substring(0, 1)?.toUpperCase() ?: "") + (objeto.nombre?.substring(1)?.toLowerCase() ?: "")
+            textViewNombreProducto?.text = name
             textViewPrecio_item_producto?.text = objeto.precioVenta.toString()
             textViewCantidad_item_producto?.text = objeto.cantidad.toString()
             textViewDescripcion_item_producto?.text = objeto.descripcion ?: ""
 
             imageViewProducto?.let {
                 Glide.with(context)
-                    .load(context.getString(R.string.urlEjemplo))
+                    .load(objeto.urlImagen)
                     .placeholder(R.drawable.ic_scan)
                     .error(R.drawable.ic_scan)
                     .override(200, 200).centerCrop().into(it)

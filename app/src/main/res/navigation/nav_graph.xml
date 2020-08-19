@@ -86,7 +86,11 @@
         android:id="@+id/visualizadorProductoFragment"
         android:name="com.android_abel.indah._view_ui.fragments.verProducto.VisualizadorProductoFragment"
         android:label="fragment_visualizador_producto"
-        tools:layout="@layout/fragment_visualizador_producto" />
+        tools:layout="@layout/fragment_visualizador_producto" >
+        <action
+            android:id="@+id/action_visualizadorProductoFragment_to_creacionProyectoFragment"
+            app:destination="@id/creacionProyectoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/visualizadorVentasFragment"
         android:name="com.android_abel.indah._view_ui.fragments.verVentaPorCobrar.VisualizadorVentasFragment"

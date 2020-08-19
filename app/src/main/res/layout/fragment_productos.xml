@@ -23,6 +23,8 @@
             android:textAlignment="center"
             android:textColor="@color/blanco"
             android:textColorHint="@color/blanco"
+            android:textCursorDrawable="@drawable/color_cursor"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +33,6 @@
             android:id="@+id/recyclerViewProductos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
             android:background="@color/fondoProductos"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -52,6 +53,7 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_scan"
+            android:tint="@color/blanco"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -64,6 +66,7 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_add"
+            android:tint="@color/blanco"
             app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonScan"
             app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonScan" />
 
@@ -76,6 +79,7 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_icon_search"
+            android:tint="@color/blanco"
             app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonAddProducto"
             app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAddProducto" />
 
