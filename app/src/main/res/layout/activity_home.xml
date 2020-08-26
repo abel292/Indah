@@ -71,11 +71,12 @@
 
     <ImageView
         android:id="@+id/second_image"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:layout_marginStart="300dp"
         android:background="@drawable/gradiente_color_2_3"
-        app:layout_constraintStart_toEndOf="@+id/first_image"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -107,7 +108,8 @@
         android:layout_width="410dp"
         android:layout_height="120dp"
         android:background="@drawable/gradiente_color_3_end"
-        app:layout_constraintStart_toEndOf="@+id/second_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -134,50 +136,17 @@
         app:layout_constraintStart_toStartOf="@id/third_image"
         app:layout_constraintTop_toBottomOf="@id/third_text" />
 
-    <ImageView
-        android:id="@+id/fourth_image"
-        android:layout_width="410dp"
-        android:layout_height="120dp"
-        android:background="#aaff8977"
-        app:layout_constraintStart_toEndOf="@+id/third_image"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/fourth_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="20dp"
-        android:text="Fourth"
-        android:textColor="#fff"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="@id/fourth_image"
-        app:layout_constraintEnd_toEndOf="@+id/fourth_image"
-        app:layout_constraintStart_toStartOf="@+id/fourth_image"
-        app:layout_constraintTop_toTopOf="@id/fourth_image" />
-
-    <View
-        android:id="@+id/fourth_indicator"
-        android:layout_width="40dp"
-        android:layout_height="2dp"
-        android:layout_margin="16dp"
-        android:background="#fff"
-        android:elevation="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/fourth_image"
-        app:layout_constraintStart_toStartOf="@id/fourth_image"
-        app:layout_constraintTop_toBottomOf="@id/fourth_text" />
-
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fourth_image"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph"
-        />
+        app:layout_constraintTop_toBottomOf="@id/third_image"
+        app:navGraph="@navigation/nav_graph" />
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
