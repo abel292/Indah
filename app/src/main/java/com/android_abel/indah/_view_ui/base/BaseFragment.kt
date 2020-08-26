@@ -62,7 +62,7 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
 
     protected fun hideKeyBoard() {
 
-        if (getActivity() == null) return
+        if (activity == null) return
         val view = requireActivity().currentFocus
         val imm =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -155,7 +155,7 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
             Intent.ACTION_PICK,
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         )
-        photoPickerIntent.type = "image/*"
+        photoPickerIntent.type = "image/, video/*"
         photoPickerIntent.putExtra("crop", "true")
         photoPickerIntent.putExtra("scale", true)
         photoPickerIntent.putExtra("outputX", 256)
@@ -198,7 +198,7 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
         if (requestCode == EXTRAS_SELECT_IMGAE) {
             if (data != null) {
                 val uri = data.data
-                fileListener?.imageUrlSelected(uri.toString())
+                fileListener?.imageUrlSelectedFromGallery(uri.toString())
                 showToast(uri.toString())
             }
 

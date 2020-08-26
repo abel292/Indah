@@ -108,11 +108,7 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
 
     private fun notifyRecyclerViewItems(list: List<ProductoEntity>) {
         productos = list
-        mAdapter =
-            AdapterProductos(
-                mContext,
-                list
-            )
+        mAdapter = AdapterProductos(mContext, list, recyclerViewProductos)
         mAdapter.listener = this
         recyclerViewProductos.adapter = mAdapter
     }
@@ -138,7 +134,6 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
         hideBuscador {
             fragmentView.goToWithProducto(R.id.action_productosFragment_to_visualizadorProductoFragment, objects)
         }
-
     }
 
     private fun searchWithKeyboard() {

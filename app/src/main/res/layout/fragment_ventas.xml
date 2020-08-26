@@ -7,77 +7,38 @@
     android:layout_height="match_parent"
     tools:context="._view_ui.fragments.ventas.VentasFragment">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/contraint_hijo"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButtonEscaner_ventas"
-            android:layout_width="80dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollPadre_ventas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content_child_nested"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/autoCompleteTextViewVentas"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/colorPrimary"
-                    android:hint="@string/buscar_producto"
-                    android:textAlignment="center"
-                    android:textColorHint="@color/blanco"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewSearchProduct_ventas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewVentas" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewProductosCarrito_f_ventas"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewSearchProduct_ventas"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/item_view_producto_fragment_productos" />
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutConfigVenta"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/colorConfigVenta"
+                    android:layout_height="0dp"
+                    android:background="@color/colorPrimary"
                     android:orientation="vertical"
                     android:padding="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewProductosCarrito_f_ventas">
+                    android:elevation="100dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/recyclerViewProductosCarrito_f_ventas"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -89,17 +50,19 @@
 
                         <TextView
                             android:id="@+id/textView5"
+                            style="@style/styleTextViewFondoOscuroTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total  $ "
-                            android:textSize="20sp"
+                            android:text="@string/total_mas_peso"
+                            android:textSize="25sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/textViewTotalVenta"
+                            style="@style/styleTextViewFondoOscuroTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0"
+                            android:text="@string/cero_pesos"
                             android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -107,15 +70,19 @@
 
                     <RadioButton
                         android:id="@+id/radioButtonCobrar"
+                        style="@style/styleTextViewFondoOscuroTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Por cobrar" />
+                        android:buttonTint="@color/blanco"
+                        android:text="@string/por_cobrar" />
 
                     <RadioButton
                         android:id="@+id/radioButtonPagado"
+                        style="@style/styleTextViewFondoOscuroTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pagado" />
+                        android:buttonTint="@color/blanco"
+                        android:text="@string/pagado" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -127,6 +94,7 @@
                             android:id="@+id/linearLayoutContentConfigACobrar"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/gradiente_color_2_3"
                             android:orientation="horizontal"
                             android:visibility="gone">
 
@@ -135,12 +103,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:hint="@string/pago_inicial"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:textColorHint="@color/blanco">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/edittextPagoInicial_venta"
+                                    style="@style/styleEditTextFondoOscuroTitle"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:background="@color/colorUno"
                                     android:inputType="number" />
 
                             </com.google.android.material.textfield.TextInputLayout>
@@ -149,21 +120,22 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:gravity="right"
+                                android:gravity="center"
                                 android:orientation="horizontal"
                                 android:padding="10dp">
 
                                 <TextView
+                                    style="@style/styleTextViewFondoOscuroTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
-                                    android:text="@string/deuda" />
+                                    android:text="@string/deuda"
+                                    android:textSize="18sp" />
 
                                 <TextView
                                     android:id="@+id/textViewDeudaRestante"
+                                    style="@style/styleTextViewFondoOscuroTitle"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="bottom"
                                     android:text="@string/_100"
                                     android:textStyle="bold" />
                             </LinearLayout>
@@ -177,12 +149,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/forma_de_pago"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:textColorHint="@color/blanco"
+                        app:hintTextColor="@color/blanco">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edittextFormaPago_venta"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:textColorHint="#0072BA"
+                            android:theme="@style/styleEditTextFondoOscuroTitle" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -190,12 +167,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/informacion_adicional_de_la_venta"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:textColorHint="@color/blanco"
+                        app:hintTextColor="@color/blanco">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edittextDescripcion_venta"
+                            style="@style/styleTextViewFondoOscuroTitle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -204,12 +185,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/cliente"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:textColorHint="@color/blanco"
+                        app:hintTextColor="@color/blanco">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edittextCliente_venta"
+                            style="@style/styleTextViewFondoOscuroTitle"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -219,13 +204,43 @@
                         android:layout_height="wrap_content"
                         android:visibility="gone" />
 
-                    <Button
-                        android:id="@+id/buttonTerminarVenta"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/terminar_venta" />
+                        android:background="@color/colorUno"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/buttonTerminarVenta"
+                            style="@style/styleTextViewFondoOscuroTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:padding="10dp"
+                            android:text="@string/terminar_venta"
+                            android:textSize="25sp" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:src="@drawable/ic_saled" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <EditText
+                    android:id="@+id/autoCompleteTextViewVentas"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorDos"
+                    android:hint="@string/buscar_producto"
+                    android:textAlignment="center"
+                    android:textColorHint="@color/blanco"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/imageViewClearEdittext"
@@ -237,11 +252,121 @@
                     app:layout_constraintEnd_toEndOf="@+id/autoCompleteTextViewVentas"
                     app:layout_constraintTop_toTopOf="@+id/autoCompleteTextViewVentas" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewSearchProduct_ventas"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/autoCompleteTextViewVentas" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewProductosCarrito_f_ventas"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewSearchProduct_ventas"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_view_venta_producto_fragment_ventas" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
 
+        <LinearLayout
+            android:id="@+id/contentEffectDrop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="50dp"
+            android:elevation="100dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/contentEffectDropButtonScann"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/spaceScanner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shape_border_drop_left"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/imageViewIconScan"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_icon_search" />
+
+                <TextView
+                    style="@style/styleTextViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/buscar_producto"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/spaceBuscador"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shape_border_drop"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageViewIconSearch"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_scan" />
+
+                <TextView
+                    style="@style/styleTextViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/escanear_codigo"
+                    android:textAlignment="center" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contentEffectDropButtonScann"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/shape_border_drop_down"
+            android:elevation="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/imageViewConfigVenta"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:elevation="1dp"
+            android:src="@drawable/ic_saled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

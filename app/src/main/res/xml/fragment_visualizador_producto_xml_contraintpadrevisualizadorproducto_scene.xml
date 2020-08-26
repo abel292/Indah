@@ -9,12 +9,21 @@
         <KeyFrameSet />
     </Transition>
 
+    <Transition
+        motion:constraintSetEnd="@+id/viewerPhoto"
+        motion:constraintSetStart="@id/end"
+        motion:duration="1000">
+        <KeyFrameSet />
+        <OnSwipe motion:touchAnchorId="@+id/imageViewImageProducto" />
+    </Transition>
+
+
     <ConstraintSet android:id="@+id/start">
         <Constraint
             android:id="@+id/imageViewImageProducto"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +59,7 @@
             android:id="@+id/imageViewImageProducto"
             android:layout_width="match_parent"
             android:layout_height="270dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintEnd_toEndOf="parent" />
@@ -106,5 +115,16 @@
             motion:layout_constraintHorizontal_bias="0.0"
             android:layout_marginEnd="5dp" />
 
+    </ConstraintSet>
+    <ConstraintSet android:id="@+id/viewerPhoto" >
+        <Constraint
+            android:id="@+id/imageViewImageProducto"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:elevation="100dp"
+            motion:layout_constraintBottom_toBottomOf="parent" />
     </ConstraintSet>
 </MotionScene>

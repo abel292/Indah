@@ -1,15 +1,11 @@
 package com.android_abel.indah._view_ui.fragments.creacionProducto
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._view_model.CreacionProductoViewModel
@@ -148,15 +144,21 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, 
         editTextPrecioCompra_creacion.setText(productoEntity?.precioCompra.toString())
         editTextPrecioVenta_creacion.setText(productoEntity?.precioVenta.toString())
         editTextDescripcion_creacion.setText(productoEntity?.descripcion ?: "")
-    }
 
-    override fun imageUrlSelected(url: String) {
-        urlImage = url
         Glide.with(requireContext())
-            .load(url)
+            .load(productoEntity?.urlImagen)
             .placeholder(R.drawable.ic_scan)
             .error(R.drawable.ic_scan)
-            .override(200, 200)
+            .centerCrop()
+            .into(imageViewImageProducto)
+    }
+
+    override fun imageUrlSelectedFromGallery(url: String) {
+        urlImage = url
+        Glide.with(requireContext())
+            .load(productoEntity?.urlImagen)
+            .placeholder(R.drawable.ic_scan)
+            .error(R.drawable.ic_scan)
             .centerCrop()
             .into(imageViewImageProducto)
     }

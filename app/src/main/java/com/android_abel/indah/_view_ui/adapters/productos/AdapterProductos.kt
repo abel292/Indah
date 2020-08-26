@@ -5,14 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecycler
 import com.android_abel.indah._view_ui.adapters.base.HolderBase
 import com.android_abel.indah._view_ui.adapters.ventas.OnListenerItemRecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.fragment_ventas.*
 
-class AdapterProductos(var context: Context, private var list: List<ProductoEntity>) :
+class AdapterProductos(var context: Context, private var list: List<ProductoEntity>,var recyclerView: RecyclerView) :
     BaseAdapterRecycler<ProductoEntity>() {
 
     lateinit var listener: OnListenerItemRecyclerView<ProductoEntity>
@@ -86,6 +88,7 @@ class AdapterProductos(var context: Context, private var list: List<ProductoEnti
     fun filterList(filterdNames: List<ProductoEntity>) {
         this.list = filterdNames
         notifyDataSetChanged()
+        recyclerView.scrollBy(0, 0)
     }
 
 }

@@ -71,11 +71,7 @@ class ClientesFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVie
 
     private fun notifyRecyclerViewItems(list: List<ClienteEntity>) {
         clientes = list
-        mAdapter =
-            AdapterClientes(
-                mContext,
-                list
-            )
+        mAdapter = AdapterClientes(mContext, list, recyclerViewClientes)
         mAdapter.listener = this
         recyclerViewClientes.adapter = mAdapter
     }

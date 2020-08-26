@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.cliente.ClienteEntity
 import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecycler
@@ -16,7 +17,7 @@ import com.android_abel.indah._view_ui.adapters.base.HolderBase
 import com.android_abel.indah._view_ui.adapters.ventas.OnListenerItemRecyclerView
 import com.android_abel.indah._view_ui.adapters.ventas.OnSecondListenerItemRecyclerView
 
-class AdapterClientes(var context: Context, var list: List<ClienteEntity>) : BaseAdapterRecycler<ClienteEntity>() {
+class AdapterClientes(var context: Context, var list: List<ClienteEntity>, var recyclerView: RecyclerView) : BaseAdapterRecycler<ClienteEntity>() {
     var listener: OnListenerItemRecyclerView<ClienteEntity>? = null
     var listenerSecond: OnSecondListenerItemRecyclerView<ClienteEntity>? = null
 
@@ -84,6 +85,7 @@ class AdapterClientes(var context: Context, var list: List<ClienteEntity>) : Bas
     fun filterList(filterdNames: List<ClienteEntity>) {
         this.list = filterdNames
         notifyDataSetChanged()
+        recyclerView.scrollBy(0, 0)
     }
 
 

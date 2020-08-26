@@ -24,4 +24,21 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="styleTextViewFondoOscuroTitle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/champagne_limousines_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textColorHint">@color/blanco</item>
+
+    </style>
+
+
+    <style name="styleEditTextFondoOscuroTitle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/champagne_limousines_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textColorHint">@color/blanco</item>
+    </style>
+
+
 </resources>

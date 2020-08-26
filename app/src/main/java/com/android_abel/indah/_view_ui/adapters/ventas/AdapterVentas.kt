@@ -1,19 +1,27 @@
 package com.android_abel.indah._view_ui.adapters.ventas
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.venta.ProductoVendido
-import com.google.android.material.textfield.TextInputEditText
+import kotlinx.android.synthetic.main.fragment_ventas.*
+import java.net.URL
 
-class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
+
+class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var context: Context, var recyclerView: RecyclerView) :
     RecyclerView.Adapter<AdapterVentas.VentasViewHolder>() {
 
     lateinit var listenerCarrito: ListenerCarrito
@@ -29,6 +37,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
         return VentasViewHolder(
             inflater,
             parent,
+            context,
             list,
             listaVendido,
             listenerCarrito,
@@ -40,6 +49,8 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
         list.add(0, producto)
         producto.id?.let { id -> ProductoVendido(id, 1, producto.precioVenta, 0) }?.let { listaVendido.add(0, it) }
         notifyItemInserted(0)
+        recyclerView.scrollBy(0, 0)
+
     }
 
     fun deleteProducto(producto: ProductoEntity, position: Int) {
@@ -47,6 +58,8 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
         listaVendido.removeAt(position)
         notifyItemRemoved(position)
         notifyDataSetChanged()
+        recyclerView.scrollBy(0, 0)
+
     }
 
     fun filterList(filterdNames: ArrayList<ProductoEntity>) {
@@ -67,6 +80,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
     class VentasViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
+        var context: Context,
         var list: ArrayList<ProductoEntity>,
         var listVendido: ArrayList<ProductoVendido>,
         var listenerCarrito: ListenerCarrito,
@@ -82,9 +96,9 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
         private var textViewNombreProducto_itemVenta: TextView? = null
         private var textViewSubTotal: TextView? = null
         private var imageViewVentas_itemVentas: ImageView? = null
-        private var imageButtonRemoveItemCarrito: ImageButton? = null
-        private var editTextCantidad_ventas: TextInputEditText? = null
-        private var editTextPrecioVenta_ventas: TextInputEditText? = null
+        private var imageButtonRemoveItemCarrito: ImageView? = null
+        private var editTextCantidad_ventas: EditText? = null
+        private var editTextPrecioVenta_ventas: EditText? = null
 
         /*private var cantidad = 1
         private var precioVenta = 0*/
@@ -100,6 +114,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
 
         fun bind(producto: ProductoEntity, position: Int) {
             textViewNombreProducto_itemVenta?.text = producto.nombre
+
             imageButtonRemoveItemCarrito?.setOnClickListener {
                 listenerCarrito.removeItem(producto, position)
             }
@@ -172,10 +187,9 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>) :
             generateVentas()
         }
 
-        fun generateVentas() {
+        private fun generateVentas() {
             configVentaListener.compilandoProductosCarrito(listVendido)
         }
-
         //PEQUEÑO PROBLEMA QUE NO ACTUALIZA EL SUBTOTAL CUANDO MODIFICO LUEGO DE AGREGAR UN 2DO PRODUCTO
     }
 
