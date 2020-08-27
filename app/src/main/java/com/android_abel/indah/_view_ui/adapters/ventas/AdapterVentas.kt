@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_ventas.*
 import java.net.URL
 
 
-class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var context: Context, var recyclerView: RecyclerView) :
+class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var context: Context, var recyclerView: RecyclerView?) :
     RecyclerView.Adapter<AdapterVentas.VentasViewHolder>() {
 
     lateinit var listenerCarrito: ListenerCarrito
@@ -49,8 +50,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
         list.add(0, producto)
         producto.id?.let { id -> ProductoVendido(id, 1, producto.precioVenta, 0) }?.let { listaVendido.add(0, it) }
         notifyItemInserted(0)
-        recyclerView.scrollBy(0, 0)
-
+        recyclerView?.scrollBy(0, 0)
     }
 
     fun deleteProducto(producto: ProductoEntity, position: Int) {
@@ -58,7 +58,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
         listaVendido.removeAt(position)
         notifyItemRemoved(position)
         notifyDataSetChanged()
-        recyclerView.scrollBy(0, 0)
+        recyclerView?.scrollBy(0, 0)
 
     }
 
@@ -71,7 +71,6 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
         val producto: ProductoEntity = list[position]
         holder.setIsRecyclable(false)
         holder.bind(producto, position)
-
     }
 
     override fun getItemCount(): Int = list.size
@@ -137,14 +136,19 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
                     //modifico este para guardarlo en productos vendidos
                     if (editable.toString().trim().isNotEmpty() &&
                         editable.toString().trim().isNotBlank()
-                    )
+                    ) {
                         producto.id?.let { id ->
-                            setSubTotal(
-                                id,
-                                editTextCantidad_ventas?.text.toString().toInt(),
-                                editTextPrecioVenta_ventas?.text.toString().toInt()
-                            )
+                            try {
+                                setSubTotal(
+                                    id,
+                                    editTextCantidad_ventas?.text.toString().toInt(),
+                                    editTextPrecioVenta_ventas?.text.toString().toInt()
+                                )
+                            } catch (e: Exception) {
+                                Toast.makeText(context, context.getString(R.string.error_al_calcular), Toast.LENGTH_SHORT).show()
+                            }
                         }
+                    }
                 }
             })
 
@@ -156,14 +160,19 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
                     //modifico este para guardarlo en productos vendidos
                     if (editable.toString().trim().isNotEmpty() &&
                         editable.toString().trim().isNotBlank()
-                    )
+                    ) {
                         producto.id?.let { id ->
-                            setSubTotal(
-                                id,
-                                editTextCantidad_ventas?.text.toString().toInt(),
-                                editTextPrecioVenta_ventas?.text.toString().toInt()
-                            )
+                            try {
+                                setSubTotal(
+                                    id,
+                                    editTextCantidad_ventas?.text.toString().toInt(),
+                                    editTextPrecioVenta_ventas?.text.toString().toInt()
+                                )
+                            } catch (e: Exception) {
+                                Toast.makeText(context, context.getString(R.string.error_al_calcular), Toast.LENGTH_SHORT).show()
+                            }
                         }
+                    }
 
                 }
             })

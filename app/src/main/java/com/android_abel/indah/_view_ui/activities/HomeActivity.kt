@@ -1,4 +1,4 @@
-package com.android_abel.indah._view_ui.activities
+ package com.android_abel.indah._view_ui.activities
 
 import android.content.Intent
 import android.graphics.Color
@@ -33,7 +33,7 @@ class HomeActivity : BaseActivity() {
     private var currentAnim = TAB_REARRANGEMENT_ANIM
     private var lastEndTransition = R.id.endFirst
     private var animProgress: Float = 0f
-    private var oldY: Int = 0
+    private var viewOnClicked: View? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +55,35 @@ class HomeActivity : BaseActivity() {
 
     override fun initListeners() {
 
+        motion_layout.setTransitionListener(object : MotionLayout.TransitionListener {
+            override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
+            }
+
+            override fun onTransitionStarted(p0: MotionLayout?, p1: Int, p2: Int) {
+            }
+
+            override fun onTransitionChange(p0: MotionLayout?, p1: Int, p2: Int, p3: Float) {
+            }
+
+            override fun onTransitionCompleted(p0: MotionLayout?, p1: Int) {
+
+                when (viewOnClicked) {
+                    first_image -> {
+                        navController.navigate(R.id.productosFragment)
+                    }
+                    second_image -> {
+                        val bundle = Bundle()
+                        bundle.putBoolean(CustomsConstantes.EXTRAS_VENTAS_MODO_INICIO, false)
+                        navController.navigate(R.id.ventasFragment, bundle)
+                    }
+                    third_image -> {
+                        navController.navigate(R.id.gestionFragment)
+                    }
+                }
+            }
+        })
+
+
         btn_back.setOnClickListener {
             if (currentAnim == TAB_SLIDE_ANIM) {
                 currentAnim = TAB_REARRANGEMENT_ANIM
@@ -63,12 +92,11 @@ class HomeActivity : BaseActivity() {
                 motion_layout.setTransitionDuration(700)
                 motion_layout.transitionToStart()
                 animProgress = 0f
-
+                viewOnClicked = it
             }
         }
 
         first_image.setOnClickListener {
-            navController.navigate(R.id.productosFragment)
             if (currentAnim == TAB_REARRANGEMENT_ANIM) {
                 transitionTabIndex = 0
                 lastEndTransition = R.id.endFirst
@@ -77,14 +105,12 @@ class HomeActivity : BaseActivity() {
                 motion_layout.transitionToEnd()
                 currentAnim = TAB_SLIDE_ANIM
                 setTabIndicator()
+                viewOnClicked = it
+
             }
         }
 
         second_image.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putBoolean(CustomsConstantes.EXTRAS_VENTAS_MODO_INICIO, false)
-            navController.navigate(R.id.ventasFragment, bundle)
-
             if (currentAnim == TAB_REARRANGEMENT_ANIM) {
                 transitionTabIndex = 1
                 lastEndTransition = R.id.endSecond
@@ -93,11 +119,12 @@ class HomeActivity : BaseActivity() {
                 motion_layout.transitionToEnd()
                 currentAnim = TAB_SLIDE_ANIM
                 setTabIndicator()
+                viewOnClicked = it
+
             }
         }
 
         third_image.setOnClickListener {
-            navController.navigate(R.id.gestionFragment)
             if (currentAnim == TAB_REARRANGEMENT_ANIM) {
                 transitionTabIndex = 2
                 lastEndTransition = R.id.endThird
@@ -106,6 +133,7 @@ class HomeActivity : BaseActivity() {
                 motion_layout.transitionToEnd()
                 currentAnim = TAB_SLIDE_ANIM
                 setTabIndicator()
+                viewOnClicked = it
 
             }
         }

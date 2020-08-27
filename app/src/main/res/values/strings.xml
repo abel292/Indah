@@ -41,9 +41,10 @@
     <string name="error_insertar_producto">Error al insertar</string>
     <string name="temp_url">TEMP_PHOTO_FILE</string>
     <string name="escanear_codigo">Escanear codigo</string>
-    <string name="cero_pesos">0$</string>
+    <string name="cero_pesos">0</string>
     <string name="total_mas_peso">Total $</string>
     <string name="por_cobrar">Por cobrar</string>
     <string name="pagado">Pagado</string>
     <string name="error_no_cargo_producto">No se pudo cargar el producto</string>
+    <string name="error_al_calcular">No es posible calcular eso</string>
 </resources>
