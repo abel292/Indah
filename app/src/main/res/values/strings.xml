@@ -47,4 +47,7 @@
     <string name="pagado">Pagado</string>
     <string name="error_no_cargo_producto">No se pudo cargar el producto</string>
     <string name="error_al_calcular">No es posible calcular eso</string>
+    <string name="efectivo">Efectivo</string>
+    <string name="tarjeta">Tarjeta</string>
+    <string name="otra_forma_de_pago">Otra forma de pago</string>
 </resources>

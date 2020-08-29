@@ -4,14 +4,15 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 
-abstract class BaseViewModel(application: Application) : AndroidViewModel(application)
-{
+abstract class BaseViewModel(application: Application) : AndroidViewModel(application) {
     var ERROR_SOCKET_CLOSED =
         "socket closed" //este error tambien ocurre cuando el usuario cancela una solicitud de alguna api
 
 
-    protected var loading = MutableLiveData<String>()
+    protected var loading = MutableLiveData<Boolean>()
     protected var error = MutableLiveData<String>()
+    var backAnimation: Boolean = false
+
 
     /*open fun getLoading(): MutableLiveData<String>? {
         return loading
@@ -31,5 +32,5 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     }*/
 
     open fun cancelRequestData() {}
-    
+
 }

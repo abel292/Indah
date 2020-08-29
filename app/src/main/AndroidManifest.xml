@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 
     <application
@@ -24,7 +24,9 @@
         android:roundIcon="@drawable/icon_indah"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="._view_ui.activities.HomeActivity">
+        <activity
+            android:name="._view_ui.activities.HomeActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

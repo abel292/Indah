@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
@@ -52,7 +53,6 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     var clienteSeleccionado: ClienteEntity? = null
     var carrito: ArrayList<ProductoEntity> = ArrayList()
     lateinit var mContext: Context
-
 
     val ventasViewModel by lazy {
         ViewModelProviders.of(this).get(VentasViewModel::class.java)
@@ -135,15 +135,28 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
         imageViewConfigVenta.setOnClickListener {
             showToast("click")
-            if (linearLayoutConfigVenta.visibility == View.VISIBLE)
+            if (linearLayoutConfigVenta.visibility == View.VISIBLE) {
                 linearLayoutConfigVenta.visibility = View.GONE
-            else {
+                contentEffectDropButtonScann.visibility = View.VISIBLE
+            } else {
                 linearLayoutConfigVenta.visibility = View.VISIBLE
-
+                contentEffectDropButtonScann.visibility = View.GONE
             }
-
-
         }
+
+        radioEfectivo.setOnClickListener {
+            checkButton(it)
+        }
+
+        radioTarjeta.setOnClickListener {
+            checkButton(it)
+        }
+
+        radioOtras.setOnClickListener {
+            checkButton(it)
+        }
+
+
         //TODO listeners
 
         scrollPadre_ventas.setOnScrollChangeListener { _: NestedScrollView, scrollX: Int, scrollY: Int, _: Int, _: Int ->
@@ -268,6 +281,12 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         mAdapterBuscarCliente.filterList(filterdNames)
     }
 
+    fun checkButton(v: View?) {
+        val radioId = radioGroup.checkedRadioButtonId
+        val radioButton = fragmentView.findViewById<RadioButton>(radioId)
+        Toast.makeText(mContext, radioButton.text, Toast.LENGTH_SHORT).show()
+    }
+
     internal fun hideListProductSearch() {
         recyclerViewSearchProduct_ventas.visibility = View.GONE
         recyclerViewProductosCarrito_f_ventas.visibility = View.VISIBLE
@@ -349,7 +368,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
     fun seccionarCliente(clienteEntity: ClienteEntity) {
         clienteSeleccionado = clienteEntity
-        //Toast.makeText(mContext, "cliente seleccionado: $clienteEntity", Toast.LENGTH_SHORT).show()
+        Toast.makeText(mContext, "cliente seleccionado: $clienteEntity", Toast.LENGTH_SHORT).show()
         //edittextCliente_venta.setText(clienteSeleccionado?.nombre?.toUpperCase())
     }
 
