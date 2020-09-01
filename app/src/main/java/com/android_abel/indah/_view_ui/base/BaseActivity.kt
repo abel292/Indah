@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.android_abel.indah.R
+import com.android_abel.indah._view_model.BaseViewModel
 import com.android_abel.indah._view_ui.activities.EscanerActivity
 import com.android_abel.indah.utils.CustomsConstantes
 import com.google.android.material.snackbar.Snackbar
@@ -26,6 +27,8 @@ abstract class BaseActivity : AppCompatActivity(), BasicMethods {
     protected val TAG = this.javaClass.simpleName
     private var currentFragment: Fragment? = null
     var progressBarDialog: AlertDialog? = null
+    var backPressedEnable: Boolean? = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "OPEN ACTIVITY $TAG")
         super.onCreate(savedInstanceState)

@@ -1,6 +1,7 @@
 package com.android_abel.indah._view_model
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 
@@ -11,13 +12,17 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
     protected var loading = MutableLiveData<Boolean>()
     protected var error = MutableLiveData<String>()
-    var backAnimation: Boolean = false
+    protected var liveViewEncima = MutableLiveData<View?>()
 
-
-    /*open fun getLoading(): MutableLiveData<String>? {
-        return loading
+    fun setViewEncima(view: View?) {
+        if (view?.visibility == View.VISIBLE) {
+            liveViewEncima.postValue(view)
+        } else {
+            liveViewEncima.postValue(view)
+        }
     }
 
+    /*
     open fun setLoading(loading: String) {
         this.loading.postValue(loading)
     }*/

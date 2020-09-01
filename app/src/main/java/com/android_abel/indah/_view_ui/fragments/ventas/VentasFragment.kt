@@ -77,6 +77,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     private fun initArgument() {
+
         val argument = arguments
         val isInit = argument?.getBoolean(CustomsConstantes.EXTRAS_VENTAS_MODO_INICIO, true) ?: true
 
@@ -104,7 +105,6 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
     override fun init() {
         notifyRecyclerViewCarritoItemsVentas(carrito)
-
         recyclerViewProductosCarrito_f_ventas.layoutManager = LinearLayoutManager(mContext)
         recyclerViewSearchProduct_ventas.layoutManager = LinearLayoutManager(mContext)
         recyclerViewClientes_ventas.layoutManager = LinearLayoutManager(mContext)
@@ -134,13 +134,18 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         }
 
         imageViewConfigVenta.setOnClickListener {
-            showToast("click")
             if (linearLayoutConfigVenta.visibility == View.VISIBLE) {
                 linearLayoutConfigVenta.visibility = View.GONE
+                activarBackPressed()
                 contentEffectDropButtonScann.visibility = View.VISIBLE
+
             } else {
                 linearLayoutConfigVenta.visibility = View.VISIBLE
+                linearLayoutConfigVenta.visibility = View.VISIBLE
                 contentEffectDropButtonScann.visibility = View.GONE
+                contentSelectFormaPago.visibility = View.GONE
+                desactivarBackPressed()
+
             }
         }
 
@@ -156,6 +161,14 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
             checkButton(it)
         }
 
+        imageViewSelectFormaPago.setOnClickListener {
+            if (contentSelectFormaPago.visibility == View.VISIBLE) {
+                contentSelectFormaPago.visibility = View.GONE
+            } else {
+                contentSelectFormaPago.visibility = View.VISIBLE
+            }
+
+        }
 
         //TODO listeners
 

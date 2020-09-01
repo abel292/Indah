@@ -22,6 +22,7 @@ import androidx.navigation.findNavController
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.venta.VentaEntity
+import com.android_abel.indah._view_model.BaseViewModel
 import com.android_abel.indah._view_ui.activities.EscanerActivity
 import com.android_abel.indah._view_ui.activities.HomeActivity
 import com.android_abel.indah._view_ui.fragments.productos.ProductosFragment
@@ -105,9 +106,17 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
+    fun desactivarBackPressed(){
+        mActivity?.backPressedEnable =false
+    }
+    fun activarBackPressed(){
+        mActivity?.backPressedEnable =true
+    }
+
     fun onBackPressed() {
         val currentFragment = this
         val homeActivity = requireActivity() as HomeActivity
+
         if (currentFragment is ProductosFragment) {
             homeActivity.onBackPressed()
         } else {

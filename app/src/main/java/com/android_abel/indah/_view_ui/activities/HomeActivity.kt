@@ -1,4 +1,4 @@
- package com.android_abel.indah._view_ui.activities
+package com.android_abel.indah._view_ui.activities
 
 import android.content.Intent
 import android.graphics.Color
@@ -144,18 +144,22 @@ class HomeActivity : BaseActivity() {
         val navHostFragment: NavHostFragment? = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
         val current = navHostFragment?.childFragmentManager?.fragments?.get(0)
 
-        if (current is ProductosFragment || current is VentasFragment || current is GestionFragment) {
-            if (currentAnim == TAB_SLIDE_ANIM) {
-                currentAnim = TAB_REARRANGEMENT_ANIM
-                motion_layout.setTransition(R.id.start, lastEndTransition)
-                motion_layout.progress = 1f
-                motion_layout.setTransitionDuration(700)
-                motion_layout.transitionToStart()
-                motion_layout.setBackgroundColor(Color.BLACK)
-                animProgress = 0f
+        if (backPressedEnable != false) {
+            if (current is ProductosFragment || current is VentasFragment || current is GestionFragment) {
+                if (currentAnim == TAB_SLIDE_ANIM) {
+                    currentAnim = TAB_REARRANGEMENT_ANIM
+                    motion_layout.setTransition(R.id.start, lastEndTransition)
+                    motion_layout.progress = 1f
+                    motion_layout.setTransitionDuration(700)
+                    motion_layout.transitionToStart()
+                    motion_layout.setBackgroundColor(Color.BLACK)
+                    animProgress = 0f
+                }
+            } else {
+                super.onBackPressed()
             }
         } else {
-            super.onBackPressed()
+            Toast.makeText(this, "fin animacion", Toast.LENGTH_SHORT).show()
         }
 
     }
