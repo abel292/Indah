@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.android_abel.indah._model.local.convertes.ConverterDate
 import com.android_abel.indah._model.local.convertes.ConverterProductoVendido
+import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 import java.io.Serializable
 import java.util.*
 
@@ -19,7 +20,7 @@ class VentaEntity(): Serializable {
 
     @ColumnInfo(name = "productosVendidos")
     @TypeConverters(ConverterProductoVendido::class)
-    var productosVendidos: List<ProductoVendido>? = null
+    var productosVendidoEntities: List<ProductoVendidoEntity>? = null
 
     @ColumnInfo(name = "fecha")
     @TypeConverters(ConverterDate::class)

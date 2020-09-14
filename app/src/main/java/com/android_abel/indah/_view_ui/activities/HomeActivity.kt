@@ -8,10 +8,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.android_abel.indah.R
+import com.android_abel.indah._view_model.BaseViewModel
+import com.android_abel.indah._view_model.HomeViewModel
+import com.android_abel.indah._view_model.VentasViewModel
 import com.android_abel.indah._view_ui.base.BaseActivity
 import com.android_abel.indah._view_ui.fragments.gestion.GestionFragment
 import com.android_abel.indah._view_ui.fragments.productos.ProductosFragment
@@ -35,6 +40,11 @@ class HomeActivity : BaseActivity() {
     private var animProgress: Float = 0f
     private var viewOnClicked: View? = null
 
+    val viewModelActivity by lazy {
+        ViewModelProviders.of(this).get(HomeViewModel::class.java)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -45,11 +55,17 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun initObservables() {
+
     }
 
     override fun init() {
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        viewModelActivity.error.observe(this, Observer {
+            showSnackBar(it)
+        })
+
 
     }
 
@@ -154,6 +170,7 @@ class HomeActivity : BaseActivity() {
                     motion_layout.transitionToStart()
                     motion_layout.setBackgroundColor(Color.BLACK)
                     animProgress = 0f
+
                 }
             } else {
                 super.onBackPressed()

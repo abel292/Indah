@@ -2,10 +2,7 @@ package com.android_abel.indah._view_ui.adapters.historialVentas
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.venta.VentaEntity
 import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecycler
@@ -56,7 +53,7 @@ class AdapterHistorial(private var list: List<VentaEntity>) :
             textViewCliente_hsitorial?.text = venta.idCliente.toString()
             textViewTotal_historial?.text = venta.total.toString()
             var cadena = ""
-            venta.productosVendidos?.forEach { _producto ->
+            venta.productosVendidoEntities?.forEach { _producto ->
                 cadena = if (cadena.isEmpty())
                     _producto.idProducto.toString()
                 else

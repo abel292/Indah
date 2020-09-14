@@ -7,25 +7,19 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android_abel.indah.R
-import com.android_abel.indah._model.local.cliente.ClienteEntity
 import com.android_abel.indah._model.local.producto.ProductoEntity
-import com.android_abel.indah._model.local.venta.ProductoVendido
-import com.android_abel.indah._model.local.venta.VentaEntity
+import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 import com.android_abel.indah._view_model.VentasViewModel
-import com.android_abel.indah._view_ui.adapters.clientes.AdapterClientes
 import com.android_abel.indah._view_ui.adapters.productos.AdapterProductos
 import com.android_abel.indah._view_ui.adapters.ventas.*
 import com.android_abel.indah._view_ui.base.BaseFragmentRecycler
 import com.android_abel.indah._view_ui.base.BasicMethods
 import com.android_abel.indah._view_ui.base.EscanerListener
-import com.android_abel.indah.utils.CustomsConstantes
 import kotlinx.android.synthetic.main.fragment_ventas.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -33,7 +27,7 @@ import kotlin.collections.ArrayList
 
 class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     OnListenerItemRecyclerView<ProductoEntity>,
-    ListenerCarrito, ConfigVentaListener, OnSecondListenerItemRecyclerView<ClienteEntity>,
+    ListenerCarrito, ConfigVentaListener,
     DraggableViewListener, EscanerListener {
 
     companion object {
@@ -45,17 +39,20 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     //adapters
     lateinit var mAdapter: AdapterVentas
     lateinit var mAdapterBuscarProducto: AdapterProductos
-    lateinit var mAdapterBuscarCliente: AdapterClientes
 
     //global var
     lateinit var productos: List<ProductoEntity>
-    lateinit var clientes: List<ClienteEntity>
-    var clienteSeleccionado: ClienteEntity? = null
-    var carrito: ArrayList<ProductoEntity> = ArrayList()
+    var carrito: ArrayList<ProductoEntity>? = null//inicia una vez
     lateinit var mContext: Context
 
     val ventasViewModel by lazy {
         ViewModelProviders.of(this).get(VentasViewModel::class.java)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.mContext = context
+
     }
 
     override fun onCreateView(
@@ -68,29 +65,9 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mContext = requireContext()
-
-        initArgument()
         initObservables()
         init()
         initListeners()
-    }
-
-    private fun initArgument() {
-
-        val argument = arguments
-        val isInit = argument?.getBoolean(CustomsConstantes.EXTRAS_VENTAS_MODO_INICIO, true) ?: true
-
-        if (isInit)
-            content_padre_f_ventas.visibility = View.GONE
-        else
-            content_padre_f_ventas.visibility = View.VISIBLE
-
-        try {
-            initObservables()
-        } catch (e: Exception) {
-            showToast(getString(R.string.error_no_cargo_producto))
-        }
     }
 
     override fun initObservables() {
@@ -98,86 +75,41 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
             notifyRecyclerViewSearchProduct(it)
         })
 
-        ventasViewModel.clientesLive.observe(viewLifecycleOwner, Observer {
-            notifyRecyclerViewSearchClientes(it)
+        ventasViewModel.carrito.observe(viewLifecycleOwner, Observer {
+            notifyRecyclerViewCarritoItemsVentas(it)
         })
+
+        ventasViewModel.getAllProductos()
+        ventasViewModel.getCarrito()
     }
 
     override fun init() {
-        notifyRecyclerViewCarritoItemsVentas(carrito)
         recyclerViewProductosCarrito_f_ventas.layoutManager = LinearLayoutManager(mContext)
         recyclerViewSearchProduct_ventas.layoutManager = LinearLayoutManager(mContext)
-        recyclerViewClientes_ventas.layoutManager = LinearLayoutManager(mContext)
 
     }
 
     override fun initListeners() {
 
         //TODO clicks
-        radioButtonCobrar.setOnClickListener {
-            modeVentaPorCobrar()
-        }
-
-        radioButtonPagado.setOnClickListener {
-            modeVentaPagado()
-        }
 
         imageViewClearEdittext.setOnClickListener {
             clearBuscador()
         }
 
-        buttonTerminarVenta.setOnClickListener {
-            val venta = generateVenta()
-            if (venta != null) {
-                ventasViewModel.insertVenta(venta)
-            }
-        }
-
         imageViewConfigVenta.setOnClickListener {
-            if (linearLayoutConfigVenta.visibility == View.VISIBLE) {
-                linearLayoutConfigVenta.visibility = View.GONE
-                activarBackPressed()
-                contentEffectDropButtonScann.visibility = View.VISIBLE
-
-            } else {
-                linearLayoutConfigVenta.visibility = View.VISIBLE
-                linearLayoutConfigVenta.visibility = View.VISIBLE
-                contentEffectDropButtonScann.visibility = View.GONE
-                contentSelectFormaPago.visibility = View.GONE
-                desactivarBackPressed()
-
-            }
+            it.goTo(R.id.action_ventasFragment_to_configVentaFragment)
         }
 
-        radioEfectivo.setOnClickListener {
-            checkButton(it)
-        }
-
-        radioTarjeta.setOnClickListener {
-            checkButton(it)
-        }
-
-        radioOtras.setOnClickListener {
-            checkButton(it)
-        }
-
-        imageViewSelectFormaPago.setOnClickListener {
-            if (contentSelectFormaPago.visibility == View.VISIBLE) {
-                contentSelectFormaPago.visibility = View.GONE
-            } else {
-                contentSelectFormaPago.visibility = View.VISIBLE
-            }
-
-        }
 
         //TODO listeners
 
         scrollPadre_ventas.setOnScrollChangeListener { _: NestedScrollView, scrollX: Int, scrollY: Int, _: Int, _: Int ->
 
             if (scrollY > 0 || scrollY < 0) {
-                contentEffectDropButtonScann.visibility = View.GONE
+                imageViewConfigVenta.visibility = View.GONE
             } else {
-                contentEffectDropButtonScann.visibility = View.VISIBLE
+                imageViewConfigVenta.visibility = View.VISIBLE
             }
         }
 
@@ -197,52 +129,27 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
             }
         })
-
-        edittextCliente_venta.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                //after the change calling the method and passing the search input
-                filterClients(editable.toString())
-                if (editable.trim().isNotEmpty()) {
-                    showListClientsSearch()
-                } else {
-                    hideListClientsSearch()
-                }
-
-            }
-        })
-
-        edittextPagoInicial_venta.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-            override fun afterTextChanged(editable: Editable) {
-                var restante = textViewTotalVenta.text.toString().toInt()
-                restante = if (editable.trim().isNotEmpty()) {
-                    textViewTotalVenta.text.toString().toInt() - edittextPagoInicial_venta.text.toString().toInt()
-                } else {
-                    textViewTotalVenta.text.toString().toInt() - 0
-                }
-                showCantidadRestantePagoInicial(restante)
-            }
-        })
-
     }
 
     private fun notifyRecyclerViewCarritoItemsVentas(list: ArrayList<ProductoEntity>) {
-        mAdapter = AdapterVentas(list, requireContext(), recyclerViewProductosCarrito_f_ventas)
+        carrito = list
+        mAdapter = AdapterVentas(list, mContext, recyclerViewProductosCarrito_f_ventas)
         mAdapter.listenerCarrito = this
         mAdapter.listenerConfigVenta = this
         recyclerViewProductosCarrito_f_ventas.adapter = mAdapter
+        recyclerViewProductosCarrito_f_ventas.visibility = View.VISIBLE
 
     }
 
-    override fun compilandoProductosCarrito(listCarrito: ArrayList<ProductoVendido>) {
+    override fun compilandoProductosCarrito(listCarrito: ArrayList<ProductoVendidoEntity>) {
         var precioTotal = 0
         listCarrito.forEach { producto ->
             precioTotal += producto.subTotal
         }
-        textViewTotalVenta.text = precioTotal.toString()
+
+        //precio total
+        precioTotal.toString()
+
     }
 
     private fun notifyRecyclerViewSearchProduct(list: List<ProductoEntity>) {
@@ -250,17 +157,12 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         mAdapterBuscarProducto = AdapterProductos(mContext, list, recyclerViewSearchProduct_ventas)
         mAdapterBuscarProducto.listener = this
         recyclerViewSearchProduct_ventas.adapter = mAdapterBuscarProducto
+        recyclerViewSearchProduct_ventas.visibility = View.VISIBLE
     }
 
-    private fun notifyRecyclerViewSearchClientes(list: List<ClienteEntity>) {
-        clientes = list
-        mAdapterBuscarCliente = AdapterClientes(mContext, list, recyclerViewClientes_ventas)
-        mAdapterBuscarCliente.listenerSecond = this
-        recyclerViewClientes_ventas.adapter = mAdapterBuscarCliente
-    }
 
     override fun removeItem(productoEntity: ProductoEntity, position: Int) {
-        carrito.remove(productoEntity)
+        carrito?.remove(productoEntity)
         mAdapter.deleteProducto(productoEntity, position)
     }
 
@@ -279,27 +181,6 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         mAdapterBuscarProducto.filterList(filterdNames)
     }
 
-    internal fun filterClients(text: String) {
-        clienteSeleccionado = null
-
-        val filterdNames: ArrayList<ClienteEntity> = ArrayList()
-        if (!clientes.isNullOrEmpty())
-            for (cliente in clientes) {
-                val nombre = cliente.nombre
-                if (nombre.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                    if (filterdNames.size < 2)
-                        filterdNames.add(cliente)
-                }
-            }
-        mAdapterBuscarCliente.filterList(filterdNames)
-    }
-
-    fun checkButton(v: View?) {
-        val radioId = radioGroup.checkedRadioButtonId
-        val radioButton = fragmentView.findViewById<RadioButton>(radioId)
-        Toast.makeText(mContext, radioButton.text, Toast.LENGTH_SHORT).show()
-    }
-
     internal fun hideListProductSearch() {
         recyclerViewSearchProduct_ventas.visibility = View.GONE
         recyclerViewProductosCarrito_f_ventas.visibility = View.VISIBLE
@@ -312,17 +193,8 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
     }
 
-    internal fun hideListClientsSearch() {
-        recyclerViewClientes_ventas.visibility = View.GONE
-    }
-
-    internal fun showListClientsSearch() {
-        recyclerViewClientes_ventas.visibility = View.VISIBLE
-    }
-
     private fun addProductoCarrito(productoEntity: ProductoEntity) {
         mAdapter.addProducto(productoEntity)
-
     }
 
     private fun clearBuscador() {
@@ -330,29 +202,8 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         autoCompleteTextViewVentas.clearFocus()
     }
 
-    internal fun showCantidadRestantePagoInicial(cant: Int) {
-        textViewDeudaRestante.text = cant.toString()
-    }
-
-    private fun generateVenta(): VentaEntity? {
-        return if (validateForms()) {
-            val venta = VentaEntity()
-            venta.productosVendidos = mAdapter.listaVendido
-            venta.total = textViewTotalVenta.text.toString().toInt()
-            venta.descripcion = edittextDescripcion_venta.text.toString()
-            venta.formaDePago = edittextFormaPago_venta.text.toString()
-            venta.idCliente = clienteSeleccionado?.id ?: -1
-            venta.pagado = radioButtonPagado.isChecked
-
-            venta
-        } else {
-            null
-        }
-    }
-
     private fun validateForms(): Boolean {
-        return (mAdapter.listaVendido.size > 0
-                && !edittextCliente_venta.text.isNullOrEmpty())
+        return (mAdapter.listaVendido.size > 0)
     }
 
     override fun onClickItem(productoEntity: ProductoEntity, position: Int) {
@@ -361,33 +212,8 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         hideKeyBoard()
     }
 
-    override fun onClickItemSecondListener(objects: ClienteEntity, position: Int) {
-        seccionarCliente(objects)
-    }
-
-    override fun removeItem(objects: ClienteEntity, position: Int) {
-
-    }
-
-    fun modeVentaPorCobrar() {
-        radioButtonPagado.isChecked = false
-        linearLayoutContentConfigACobrar.visibility = View.VISIBLE
-    }
-
-    fun modeVentaPagado() {
-        radioButtonCobrar.isChecked = false
-        linearLayoutContentConfigACobrar.visibility = View.GONE
-    }
-
-    fun seccionarCliente(clienteEntity: ClienteEntity) {
-        clienteSeleccionado = clienteEntity
-        Toast.makeText(mContext, "cliente seleccionado: $clienteEntity", Toast.LENGTH_SHORT).show()
-        //edittextCliente_venta.setText(clienteSeleccionado?.nombre?.toUpperCase())
-    }
-
     override fun onMoveDragger(v: View) {
-        contentEffectDrop.visibility = View.VISIBLE
-        contentEffectDropButtonScann.visibility = View.VISIBLE
+
     }
 
     override fun onDropRitgh() {
@@ -403,7 +229,6 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     override fun positionInitial(v: View) {
-        contentEffectDrop.visibility = View.GONE
     }
 
     override fun codeFromScanner(code: String) {
@@ -418,6 +243,5 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         autoCompleteTextViewVentas.requestFocus()
         autoCompleteTextViewVentas.showKeyboard()
     }
-
 
 }

@@ -11,6 +11,8 @@ import com.android_abel.indah._model.local.convertes.ConverterDate
 import com.android_abel.indah._model.local.convertes.ConverterProductoVendido
 import com.android_abel.indah._model.local.producto.ProductoDao
 import com.android_abel.indah._model.local.producto.ProductoEntity
+import com.android_abel.indah._model.local.productoCarrito.DaoProductoVendido
+import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 import com.android_abel.indah._model.local.venta.VentaDao
 import com.android_abel.indah._model.local.venta.VentaEntity
 
@@ -18,8 +20,10 @@ import com.android_abel.indah._model.local.venta.VentaEntity
 // Annotates class to be a Room Database with a table (entity) of the Word class
 @Database(
     entities = [ProductoEntity::class,
-        VentaEntity::class, ClienteEntity::class],
-    version = 7, exportSchema = false
+        VentaEntity::class,
+        ProductoVendidoEntity::class,
+        ClienteEntity::class],
+    version = 10
 )
 @TypeConverters(ConverterProductoVendido::class, ConverterDate::class)
 public abstract class DataBaseIndah : RoomDatabase() {
@@ -27,6 +31,7 @@ public abstract class DataBaseIndah : RoomDatabase() {
     abstract fun productoDao(): ProductoDao
     abstract fun ventaDao(): VentaDao
     abstract fun clientesDao(): ClientesDao
+    abstract fun carritoDao(): DaoProductoVendido
 
 
     companion object {

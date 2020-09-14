@@ -74,11 +74,6 @@ class ProductosFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVi
         val layoutManager = LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false)
         recyclerViewProductos.layoutManager = layoutManager
 
-        autoCompleteTextViewProductos.visibility = View.VISIBLE
-        motionLayoutFProductos.setTransition(R.id.endSceneInitFProductos, R.id.startSceneInitFProductos)
-        motionLayoutFProductos.progress = 1f
-        motionLayoutFProductos.setTransitionDuration(700)
-        motionLayoutFProductos.transitionToStart()
     }
 
     override fun initListeners() {

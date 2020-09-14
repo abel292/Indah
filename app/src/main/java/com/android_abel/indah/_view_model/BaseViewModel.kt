@@ -9,10 +9,9 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     var ERROR_SOCKET_CLOSED =
         "socket closed" //este error tambien ocurre cuando el usuario cancela una solicitud de alguna api
 
-
-    protected var loading = MutableLiveData<Boolean>()
-    protected var error = MutableLiveData<String>()
-    protected var liveViewEncima = MutableLiveData<View?>()
+    var loading = MutableLiveData<Boolean>()
+    var error = MutableLiveData<String>()
+    var liveViewEncima = MutableLiveData<View?>()
 
     fun setViewEncima(view: View?) {
         if (view?.visibility == View.VISIBLE) {

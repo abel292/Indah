@@ -123,6 +123,11 @@ abstract class BaseActivity : AppCompatActivity(), BasicMethods {
         }
     }
 
+    fun showSnackBar(text: String) {
+        Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+            .show()
+    }
+
     fun hideSystemUI(mDecorView: View) { // Set the IMMERSIVE flag.
 
         mDecorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE

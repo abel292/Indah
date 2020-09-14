@@ -1,9 +1,15 @@
-package com.android_abel.indah._model.local.venta
+package com.android_abel.indah._model.local.productoCarrito
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
-class ProductoVendido : Serializable {
-    var idProducto: Int? = null
+
+@Entity(tableName = "_CARRITO")
+class ProductoVendidoEntity : Serializable {
+
+    @PrimaryKey()
+    var idProducto: Int = 0
     var cantidad: Int = 1
     var precioVenta: Int = 0
     var subTotal: Int = 0

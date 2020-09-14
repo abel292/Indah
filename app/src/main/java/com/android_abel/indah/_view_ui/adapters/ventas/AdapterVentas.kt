@@ -1,14 +1,9 @@
 package com.android_abel.indah._view_ui.adapters.ventas
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
@@ -17,9 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
-import com.android_abel.indah._model.local.venta.ProductoVendido
-import kotlinx.android.synthetic.main.fragment_ventas.*
-import java.net.URL
+import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 
 
 class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var context: Context, var recyclerView: RecyclerView?) :
@@ -29,7 +22,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
     lateinit var listenerConfigVenta: ConfigVentaListener
 
     //
-    var listaVendido = ArrayList<ProductoVendido>()
+    var listaVendido = ArrayList<ProductoVendidoEntity>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VentasViewHolder {
@@ -48,7 +41,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
 
     fun addProducto(producto: ProductoEntity) {
         list.add(0, producto)
-        producto.id?.let { id -> ProductoVendido(id, 1, producto.precioVenta, 0) }?.let { listaVendido.add(0, it) }
+        producto.id?.let { id -> ProductoVendidoEntity(id, 1, producto.precioVenta, 0) }?.let { listaVendido.add(0, it) }
         notifyItemInserted(0)
         recyclerView?.scrollBy(0, 0)
     }
@@ -70,7 +63,9 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
     override fun onBindViewHolder(holder: VentasViewHolder, position: Int) {
         val producto: ProductoEntity = list[position]
         holder.setIsRecyclable(false)
-        holder.bind(producto, position)
+        if (!list.isNullOrEmpty()) {
+            holder.bind(producto, position)
+        }
     }
 
     override fun getItemCount(): Int = list.size
@@ -81,7 +76,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
         parent: ViewGroup,
         var context: Context,
         var list: ArrayList<ProductoEntity>,
-        var listVendido: ArrayList<ProductoVendido>,
+        var listVendidoEntity: ArrayList<ProductoVendidoEntity>,
         var listenerCarrito: ListenerCarrito,
         var configVentaListener: ConfigVentaListener
     ) :
@@ -117,8 +112,8 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
             imageButtonRemoveItemCarrito?.setOnClickListener {
                 listenerCarrito.removeItem(producto, position)
             }
-            editTextCantidad_ventas?.setText(listVendido[position].cantidad.toString())
-            editTextPrecioVenta_ventas?.setText(listVendido[position].precioVenta.toString())
+            editTextCantidad_ventas?.setText(listVendidoEntity[position].cantidad.toString())
+            editTextPrecioVenta_ventas?.setText(listVendidoEntity[position].precioVenta.toString())
 
             producto.id?.let { id ->
                 setSubTotal(
@@ -185,7 +180,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
             textViewSubTotal?.text = subTotal.toString()
 
             //modifico este para guardarlo en productos vendidos
-            listVendido.forEach {
+            listVendidoEntity.forEach {
                 if (idProducto == it.idProducto) {
                     it.subTotal = textViewSubTotal?.text.toString().toInt()
                     it.cantidad = editTextCantidad_ventas?.text.toString().toInt()
@@ -197,7 +192,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
         }
 
         private fun generateVentas() {
-            configVentaListener.compilandoProductosCarrito(listVendido)
+            configVentaListener.compilandoProductosCarrito(listVendidoEntity)
         }
         //PEQUEÑO PROBLEMA QUE NO ACTUALIZA EL SUBTOTAL CUANDO MODIFICO LUEGO DE AGREGAR UN 2DO PRODUCTO
     }

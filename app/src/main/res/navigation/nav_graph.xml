@@ -48,6 +48,10 @@
             android:name="isInit"
             android:defaultValue="true"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_ventasFragment_to_configVentaFragment"
+            app:destination="@id/configVentaFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/creacionProyectoFragment"
@@ -86,7 +90,7 @@
         android:id="@+id/visualizadorProductoFragment"
         android:name="com.android_abel.indah._view_ui.fragments.verProducto.VisualizadorProductoFragment"
         android:label="fragment_visualizador_producto"
-        tools:layout="@layout/fragment_visualizador_producto" >
+        tools:layout="@layout/fragment_visualizador_producto">
         <action
             android:id="@+id/action_visualizadorProductoFragment_to_creacionProyectoFragment"
             app:destination="@id/creacionProyectoFragment" />
@@ -96,4 +100,9 @@
         android:name="com.android_abel.indah._view_ui.fragments.verVentaPorCobrar.VisualizadorVentasFragment"
         android:label="fragment_visualizador_ventas"
         tools:layout="@layout/fragment_visualizador_ventas" />
+    <fragment
+        android:id="@+id/configVentaFragment"
+        android:name="com.android_abel.indah._view_ui.fragments.configVenta.ConfigVentaFragment"
+        android:label="fragment_config_venta"
+        tools:layout="@layout/fragment_config_venta" />
 </navigation>

@@ -1,13 +1,12 @@
 package com.android_abel.indah._model.repositories
 
 import android.content.Context
-import android.nfc.Tag
 import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.android_abel.indah._model.local.DataBaseIndah
 import com.android_abel.indah._model.local.producto.ProductoEntity
-import com.android_abel.indah._model.local.venta.ProductoVendido
+import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -30,7 +29,7 @@ class ProductoRepository(context: Context) {
     }
 
     @WorkerThread
-    suspend fun updateCantidadProducto(list: List<ProductoVendido>) = withContext(Dispatchers.IO) {
+    suspend fun updateCantidadProducto(list: List<ProductoVendidoEntity>) = withContext(Dispatchers.IO) {
 
         list.forEach { productoVendido ->
             productoVendido.idProducto?.let { id ->
@@ -47,4 +46,28 @@ class ProductoRepository(context: Context) {
         }
 
     }
+
+    @WorkerThread
+    suspend fun getProductos(): List<ProductoEntity>? =
+        withContext(Dispatchers.IO)
+        {
+            if (productoDao.getProductos().isNullOrEmpty())
+                return@withContext null
+            else
+                return@withContext productoDao.getProductos()
+
+
+        }
+
+
+    @WorkerThread
+    suspend fun getProductoByID(id: Int): ProductoEntity? =
+        withContext(Dispatchers.IO)
+        {
+            if (productoDao.getSingleProducto(id) == null)
+                return@withContext null
+            else
+                return@withContext productoDao.getSingleProducto(id)
+
+        }
 }

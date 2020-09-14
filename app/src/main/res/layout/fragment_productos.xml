@@ -7,16 +7,14 @@
     android:layout_height="match_parent"
     tools:context="._view_ui.fragments.productos.ProductosFragment">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/motionLayoutFProductos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layoutDescription="@xml/fragment_productos_xml_constraintlayout_scene">
+        android:layout_height="match_parent">
 
         <AutoCompleteTextView
             android:id="@+id/autoCompleteTextViewProductos"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@color/colorDos"
             android:hint="@string/buscar_producto"
@@ -31,8 +29,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewProductos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@color/fondoProductos"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -46,9 +44,9 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButtonScan"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/colorTres"
             android:clickable="true"
             android:focusable="true"
@@ -84,5 +82,5 @@
             app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAddProducto" />
 
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
