@@ -43,10 +43,52 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
         GlobalScope.launch {
             val productos = repositoryProducto.getProductos()
             if (productos.isNullOrEmpty()) {
-                error.postValue(IndahApplication.applicationContext().getString(R.string.error_cargar_productos))
+                // error.postValue(IndahApplication.applicationContext().getString(R.string.error_cargar_productos))
 
             } else {
                 productosLive.postValue(productos)
+            }
+        }
+    }
+
+    suspend fun actualizarInventario(venta: VentaEntity) {
+        if (venta.productosVendidoEntities != null)
+            repositoryProducto.updateCantidadProducto(venta.productosVendidoEntities!!)
+    }
+
+    fun parseVentasToPreviewHistory(list: List<VentaEntity>) {
+        val listPreview = ArrayList<PreviewHistorialVenta>()
+
+    }
+
+    fun getCliente(venta: VentaEntity) {
+        GlobalScope.launch {
+            var clienteEntity = clientesRepository.getClienteWithID(venta.idCliente ?: -1)
+        }
+    }
+
+    //TODO CARRITO
+
+    fun insertCarrito(producto: ProductoEntity) {
+        GlobalScope.launch {
+            producto.id?.let { id -> ProductoVendidoEntity(id, 1, producto.precioVenta, 0) }?.let {
+                carritoRepository.insertLocal(it)
+            }
+        }
+    }
+
+    fun updateCarrito(productos: ArrayList<ProductoVendidoEntity>) {
+        GlobalScope.launch {
+            productos.forEach {
+                carritoRepository.updatetLocal(it)
+            }
+        }
+    }
+
+    fun deleteItemCarrito(producto: ProductoEntity) {
+        GlobalScope.launch {
+            producto.id?.let { id ->
+                carritoRepository.deleteItemCarrito(id)
             }
         }
     }
@@ -55,7 +97,7 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
         GlobalScope.launch {
             val productos = carritoRepository.getProductos()
             if (productos.isNullOrEmpty()) {
-                error.postValue(IndahApplication.applicationContext().getString(R.string.error_cargar_productos))
+                carrito.postValue(ArrayList())
             } else {
                 //convertimos los productos en el carritos a entities
                 val productosEnCarrito = ArrayList<ProductoEntity>()
@@ -70,21 +112,5 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    suspend fun actualizarInventario(venta: VentaEntity) {
-        if (venta.productosVendidoEntities != null)
-            repositoryProducto.updateCantidadProducto(venta.productosVendidoEntities!!)
-
-    }
-
-    fun parseVentasToPreviewHistory(list: List<VentaEntity>) {
-        val listPreview = ArrayList<PreviewHistorialVenta>()
-
-    }
-
-    fun getCliente(venta: VentaEntity) {
-        GlobalScope.launch {
-            var clienteEntity = clientesRepository.getClienteWithID(venta.idCliente ?: -1)
-        }
-    }
 
 }

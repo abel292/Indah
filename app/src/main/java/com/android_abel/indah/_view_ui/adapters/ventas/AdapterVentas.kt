@@ -24,6 +24,13 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
     //
     var listaVendido = ArrayList<ProductoVendidoEntity>()
 
+    init {
+        list.forEach {
+            it.id?.let { id -> ProductoVendidoEntity(id, 1, it.precioVenta, 0) }?.let { vendidoEntity ->
+                listaVendido.add(0, vendidoEntity) }
+        }
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VentasViewHolder {
         val inflater = LayoutInflater.from(parent.context)

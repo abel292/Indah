@@ -35,7 +35,6 @@ ext {
     persistenceVersion = '1.1.1'
     retrofitVersion = '2.7.2'
     navVersion = '1.0.0'
-    interceptorVersion = '3.9.1'
     androidxVersion = '1.1.0'
     componentsVersion = '1.0.0'
     constraintLayoutVersion = '1.1.3'
@@ -62,14 +61,13 @@ ext {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //BASE
     //bundle argument navigation fragment
@@ -82,49 +80,49 @@ dependencies {
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
 // Lifecycle components
-    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
 // Kotlin components
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.0"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
 
 // Material design
-    implementation "com.google.android.material:material:1.1.0"
+    implementation "com.google.android.material:material:1.2.1"
 
 // Testing
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation "androidx.arch.core:core-testing:$coreTestingVersion"
 
     // Kotlin
-    implementation "androidx.navigation:navigation-fragment-ktx:2.2.2"
-    implementation "androidx.navigation:navigation-ui-ktx:2.2.2"
-    def nav_version = "2.3.0-beta01"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
+    implementation "androidx.work:work-runtime-ktx:2.4.0"
+
 
     // Dynamic Feature Module Support
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.0"
 
     // Testing Navigation
-    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.3.0"
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.71"
-    implementation "com.squareup.okhttp3:logging-interceptor:$interceptorVersion"
+    implementation "com.squareup.retrofit2:converter-gson:2.7.2"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.2.2"
 
     //Work Manager
-    implementation "androidx.work:work-runtime:2.3.4"
-    // Kotlin + coroutines
-    implementation "androidx.work:work-runtime-ktx:2.3.4"
+    implementation "androidx.work:work-runtime:2.4.0"
+
     //For guava conflict
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
     //Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.4'
 
     //Circle ImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -134,30 +132,30 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     implementation "org.abstractj.kalium:kalium:0.8.0"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.3.71"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.0"
     implementation "org.slf4j:slf4j-simple:1.7.25"
 
     //Analitycs
-    implementation 'com.google.firebase:firebase-analytics:17.4.2'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
     // Add the Firebase SDK for Crashlytics.
-    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-core:17.4.2'
-    implementation 'com.google.firebase:firebase-database:19.3.0'
-    implementation 'com.google.firebase:firebase-messaging:20.2.0'
-    implementation 'com.google.firebase:firebase-firestore:21.4.3'
+    implementation 'com.google.firebase:firebase-core:17.5.0'
+    implementation 'com.google.firebase:firebase-database:19.4.0'
+    implementation 'com.google.firebase:firebase-messaging:20.2.4'
+    implementation 'com.google.firebase:firebase-firestore:21.6.0'
 
     //bundle argument navigation fragment
     implementation "com.phelat:navigationresult:1.0.0-beta02"
 
     //Retrofit
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:retrofit:2.7.2"
 
     //motion layout
-    implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta6'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.1'
     // or AndroidX packages
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
 
     //scaner
     implementation 'me.dm7.barcodescanner:zxing:1.9.13'
