@@ -42,7 +42,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
 
     //global var
     lateinit var productos: List<ProductoEntity>
-    var carrito: ArrayList<ProductoEntity>? = null//inicia una vez
+    var carrito: ArrayList<ProductoVendidoEntity>? = null//inicia una vez
     lateinit var mContext: Context
 
     val ventasViewModel by lazy {
@@ -70,6 +70,17 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         initListeners()
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        try {
+            ventasViewModel.getAllProductos()
+            ventasViewModel.getCarrito()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
     override fun initObservables() {
         ventasViewModel.productosLive.observe(viewLifecycleOwner, Observer {
             notifyRecyclerViewSearchProduct(it)
@@ -79,11 +90,10 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
             notifyRecyclerViewCarritoItemsVentas(it)
         })
 
-        ventasViewModel.getAllProductos()
-        ventasViewModel.getCarrito()
     }
 
     override fun init() {
+
         recyclerViewProductosCarrito_f_ventas.layoutManager = LinearLayoutManager(mContext)
         recyclerViewSearchProduct_ventas.layoutManager = LinearLayoutManager(mContext)
 
@@ -131,13 +141,15 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         })
     }
 
-    private fun notifyRecyclerViewCarritoItemsVentas(list: ArrayList<ProductoEntity>) {
+    private fun notifyRecyclerViewCarritoItemsVentas(list: ArrayList<ProductoVendidoEntity>) {
         carrito = list
         mAdapter = AdapterVentas(list, mContext, recyclerViewProductosCarrito_f_ventas)
         mAdapter.listenerCarrito = this
         mAdapter.listenerConfigVenta = this
         recyclerViewProductosCarrito_f_ventas.adapter = mAdapter
         recyclerViewProductosCarrito_f_ventas.visibility = View.VISIBLE
+        if (list.isNotEmpty())
+            recyclerViewSearchProduct_ventas.visibility = View.GONE
 
     }
 
@@ -148,6 +160,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
         }
 
         //precio total
+        ventasViewModel.updateCarrito(listCarrito)
         precioTotal.toString()
 
     }
@@ -161,9 +174,10 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
 
-    override fun removeItem(productoEntity: ProductoEntity, position: Int) {
+    override fun removeItem(productoEntity: ProductoVendidoEntity, position: Int) {
         carrito?.remove(productoEntity)
         mAdapter.deleteProducto(productoEntity, position)
+        ventasViewModel.deleteItemCarrito(productoEntity)
     }
 
     internal fun filter(text: String) {
@@ -194,7 +208,11 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     private fun addProductoCarrito(productoEntity: ProductoEntity) {
-        mAdapter.addProducto(productoEntity)
+        productoEntity.id?.let { id -> ProductoVendidoEntity(id, productoEntity.nombre ?: "", 1, productoEntity.precioVenta, 0) }?.let {
+            mAdapter.addProducto(it)
+            ventasViewModel.insertCarrito(it)
+        }
+
     }
 
     private fun clearBuscador() {

@@ -15,15 +15,13 @@ import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 
 
-class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var context: Context, var recyclerView: RecyclerView?) :
+class AdapterVentas(private var list: ArrayList<ProductoVendidoEntity>, private var context: Context, var recyclerView: RecyclerView?) :
     RecyclerView.Adapter<AdapterVentas.VentasViewHolder>() {
 
     lateinit var listenerCarrito: ListenerCarrito
     lateinit var listenerConfigVenta: ConfigVentaListener
 
-    //
-    var listaVendido = ArrayList<ProductoVendidoEntity>()
-
+    var listaVendido = list
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VentasViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -39,14 +37,14 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
         )
     }
 
-    fun addProducto(producto: ProductoEntity) {
+    fun addProducto(producto: ProductoVendidoEntity) {
         list.add(0, producto)
-        producto.id?.let { id -> ProductoVendidoEntity(id, 1, producto.precioVenta, 0) }?.let { listaVendido.add(0, it) }
+        listaVendido.add(0, producto)
         notifyItemInserted(0)
         recyclerView?.scrollBy(0, 0)
     }
 
-    fun deleteProducto(producto: ProductoEntity, position: Int) {
+    fun deleteProducto(producto: ProductoVendidoEntity, position: Int) {
         list.remove(producto)
         listaVendido.removeAt(position)
         notifyItemRemoved(position)
@@ -55,13 +53,13 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
 
     }
 
-    fun filterList(filterdNames: ArrayList<ProductoEntity>) {
+    fun filterList(filterdNames: ArrayList<ProductoVendidoEntity>) {
         this.list = filterdNames
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: VentasViewHolder, position: Int) {
-        val producto: ProductoEntity = list[position]
+        val producto: ProductoVendidoEntity = list[position]
         holder.setIsRecyclable(false)
         if (!list.isNullOrEmpty()) {
             holder.bind(producto, position)
@@ -75,7 +73,7 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
         inflater: LayoutInflater,
         parent: ViewGroup,
         var context: Context,
-        var list: ArrayList<ProductoEntity>,
+        var list: ArrayList<ProductoVendidoEntity>,
         var listVendidoEntity: ArrayList<ProductoVendidoEntity>,
         var listenerCarrito: ListenerCarrito,
         var configVentaListener: ConfigVentaListener
@@ -106,8 +104,10 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
             editTextPrecioVenta_ventas = itemView.findViewById(R.id.editTextPrecioVenta_ventas)
         }
 
-        fun bind(producto: ProductoEntity, position: Int) {
-            textViewNombreProducto_itemVenta?.text = producto.nombre
+        fun bind(producto: ProductoVendidoEntity, position: Int) {
+            var itemVendido = listVendidoEntity[position]
+
+            textViewNombreProducto_itemVenta?.text = producto.nameProducto
 
             imageButtonRemoveItemCarrito?.setOnClickListener {
                 listenerCarrito.removeItem(producto, position)
@@ -115,13 +115,12 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
             editTextCantidad_ventas?.setText(listVendidoEntity[position].cantidad.toString())
             editTextPrecioVenta_ventas?.setText(listVendidoEntity[position].precioVenta.toString())
 
-            producto.id?.let { id ->
-                setSubTotal(
-                    id,
-                    editTextCantidad_ventas?.text.toString().toInt(),
-                    editTextPrecioVenta_ventas?.text.toString().toInt()
-                )
-            }
+            setSubTotal(
+                producto.idProducto,
+                editTextCantidad_ventas?.text.toString().toInt(),
+                editTextPrecioVenta_ventas?.text.toString().toInt()
+            )
+
 
             editTextCantidad_ventas?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
@@ -132,17 +131,16 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
                     if (editable.toString().trim().isNotEmpty() &&
                         editable.toString().trim().isNotBlank()
                     ) {
-                        producto.id?.let { id ->
-                            try {
-                                setSubTotal(
-                                    id,
-                                    editTextCantidad_ventas?.text.toString().toInt(),
-                                    editTextPrecioVenta_ventas?.text.toString().toInt()
-                                )
-                            } catch (e: Exception) {
-                                Toast.makeText(context, context.getString(R.string.error_al_calcular), Toast.LENGTH_SHORT).show()
-                            }
+                        try {
+                            setSubTotal(
+                                producto.idProducto,
+                                editTextCantidad_ventas?.text.toString().toInt(),
+                                editTextPrecioVenta_ventas?.text.toString().toInt()
+                            )
+                        } catch (e: Exception) {
+                            Toast.makeText(context, context.getString(R.string.error_al_calcular), Toast.LENGTH_SHORT).show()
                         }
+
                     }
                 }
             })
@@ -156,17 +154,16 @@ class AdapterVentas(private var list: ArrayList<ProductoEntity>, private var con
                     if (editable.toString().trim().isNotEmpty() &&
                         editable.toString().trim().isNotBlank()
                     ) {
-                        producto.id?.let { id ->
-                            try {
-                                setSubTotal(
-                                    id,
-                                    editTextCantidad_ventas?.text.toString().toInt(),
-                                    editTextPrecioVenta_ventas?.text.toString().toInt()
-                                )
-                            } catch (e: Exception) {
-                                Toast.makeText(context, context.getString(R.string.error_al_calcular), Toast.LENGTH_SHORT).show()
-                            }
+                        try {
+                            setSubTotal(
+                                producto.idProducto,
+                                editTextCantidad_ventas?.text.toString().toInt(),
+                                editTextPrecioVenta_ventas?.text.toString().toInt()
+                            )
+                        } catch (e: Exception) {
+                            Toast.makeText(context, context.getString(R.string.error_al_calcular), Toast.LENGTH_SHORT).show()
                         }
+
                     }
 
                 }

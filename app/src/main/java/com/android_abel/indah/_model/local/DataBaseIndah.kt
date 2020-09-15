@@ -23,7 +23,7 @@ import com.android_abel.indah._model.local.venta.VentaEntity
         VentaEntity::class,
         ProductoVendidoEntity::class,
         ClienteEntity::class],
-    version = 10
+    version = 12
 )
 @TypeConverters(ConverterProductoVendido::class, ConverterDate::class)
 public abstract class DataBaseIndah : RoomDatabase() {
@@ -50,7 +50,8 @@ public abstract class DataBaseIndah : RoomDatabase() {
                     context.applicationContext,
                     DataBaseIndah::class.java,
                     "indah_database"
-                ).build()
+                ).fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }
