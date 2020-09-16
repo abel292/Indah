@@ -1,21 +1,20 @@
 package com.android_abel.indah._view_ui.adapters.historialVentas
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.cliente.ClienteEntity
-import com.android_abel.indah._model.local.producto.ProductoEntity
-import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 import com.android_abel.indah._model.local.venta.VentaEntity
-import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecycler
 import com.android_abel.indah._view_ui.adapters.base.BaseAdapterRecyclerTwo
-import com.android_abel.indah._view_ui.adapters.base.HolderBase
 import com.android_abel.indah._view_ui.adapters.base.HolderBaseTwo
-import kotlinx.android.synthetic.main.fragment_historial_ventas.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -117,10 +116,42 @@ class AdapterHistorial(
             }
             recyclerViewListaProductos?.adapter = adapterListaProductos
 
+            itemView.setOnClickListener {
+                if (recyclerViewListaProductos?.visibility == ViewGroup.VISIBLE) {
+                    textViewDescripcion?.let { it1 -> viewGoneAnimator(it1) }
+                    recyclerViewListaProductos?.let { it1 -> viewGoneAnimator(it1) }
+                } else {
+                    textViewDescripcion?.let { it1 -> viewVisibleAnimator(it1) }
+                    recyclerViewListaProductos?.let { it1 -> viewVisibleAnimator(it1) }
+                }
+            }
 
         }
 
+        private fun viewGoneAnimator(view: View) {
+            view.animate()
+                .alpha(0f)
+                .setDuration(500)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        view.visibility = View.GONE
+                    }
+                })
+        }
+
+        private fun viewVisibleAnimator(view: View) {
+            view.animate()
+                .alpha(1f)
+                .setDuration(500)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        view.visibility = VISIBLE
+                    }
+                })
+        }
+
     }
+
 
     fun filterList(filterdNames: List<VentaEntity>) {
         this.list = filterdNames
