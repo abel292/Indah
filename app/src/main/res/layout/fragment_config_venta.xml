@@ -149,6 +149,7 @@
                         android:backgroundTint="@color/colorPrimary"
                         android:clickable="false"
                         android:focusable="false"
+                        android:text="@string/efectivo"
                         android:textColor="@color/blanco"
                         android:focusableInTouchMode="false"
                         android:textColorHint="#0072BA"

@@ -26,4 +26,11 @@ class ClientesRepository(context: Context) {
     {
         return@withContext dao.getSingle(id)
     }
+
+
+    @WorkerThread
+    suspend fun getAll(): List<ClienteEntity>? = withContext(Dispatchers.Default)
+    {
+        return@withContext dao.getAll()
+    }
 }

@@ -13,8 +13,10 @@
         <action
             android:id="@+id/action_productosFragment_to_creacionProyectoFragment"
             app:destination="@id/creacionProyectoFragment"
-            app:enterAnim="@anim/slide_enter_up"
-            app:exitAnim="@anim/slide_exit_down" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
         <action
             android:id="@+id/action_productosFragment_to_visualizadorProductoFragment"
@@ -31,13 +33,25 @@
         tools:layout="@layout/fragment_gestion">
         <action
             android:id="@+id/action_gestionFragment_to_historialVentasFragment"
-            app:destination="@id/historialVentasFragment" />
+            app:destination="@id/historialVentasFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_gestionFragment_to_clientesFragment"
-            app:destination="@id/clientesFragment" />
+            app:destination="@id/clientesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_gestionFragment_to_ventasPorCobrarFragment"
-            app:destination="@id/ventasPorCobrarFragment" />
+            app:destination="@id/ventasPorCobrarFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/ventasFragment"
@@ -51,6 +65,10 @@
         <action
             android:id="@+id/action_ventasFragment_to_configVentaFragment"
             app:destination="@id/configVentaFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
@@ -104,9 +122,13 @@
         android:id="@+id/configVentaFragment"
         android:name="com.android_abel.indah._view_ui.fragments.configVenta.ConfigVentaFragment"
         android:label="fragment_config_venta"
-        tools:layout="@layout/fragment_config_venta" >
+        tools:layout="@layout/fragment_config_venta">
         <action
             android:id="@+id/action_configVentaFragment_to_ventasFragment"
-            app:destination="@id/ventasFragment" />
+            app:destination="@id/ventasFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 </navigation>

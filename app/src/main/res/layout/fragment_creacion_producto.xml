@@ -11,10 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="10dp">
+            android:padding="10dp"
+            app:layoutDescription="@xml/fragment_creacion_producto_xml_constraintlayout_scene">
 
             <ImageView
                 android:id="@+id/imageViewImageProducto"
@@ -211,9 +213,8 @@
 
             <ImageView
                 android:id="@+id/floatingActionButtonGuardar"
-                style="@style/styleEditText"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
+                android:layout_width="70dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:src="@drawable/ic_save"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -231,16 +232,17 @@
                 app:layout_constraintTop_toTopOf="@+id/imageViewImageProducto" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/textViewGuardarProducto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:textSize="20dp"
+                android:textSize="20sp"
+                style="@style/styleTextViewTitle"
                 app:layout_constraintBottom_toBottomOf="@+id/floatingActionButtonGuardar"
                 app:layout_constraintStart_toEndOf="@+id/floatingActionButtonGuardar"
                 app:layout_constraintTop_toTopOf="@+id/floatingActionButtonGuardar" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
     </androidx.core.widget.NestedScrollView>

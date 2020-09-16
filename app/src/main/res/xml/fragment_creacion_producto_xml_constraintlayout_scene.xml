@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+       <KeyFrameSet>
+       </KeyFrameSet>
+        <OnClick motion:targetId="@+id/floatingActionButtonGuardar" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            motion:layout_constraintTop_toBottomOf="@+id/editTextDescripcion_creacion_hint"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:id="@+id/floatingActionButtonGuardar"
+            motion:layout_constraintHorizontal_bias="1.0" />
+        <Constraint
+            android:id="@+id/textViewGuardarProducto"
+            motion:layout_constraintStart_toEndOf="@+id/floatingActionButtonGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/floatingActionButtonGuardar"
+            android:layout_marginStart="60dp"
+            motion:layout_constraintTop_toTopOf="@+id/floatingActionButtonGuardar">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="Guardar producto" />
+        </Constraint>
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/textViewGuardarProducto"
+            motion:layout_constraintStart_toEndOf="@+id/floatingActionButtonGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            motion:layout_constraintBottom_toBottomOf="@+id/floatingActionButtonGuardar"
+            android:layout_marginStart="0dp"
+            motion:layout_constraintTop_toTopOf="@+id/floatingActionButtonGuardar">
+            <CustomAttribute
+                motion:attributeName="text"
+                motion:customStringValue="Guardar producto" />
+        </Constraint>
+        <Constraint
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            motion:layout_constraintTop_toBottomOf="@+id/editTextDescripcion_creacion_hint"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            android:id="@+id/floatingActionButtonGuardar"
+            motion:layout_constraintHorizontal_bias="0.4" />
+    </ConstraintSet>
+</MotionScene>

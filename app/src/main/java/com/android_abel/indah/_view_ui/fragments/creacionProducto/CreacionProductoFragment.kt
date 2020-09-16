@@ -69,7 +69,7 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, 
 
     override fun initListeners() {
 
-        floatingActionButtonGuardar.setOnClickListener {
+        textViewGuardarProducto.setOnClickListener {
             if (validate()) {
                 val produtoNuevo = generateProducto()
 

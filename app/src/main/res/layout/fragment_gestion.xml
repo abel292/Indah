@@ -9,44 +9,76 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintPadre_gestion"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gestion">
 
         <TextView
             android:id="@+id/textViewHistorialVentas"
+            style="@style/styleTextViewFondoOscuroTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/historial_de_ventas"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toTopOf="@+id/textViewClientes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.13"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.25" />
 
         <TextView
             android:id="@+id/textViewClientes"
+            style="@style/styleTextViewFondoOscuroTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cliente"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@+id/textViewVentasPorCobrar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewHistorialVentas"
             app:layout_constraintTop_toBottomOf="@+id/textViewHistorialVentas"
             app:layout_constraintVertical_bias="0.39" />
 
         <TextView
             android:id="@+id/textViewVentasPorCobrar"
+            style="@style/styleTextViewFondoOscuroTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ventas_por_cobrar"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="32sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewClientes"
+            app:layout_constraintTop_toBottomOf="@+id/textViewClientes" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:src="@drawable/ic_history"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewHistorialVentas"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewHistorialVentas" />
+            app:tint="@color/blanco" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_client"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewClientes"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:tint="@color/blanco" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_list"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewVentasPorCobrar"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:tint="@color/blanco" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android_abel.indah.R
+import com.android_abel.indah._model.local.cliente.ClienteEntity
 import com.android_abel.indah._model.local.venta.VentaEntity
 import com.android_abel.indah._view_model.VentasViewModel
 import com.android_abel.indah._view_ui.adapters.historialVentas.AdapterHistorial
@@ -44,7 +45,13 @@ class HistorialVentasFragment : BaseFragment(), BasicMethods {
     }
 
     override fun initObservables() {
-        ventasViewModel.ventasLive.observe(viewLifecycleOwner, Observer {
+        ventasViewModel.ventasLive.observe(viewLifecycleOwner, Observer { listVentas ->
+            listVentas.sortedByDescending { it.fecha }
+            allVentas = listVentas
+            ventasViewModel.getAllCliente()
+        })
+
+        ventasViewModel.clientes.observe(viewLifecycleOwner, Observer {
             notifyRecyclerViewItems(it)
         })
     }
@@ -56,11 +63,11 @@ class HistorialVentasFragment : BaseFragment(), BasicMethods {
     override fun initListeners() {
     }
 
-    private fun notifyRecyclerViewItems(list: List<VentaEntity>) {
-        allVentas = list
+    private fun notifyRecyclerViewItems(clientes: ArrayList<ClienteEntity>) {
         mAdapter =
             AdapterHistorial(
-                list
+                requireContext(),
+                allVentas, clientes
             )
         recyclerViewHistorialVentas.adapter = mAdapter
     }

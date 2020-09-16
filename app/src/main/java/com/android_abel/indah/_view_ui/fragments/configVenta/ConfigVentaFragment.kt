@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.cliente.ClienteEntity
+import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 import com.android_abel.indah._model.local.venta.VentaEntity
 import com.android_abel.indah._view_model.VentasViewModel
 import com.android_abel.indah._view_ui.adapters.clientes.AdapterClientes
@@ -36,6 +37,8 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
     var clienteSeleccionado: ClienteEntity? = null
     lateinit var clientes: List<ClienteEntity>
     lateinit var venta: VentaEntity
+    var carrito: ArrayList<ProductoVendidoEntity>? = null//inicia una vez
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -86,6 +89,7 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
             }
             textViewTotalVenta.text = total.toString()
             textViewDeudaRestante.text = total.toString()
+            carrito = it
 
         })
     }
@@ -211,6 +215,7 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
         val radioId = radioGroup.checkedRadioButtonId
         val radioButton = fragmentView.findViewById<RadioButton>(radioId)
         edittextFormaPago_venta.setText(radioButton.text ?: "")
+        contentSelectFormaPago.visibility = View.GONE
         Toast.makeText(mContext, radioButton.text, Toast.LENGTH_SHORT).show()
     }
 
@@ -230,7 +235,7 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
         return if (validateForms()) {
             venta = VentaEntity()
             //falta la lista de vendidos
-            //venta.productosVendidos = mAdapter.listaVendido
+            venta.productosVendidoEntities = carrito
             venta.total = textViewTotalVenta.text.toString().toInt()
             venta.descripcion = edittextDescripcion_venta.text.toString()
             venta.formaDePago = edittextFormaPago_venta.text.toString()

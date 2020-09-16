@@ -54,4 +54,5 @@
     <string name="producto_ya_agregado">Este producto ya esta agregado</string>
     <string name="error_creacion_venta">Ocurrio un error al crear la venta!</string>
     <string name="venta_exitosa">Venta realizada con exito!</string>
+    <string name="no_se_escaneo_codigo">No se pudo escanear codigo</string>
 </resources>

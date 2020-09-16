@@ -3,8 +3,6 @@ package com.android_abel.indah._view_model
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.android_abel.indah.IndahApplication
-import com.android_abel.indah.R
 import com.android_abel.indah._model.local.cliente.ClienteEntity
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
@@ -16,6 +14,13 @@ import com.android_abel.indah._model.repositories.VentasRepository
 import com.android_abel.indah._view_ui.adapters.historialVentas.PreviewHistorialVenta
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.forEach
+import kotlin.collections.isNullOrEmpty
+
 
 class VentasViewModel(application: Application) : BaseViewModel(application) {
 
@@ -29,11 +34,13 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
     val clientesLive: LiveData<List<ClienteEntity>> = clientesRepository.clientesLive
     val ventasLive: LiveData<List<VentaEntity>> = repositoryVentas.allVentasEntity
     val carrito = MutableLiveData<ArrayList<ProductoVendidoEntity>>()
+    val clientes = MutableLiveData<ArrayList<ClienteEntity>>()
     val previewHistorialVentaLive: LiveData<List<PreviewHistorialVenta>> = MutableLiveData()
 
 
     fun insertVenta(venta: VentaEntity) {
         GlobalScope.launch {
+            venta.fecha = getDateToday()
             repositoryVentas.insertLocal(venta)
             actualizarInventario(venta)
         }
@@ -68,6 +75,20 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+
+    fun getAllCliente() {
+        GlobalScope.launch {
+            val clienteEntity = clientesRepository.getAll()
+            val arrayList= ArrayList<ClienteEntity>()
+
+            clienteEntity?.forEach {
+                arrayList.add(it)
+            }
+            clientes.postValue(arrayList)
+        }
+    }
+
+
     //TODO CARRITO
 
     fun getCarrito() {
@@ -100,20 +121,25 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
 
     fun deleteItemCarrito(producto: ProductoVendidoEntity) {
         GlobalScope.launch {
-                carritoRepository.deleteItemCarrito(producto.idProducto)
+            carritoRepository.deleteItemCarrito(producto.idProducto)
         }
     }
 
     fun insertCarrito(producto: ProductoVendidoEntity) {
         GlobalScope.launch {
-                carritoRepository.insert(producto)
+            carritoRepository.insert(producto)
         }
     }
+
     fun clearCarrito() {
         GlobalScope.launch {
-                carritoRepository.clearCarrito()
+            carritoRepository.clearCarrito()
         }
     }
 
-
+    //todo customs
+    private fun getDateToday(): Date {
+        val c: Date = Calendar.getInstance().time
+        return c
+    }
 }

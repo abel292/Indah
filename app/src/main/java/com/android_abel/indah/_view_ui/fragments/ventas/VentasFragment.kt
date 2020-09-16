@@ -111,6 +111,10 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
             it.goTo(R.id.action_ventasFragment_to_configVentaFragment)
         }
 
+        imageViewScan.setOnClickListener {
+            openScaner(this)
+        }
+
 
         //TODO listeners
 
@@ -254,15 +258,11 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     override fun onDropRitgh() {
-        showToast("right")
         openScaner(this)
-
     }
 
     override fun onDropLeft() {
-        showToast("left")
         searchWithKeyboard()
-
     }
 
     override fun positionInitial(v: View) {
@@ -273,6 +273,7 @@ class VentasFragment : BaseFragmentRecycler(), BasicMethods,
     }
 
     override fun codeNoFound() {
+        mActivity?.showSnackBar(getString(R.string.no_se_escaneo_codigo))
     }
 
     private fun searchWithKeyboard() {

@@ -77,7 +77,6 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_icon_search"
-            android:tint="@color/blanco"
             app:layout_constraintBottom_toTopOf="@+id/floatingActionButtonAddProducto"
             app:layout_constraintEnd_toEndOf="@+id/floatingActionButtonAddProducto" />
 
