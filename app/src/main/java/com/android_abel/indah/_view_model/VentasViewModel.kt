@@ -91,6 +91,7 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
 
     fun updateCarrito(productos: ArrayList<ProductoVendidoEntity>) {
         GlobalScope.launch {
+            carritoRepository.clearCarrito()
             productos.forEach {
                 carritoRepository.updatetLocal(it)
             }
@@ -106,6 +107,11 @@ class VentasViewModel(application: Application) : BaseViewModel(application) {
     fun insertCarrito(producto: ProductoVendidoEntity) {
         GlobalScope.launch {
                 carritoRepository.insert(producto)
+        }
+    }
+    fun clearCarrito() {
+        GlobalScope.launch {
+                carritoRepository.clearCarrito()
         }
     }
 

@@ -40,6 +40,7 @@ class HomeActivity : BaseActivity() {
     private var animProgress: Float = 0f
     private var viewOnClicked: View? = null
 
+    var configVentas = false
     val viewModelActivity by lazy {
         ViewModelProviders.of(this).get(HomeViewModel::class.java)
     }
@@ -176,8 +177,10 @@ class HomeActivity : BaseActivity() {
                 super.onBackPressed()
             }
         } else {
+
             Toast.makeText(this, "fin animacion", Toast.LENGTH_SHORT).show()
         }
+
 
     }
 

@@ -15,6 +15,11 @@
         <item name="android:backgroundTint">@color/colorUno</item>
     </style>
 
+    <style name="styleEditTextForm" parent="Widget.AppCompat.EditText">
+        <item name="android:fontFamily">@font/champagne_limousines_bold</item>
+        <item name="android:background">@color/blanco</item>
+    </style>
+
     <style name="styleTextView" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/champagne_limousines</item>
     </style>

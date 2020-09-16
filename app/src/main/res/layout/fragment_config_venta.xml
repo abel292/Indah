@@ -56,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/blanco"
+                android:checked="true"
                 android:text="@string/por_cobrar" />
 
             <RadioButton
@@ -91,6 +92,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/colorUno"
                         android:inputType="number"
+                        android:text="0"
                         android:textColorHint="@color/blanco"
                         app:hintTextColor="@color/blanco" />
 
@@ -147,6 +149,7 @@
                         android:backgroundTint="@color/colorPrimary"
                         android:clickable="false"
                         android:focusable="false"
+                        android:textColor="@color/blanco"
                         android:focusableInTouchMode="false"
                         android:textColorHint="#0072BA"
                         android:theme="@style/styleEditTextFondoOscuroTitle" />
@@ -201,35 +204,92 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/fondoItemHistorial"
+                android:layout_margin="10dp"
+                android:id="@+id/contenedorPadre_item_view_client"
+                android:visibility="gone"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textViewCliente_cliente"
+                    style="@style/styleTextViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cliente"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/imageViewQuitClient"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewDescripcion_cliente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:maxLength="30"
+                    android:text="ejemplo, ejemplo2, ejem..."
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textViewCliente_cliente"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewCliente_cliente" />
+
+                <ImageView
+                    android:id="@+id/imageViewQuitClient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/ic_delete" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewClientes_ventas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible" />
+                tools:itemCount="1"
+                tools:listitem="@layout/item_view_client_fragment_client"
+               />
 
-            <LinearLayout
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorUno"
+            android:orientation="horizontal"
+            android:elevation="150dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/buttonTerminarVenta"
+                style="@style/styleTextViewFondoOscuroTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorUno"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="@string/terminar_venta"
+                android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/buttonTerminarVenta"
-                    style="@style/styleTextViewFondoOscuroTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:text="@string/terminar_venta"
-                    android:textSize="25sp" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="5"
-                    android:src="@drawable/ic_saled" />
-
-            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:src="@drawable/ic_saled" />
 
         </LinearLayout>
 

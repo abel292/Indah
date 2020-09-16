@@ -2,6 +2,7 @@ package com.android_abel.indah._view_ui.adapters.productos
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,10 +15,11 @@ import com.android_abel.indah._view_ui.adapters.ventas.OnListenerItemRecyclerVie
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_ventas.*
 
-class AdapterProductos(var context: Context, private var list: List<ProductoEntity>,var recyclerView: RecyclerView) :
+class AdapterProductos(var context: Context, lista: List<ProductoEntity>, var recyclerView: RecyclerView) :
     BaseAdapterRecycler<ProductoEntity>() {
 
     lateinit var listener: OnListenerItemRecyclerView<ProductoEntity>
+    var list = lista
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -87,8 +89,10 @@ class AdapterProductos(var context: Context, private var list: List<ProductoEnti
 
     fun filterList(filterdNames: List<ProductoEntity>) {
         this.list = filterdNames
-        notifyDataSetChanged()
         recyclerView.scrollBy(0, 0)
+        recyclerView.visibility = View.VISIBLE
+        notifyDataSetChanged()
+
     }
 
 }

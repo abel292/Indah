@@ -16,7 +16,7 @@ import com.android_abel.indah._view_ui.base.FileListener
 import com.android_abel.indah.utils.CustomsConstantes
 import com.android_abel.indah.utils.extensiones.functionWithParams
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_creacion_proyecto.*
+import kotlinx.android.synthetic.main.fragment_creacion_producto.*
 
 
 class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, FileListener {
@@ -32,7 +32,7 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentView = inflater.inflate(R.layout.fragment_creacion_proyecto, container, false)
+        fragmentView = inflater.inflate(R.layout.fragment_creacion_producto, container, false)
         return fragmentView
     }
 
@@ -95,13 +95,13 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, 
     }
 
     private fun validate(): Boolean {
-        return (editTextNombreProducto_creacion.text.isNotEmpty()
-                && editTextCodigoProducto_creacion.text.isNotEmpty()
-                && editTextCantidad_creacion.text.isNotEmpty()
-                && editTextCantidadReserva_creacion.text.isNotEmpty()
-                && editTextPrecioCompra_creacion.text.isNotEmpty()
-                && editTextPrecioVenta_creacion.text.isNotEmpty()
-                && editTextDescripcion_creacion.text.isNotEmpty())
+        return (editTextNombreProducto_creacion.text?.isNotEmpty() ?: false
+                && editTextCodigoProducto_creacion.text?.isNotEmpty() ?: false
+                && editTextCantidad_creacion.text?.isNotEmpty() ?: false
+                && editTextCantidadReserva_creacion.text?.isNotEmpty() ?: false
+                && editTextPrecioCompra_creacion.text?.isNotEmpty() ?: false
+                && editTextPrecioVenta_creacion.text?.isNotEmpty() ?: false
+                && editTextDescripcion_creacion.text?.isNotEmpty() ?: false)
     }
 
     private fun generateProducto(): ProductoEntity {

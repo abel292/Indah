@@ -21,8 +21,6 @@ class AdapterVentas(private var list: ArrayList<ProductoVendidoEntity>, private 
     lateinit var listenerCarrito: ListenerCarrito
     lateinit var listenerConfigVenta: ConfigVentaListener
 
-    var listaVendido = list
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VentasViewHolder {
         val inflater = LayoutInflater.from(parent.context)
 
@@ -31,22 +29,32 @@ class AdapterVentas(private var list: ArrayList<ProductoVendidoEntity>, private 
             parent,
             context,
             list,
-            listaVendido,
             listenerCarrito,
             listenerConfigVenta
         )
     }
 
     fun addProducto(producto: ProductoVendidoEntity) {
-        list.add(0, producto)
-        listaVendido.add(0, producto)
-        notifyItemInserted(0)
-        recyclerView?.scrollBy(0, 0)
+
+        var esta = false
+        var position = 0
+        list.forEach {
+            if (it.idProducto == producto.idProducto) {
+                esta = true
+            }
+            position++
+        }
+        if (esta) {
+            listenerCarrito.itemYaAgregado(producto, position)
+        } else {
+            list.add(0, producto)
+            notifyItemInserted(0)
+            recyclerView?.scrollBy(0, 0)
+        }
     }
 
     fun deleteProducto(producto: ProductoVendidoEntity, position: Int) {
         list.remove(producto)
-        listaVendido.removeAt(position)
         notifyItemRemoved(position)
         notifyDataSetChanged()
         recyclerView?.scrollBy(0, 0)
@@ -74,7 +82,6 @@ class AdapterVentas(private var list: ArrayList<ProductoVendidoEntity>, private 
         parent: ViewGroup,
         var context: Context,
         var list: ArrayList<ProductoVendidoEntity>,
-        var listVendidoEntity: ArrayList<ProductoVendidoEntity>,
         var listenerCarrito: ListenerCarrito,
         var configVentaListener: ConfigVentaListener
     ) :
@@ -105,15 +112,14 @@ class AdapterVentas(private var list: ArrayList<ProductoVendidoEntity>, private 
         }
 
         fun bind(producto: ProductoVendidoEntity, position: Int) {
-            var itemVendido = listVendidoEntity[position]
 
             textViewNombreProducto_itemVenta?.text = producto.nameProducto
 
             imageButtonRemoveItemCarrito?.setOnClickListener {
                 listenerCarrito.removeItem(producto, position)
             }
-            editTextCantidad_ventas?.setText(listVendidoEntity[position].cantidad.toString())
-            editTextPrecioVenta_ventas?.setText(listVendidoEntity[position].precioVenta.toString())
+            editTextCantidad_ventas?.setText(list[position].cantidad.toString())
+            editTextPrecioVenta_ventas?.setText(list[position].precioVenta.toString())
 
             setSubTotal(
                 producto.idProducto,
@@ -177,7 +183,7 @@ class AdapterVentas(private var list: ArrayList<ProductoVendidoEntity>, private 
             textViewSubTotal?.text = subTotal.toString()
 
             //modifico este para guardarlo en productos vendidos
-            listVendidoEntity.forEach {
+            list.forEach {
                 if (idProducto == it.idProducto) {
                     it.subTotal = textViewSubTotal?.text.toString().toInt()
                     it.cantidad = editTextCantidad_ventas?.text.toString().toInt()
@@ -189,7 +195,7 @@ class AdapterVentas(private var list: ArrayList<ProductoVendidoEntity>, private 
         }
 
         private fun generateVentas() {
-            configVentaListener.compilandoProductosCarrito(listVendidoEntity)
+            configVentaListener.compilandoProductosCarrito(list)
         }
         //PEQUEÑO PROBLEMA QUE NO ACTUALIZA EL SUBTOTAL CUANDO MODIFICO LUEGO DE AGREGAR UN 2DO PRODUCTO
     }

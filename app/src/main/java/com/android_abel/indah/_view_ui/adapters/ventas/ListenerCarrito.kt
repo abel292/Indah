@@ -7,4 +7,5 @@ import java.text.ParsePosition
 interface ListenerCarrito {
 
     fun removeItem(productoEntity: ProductoVendidoEntity, position: Int)
+    fun itemYaAgregado(productoEntity: ProductoVendidoEntity, position: Int)
 }

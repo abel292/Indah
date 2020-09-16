@@ -51,4 +51,7 @@
     <string name="tarjeta">Tarjeta</string>
     <string name="otra_forma_de_pago">Otra forma de pago</string>
     <string name="error_cargar_productos">Error al cargar la lista de productos</string>
+    <string name="producto_ya_agregado">Este producto ya esta agregado</string>
+    <string name="error_creacion_venta">Ocurrio un error al crear la venta!</string>
+    <string name="venta_exitosa">Venta realizada con exito!</string>
 </resources>

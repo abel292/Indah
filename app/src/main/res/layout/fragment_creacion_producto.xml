@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="._view_ui.fragments.creacionProducto.CreacionProductoFragment">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imageViewImageProducto"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_launcher_foreground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextNombreProducto_creacion_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="184dp"
+                android:background="@color/blanco"
+                android:ems="10"
+                android:hint="@string/nombre"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNombreProducto_creacion"
+                    style="@style/styleEditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/blanco"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextCodigoProducto_creacion_hint"
+                style="@style/styleEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:ems="10"
+                android:hint="@string/codigo"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toStartOf="@+id/floatingActionButtonScanner_creationProducto"
+                app:layout_constraintStart_toStartOf="@+id/editTextNombreProducto_creacion_hint"
+                app:layout_constraintTop_toBottomOf="@+id/editTextNombreProducto_creacion_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCodigoProducto_creacion"
+                    style="@style/styleEditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/blanco"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <ImageView
+                android:id="@+id/floatingActionButtonScanner_creationProducto"
+                style="@style/styleEditText"
+                android:layout_width="45dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/colorUno"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_scan"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextCodigoProducto_creacion_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/editTextCodigoProducto_creacion_hint"
+                app:tint="@android:color/tab_indicator_text" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextCantidad_creacion_hint"
+                style="@style/styleEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="@string/cantidad"
+                android:inputType="numberSigned"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/editTextCodigoProducto_creacion_hint"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCodigoProducto_creacion_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCantidad_creacion"
+                    style="@style/styleEditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/blanco"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextCantidadReserva_creacion_hint"
+                style="@style/styleEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="@string/cantidad_reserva"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/editTextCantidad_creacion_hint"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCantidad_creacion_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextCantidadReserva_creacion"
+                    style="@style/styleEditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/blanco"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPrecioCompra_creacion_hint"
+                style="@style/styleEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="@string/precio_compra"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/editTextCantidadReserva_creacion_hint"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCantidadReserva_creacion_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPrecioCompra_creacion"
+                    style="@style/styleEditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/blanco"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextPrecioVenta_creacion_hint"
+                style="@style/styleEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="@string/precio_venta"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/editTextPrecioCompra_creacion_hint"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPrecioCompra_creacion_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPrecioVenta_creacion"
+                    style="@style/styleEditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/blanco"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/editTextDescripcion_creacion_hint"
+                style="@style/styleEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="@string/descripcion"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/editTextPrecioVenta_creacion_hint"
+                app:layout_constraintTop_toBottomOf="@+id/editTextPrecioVenta_creacion_hint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextDescripcion_creacion"
+                    style="@style/styleEditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/blanco"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/floatingActionButtonGuardar"
+                style="@style/styleEditText"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDescripcion_creacion_hint" />
+
+            <ImageView
+                android:id="@+id/imageViewSelectPhoto"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="28dp"
+                android:src="@drawable/ic_addimage"
+                app:layout_constraintEnd_toEndOf="@+id/imageViewImageProducto"
+                app:layout_constraintTop_toTopOf="@+id/imageViewImageProducto" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/floatingActionButtonGuardar"
+                app:layout_constraintStart_toEndOf="@+id/floatingActionButtonGuardar"
+                app:layout_constraintTop_toTopOf="@+id/floatingActionButtonGuardar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

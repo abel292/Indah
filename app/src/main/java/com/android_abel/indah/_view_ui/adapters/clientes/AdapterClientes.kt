@@ -69,8 +69,6 @@ class AdapterClientes(var context: Context, var list: List<ClienteEntity>, var r
             itemView.setOnClickListener {
                 listener?.onClickItem(client, position)
                 listenerSecond?.onClickItemSecondListener(client, position)
-                contenedorPadre_item_view_client?.setBackgroundColor(ContextCompat.getColor(context, R.color.verdeSelectedClient));
-
             }
 
             imageViewQuitClient?.setOnClickListener {

@@ -20,6 +20,7 @@ import com.android_abel.indah._view_model.VentasViewModel
 import com.android_abel.indah._view_ui.adapters.clientes.AdapterClientes
 import com.android_abel.indah._view_ui.adapters.ventas.OnSecondListenerItemRecyclerView
 import com.android_abel.indah._view_ui.base.BaseFragment
+import com.android_abel.indah.utils.extensiones.postDelayed
 import kotlinx.android.synthetic.main.fragment_config_venta.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,6 +36,7 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
     var clienteSeleccionado: ClienteEntity? = null
     lateinit var clientes: List<ClienteEntity>
     lateinit var venta: VentaEntity
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -58,19 +60,38 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
         initListeners()
     }
 
-    fun initArgument(){
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        try {
+            ventasViewModel.getCarrito()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun initArgument() {
 
     }
 
     override fun initObservables() {
+
         ventasViewModel.clientesLive.observe(viewLifecycleOwner, Observer {
             notifyRecyclerViewSearchClientes(it)
+        })
+
+        ventasViewModel.carrito.observe(viewLifecycleOwner, Observer {
+            var total = 0
+            it.forEach { producto ->
+                total += producto.subTotal
+            }
+            textViewTotalVenta.text = total.toString()
+            textViewDeudaRestante.text = total.toString()
+
         })
     }
 
     override fun init() {
-        recyclerViewClientes_ventas.layoutManager = LinearLayoutManager(mContext)
-
+        showListClientsSearch()
 
     }
 
@@ -89,6 +110,14 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
             val venta = generateVenta()
             if (venta != null) {
                 ventasViewModel.insertVenta(venta)
+                mActivity?.showSnackBar(getString(R.string.venta_exitosa))
+                postDelayed(3000) {
+                    ventasViewModel.clearCarrito()
+                    it.goTo(R.id.action_configVentaFragment_to_ventasFragment)
+                }
+
+            } else {
+                mActivity?.showSnackBar(getString(R.string.error_creacion_venta))
             }
         }
 
@@ -158,6 +187,7 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
         clientes = list
         mAdapterBuscarCliente = AdapterClientes(mContext, list, recyclerViewClientes_ventas)
         mAdapterBuscarCliente.listenerSecond = this
+        recyclerViewClientes_ventas.layoutManager = LinearLayoutManager(mContext)
         recyclerViewClientes_ventas.adapter = mAdapterBuscarCliente
     }
 
@@ -180,6 +210,7 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
     fun checkButton(v: View?) {
         val radioId = radioGroup.checkedRadioButtonId
         val radioButton = fragmentView.findViewById<RadioButton>(radioId)
+        edittextFormaPago_venta.setText(radioButton.text ?: "")
         Toast.makeText(mContext, radioButton.text, Toast.LENGTH_SHORT).show()
     }
 
@@ -205,7 +236,6 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
             venta.formaDePago = edittextFormaPago_venta.text.toString()
             venta.idCliente = clienteSeleccionado?.id ?: -1
             venta.pagado = radioButtonPagado.isChecked
-
             venta
         } else {
             null
@@ -213,7 +243,7 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
     }
 
     private fun validateForms(): Boolean {
-        return (!edittextCliente_venta.text.isNullOrEmpty())
+        return (clienteSeleccionado != null && !edittextFormaPago_venta.text.isNullOrEmpty())
     }
 
     fun modeVentaPorCobrar() {
@@ -228,7 +258,18 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
 
     fun seccionarCliente(clienteEntity: ClienteEntity) {
         clienteSeleccionado = clienteEntity
-        Toast.makeText(mContext, "cliente seleccionado: $clienteEntity", Toast.LENGTH_SHORT).show()
+        contenedorPadre_item_view_client.visibility = View.VISIBLE
+        textViewCliente_cliente.text = clienteEntity.nombre
+        textViewDescripcion_cliente.text = clienteEntity.direccion
+        val listaConClienteSeleccionado = ArrayList<ClienteEntity>()
+        //listaConClienteSeleccionado.add(clienteEntity)
+        mAdapterBuscarCliente.list = listaConClienteSeleccionado
+        mAdapterBuscarCliente.notifyDataSetChanged()
+        recyclerViewClientes_ventas.scrollBy(0, 0)
+
         //edittextCliente_venta.setText(clienteSeleccionado?.nombre?.toUpperCase())
+    }
+
+    fun pupulateViewInit() {
     }
 }
