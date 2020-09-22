@@ -82,7 +82,7 @@ class AdapterHistorial(
         override fun bind(venta: VentaEntity, position: Int) {
         }
 
-        override fun bind(venta: VentaEntity, cliente: ClienteEntity, position: Int) {
+        override fun bind(venta: VentaEntity, cliente: ClienteEntity?, position: Int) {
 
 
             textViewCliente_hsitorial?.text = venta.idCliente.toString()
@@ -102,7 +102,7 @@ class AdapterHistorial(
                 val df = SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault())
                 fecha = df.format(dateVenta)
             }
-            textViewCliente_hsitorial?.text = cliente.nombre ?: ""
+            textViewCliente_hsitorial?.text = cliente?.nombre ?: ""
             textViewFechaVenta_historial?.text = fecha
             textViewDescripcion?.text = venta.descripcion ?: ""
 

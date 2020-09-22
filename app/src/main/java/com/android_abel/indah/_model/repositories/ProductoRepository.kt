@@ -14,13 +14,14 @@ class ProductoRepository(context: Context) {
 
     var database = DataBaseIndah.getDatabase(context)
     var productoDao = database.productoDao()
-
     val productosLive: LiveData<List<ProductoEntity>> = productoDao.getProductosLive()
+    val firebaseRepository = FirebaseRepository(context)
 
 
     @WorkerThread
     suspend fun insertProducto(productoEntity: ProductoEntity) = withContext(Dispatchers.IO) {
         productoDao.insert(productoEntity)
+        firebaseRepository.registrarProducto(productoEntity)
     }
 
     @WorkerThread

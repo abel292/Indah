@@ -202,9 +202,11 @@ class ConfigVentaFragment : BaseFragment(), OnSecondListenerItemRecyclerView<Cli
         if (!clientes.isNullOrEmpty())
             for (cliente in clientes) {
                 val nombre = cliente.nombre
-                if (nombre.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                    if (filterdNames.size < 2)
-                        filterdNames.add(cliente)
+                if (nombre != null) {
+                    if (nombre.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+                        if (filterdNames.size < 2)
+                            filterdNames.add(cliente)
+                    }
                 }
             }
         mAdapterBuscarCliente.filterList(filterdNames)

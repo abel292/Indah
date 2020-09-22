@@ -47,8 +47,7 @@
                     style="@style/styleEditTextForm"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/blanco"
-                    android:inputType="number" />
+                    android:background="@color/blanco" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -206,8 +205,7 @@
                     style="@style/styleEditTextForm"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/blanco"
-                    android:inputType="number" />
+                    android:background="@color/blanco" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

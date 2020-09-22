@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/textViewHistorialVentas"
-            style="@style/styleTextViewFondoOscuroTitle"
+            style="@style/styleTextViewNormalFondoOscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/historial_de_ventas"
@@ -24,11 +24,11 @@
             app:layout_constraintHorizontal_bias="0.13"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintVertical_bias="0.060000002" />
 
         <TextView
             android:id="@+id/textViewClientes"
-            style="@style/styleTextViewFondoOscuroTitle"
+            style="@style/styleTextViewNormalFondoOscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cliente"
@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/textViewVentasPorCobrar"
-            style="@style/styleTextViewFondoOscuroTitle"
+            style="@style/styleTextViewNormalFondoOscuro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ventas_por_cobrar"

@@ -38,6 +38,13 @@
         <item name="android:textColorHint">@color/blanco</item>
 
     </style>
+    <style name="styleTextViewNormalFondoOscuro" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/champagne_limousines</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textColorHint">@color/blanco</item>
+
+    </style>
 
 
     <style name="styleEditTextFondoOscuroTitle" parent="android:Widget.TextView">

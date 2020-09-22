@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintPadre_historial"
         android:layout_width="match_parent"
+        android:background="#EAC3C3"
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView

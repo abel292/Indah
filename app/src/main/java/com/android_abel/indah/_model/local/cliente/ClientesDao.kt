@@ -1,10 +1,8 @@
 package com.android_abel.indah._model.local.cliente
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.android_abel.indah._model.local.productoCarrito.ProductoVendidoEntity
 
 @Dao
 interface ClientesDao {
@@ -20,5 +18,8 @@ interface ClientesDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(cliente: ClienteEntity)
+
+    @Delete
+    fun remove(cliente: ClienteEntity)
 
 }

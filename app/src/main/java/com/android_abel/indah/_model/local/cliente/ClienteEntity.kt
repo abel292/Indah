@@ -12,15 +12,15 @@ class ClienteEntity() {
     var id: Int? = null
 
     @ColumnInfo(name = "nombre")
-    lateinit var nombre: String
+    var nombre: String? = null
 
     @ColumnInfo(name = "celular")
-    lateinit var celular: String
+    var celular: String? = null
 
     @ColumnInfo(name = "direccion")
-    lateinit var direccion: String
+    var direccion: String? = null
 
     @ColumnInfo(name = "infoAdicional")
-    lateinit var infoAdicional: String
+    var infoAdicional: String? = null
 
 }

@@ -20,6 +20,10 @@ class ClientesRepository(context: Context) {
     suspend fun insert(clienteEntity: ClienteEntity) = withContext(Dispatchers.IO) {
         dao.insert(clienteEntity)
     }
+    @WorkerThread
+    suspend fun delete(clienteEntity: ClienteEntity) = withContext(Dispatchers.IO) {
+        dao.remove(clienteEntity)
+    }
 
     @WorkerThread
     suspend fun getClienteWithID(id: Int): ClienteEntity? = withContext(Dispatchers.Default)

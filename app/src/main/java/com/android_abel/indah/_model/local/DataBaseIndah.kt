@@ -23,7 +23,7 @@ import com.android_abel.indah._model.local.venta.VentaEntity
         VentaEntity::class,
         ProductoVendidoEntity::class,
         ClienteEntity::class],
-    version = 12
+    version = 13
 )
 @TypeConverters(ConverterProductoVendido::class, ConverterDate::class)
 public abstract class DataBaseIndah : RoomDatabase() {

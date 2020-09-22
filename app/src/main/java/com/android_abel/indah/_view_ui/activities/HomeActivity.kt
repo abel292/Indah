@@ -22,6 +22,7 @@ import com.android_abel.indah._view_ui.fragments.gestion.GestionFragment
 import com.android_abel.indah._view_ui.fragments.productos.ProductosFragment
 import com.android_abel.indah._view_ui.fragments.ventas.VentasFragment
 import com.android_abel.indah.utils.CustomsConstantes
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.activity_home.*
 
 
@@ -49,7 +50,6 @@ class HomeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         initObservables()
         init()
         initListeners()

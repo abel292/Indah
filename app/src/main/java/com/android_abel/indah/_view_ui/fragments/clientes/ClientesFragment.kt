@@ -16,11 +16,12 @@ import com.android_abel.indah._view_model.ClientesViewModel
 import com.android_abel.indah._view_model.CreacionProductoViewModel
 import com.android_abel.indah._view_ui.adapters.clientes.AdapterClientes
 import com.android_abel.indah._view_ui.adapters.ventas.OnListenerItemRecyclerView
+import com.android_abel.indah._view_ui.adapters.ventas.OnSecondListenerItemRecyclerView
 import com.android_abel.indah._view_ui.base.BaseFragment
 import com.android_abel.indah._view_ui.base.BasicMethods
 import kotlinx.android.synthetic.main.fragment_clientes.*
 
-class ClientesFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerView<ClienteEntity> {
+class ClientesFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerView<ClienteEntity>, OnSecondListenerItemRecyclerView<ClienteEntity> {
 
     //adapters
     lateinit var mAdapter: AdapterClientes
@@ -73,11 +74,21 @@ class ClientesFragment : BaseFragment(), BasicMethods, OnListenerItemRecyclerVie
         clientes = list
         mAdapter = AdapterClientes(mContext, list, recyclerViewClientes)
         mAdapter.listener = this
+        mAdapter.listenerSecond = this
         recyclerViewClientes.adapter = mAdapter
     }
 
     override fun onClickItem(objects: ClienteEntity, position: Int) {
 
+    }
+
+    override fun onClickItemSecondListener(objects: ClienteEntity, position: Int) {
+
+    }
+
+    override fun removeItem(objects: ClienteEntity, position: Int) {
+        showToast("clic : $objects")
+        viewModel.delete(objects)
     }
 
 }

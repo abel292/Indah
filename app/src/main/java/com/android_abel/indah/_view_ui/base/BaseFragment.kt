@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,7 +24,6 @@ import androidx.navigation.findNavController
 import com.android_abel.indah.R
 import com.android_abel.indah._model.local.producto.ProductoEntity
 import com.android_abel.indah._model.local.venta.VentaEntity
-import com.android_abel.indah._view_model.BaseViewModel
 import com.android_abel.indah._view_ui.activities.EscanerActivity
 import com.android_abel.indah._view_ui.activities.HomeActivity
 import com.android_abel.indah._view_ui.fragments.productos.ProductosFragment
@@ -31,8 +32,12 @@ import com.android_abel.indah.utils.CustomsConstantes.Companion.EXTRAS_CODIGO_ES
 import com.android_abel.indah.utils.CustomsConstantes.Companion.EXTRAS_SELECT_IMGAE
 import com.android_abel.indah.utils.CustomsConstantes.Companion.REQUEST_CODE_SCANNER
 import com.phelat.navigationresult.BundleFragment
+import java.io.BufferedInputStream
 import java.io.File
 import java.io.IOException
+import java.io.InputStream
+import java.net.URL
+import java.net.URLConnection
 
 
 abstract class BaseFragment : BundleFragment(), BasicMethods {
@@ -46,10 +51,16 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
     lateinit var escanerListener: EscanerListener
     var fileListener: FileListener? = null
 
+    private var filePath: Uri? = null
+
 
     companion object {
         const val REQUEST_CODE_COORD_MAP = 1000
         const val REQUEST_CODE_FINISH_CREATION_PROJECT = 1234
+
+        // request code
+        private const val PICK_IMAGE_REQUEST = 22
+
 
     }
 
@@ -106,11 +117,12 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
-    fun desactivarBackPressed(){
-        mActivity?.backPressedEnable =false
+    fun desactivarBackPressed() {
+        mActivity?.backPressedEnable = false
     }
-    fun activarBackPressed(){
-        mActivity?.backPressedEnable =true
+
+    fun activarBackPressed() {
+        mActivity?.backPressedEnable = true
     }
 
     fun onBackPressed() {
@@ -194,6 +206,18 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
         }
     }
 
+    // Select Image method
+    fun SelectImage(fileListener: FileListener) {
+
+        this.fileListener = fileListener
+        val i = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
+
+        startActivityForResult(i, PICK_IMAGE_REQUEST)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_SCANNER) {
@@ -212,6 +236,21 @@ abstract class BaseFragment : BundleFragment(), BasicMethods {
             }
 
         }
+
+        if (requestCode == PICK_IMAGE_REQUEST) {
+            val selectedImage = data!!.data
+            if (selectedImage != null) {
+                val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, selectedImage))
+                } else {
+                    MediaStore.Images.Media.getBitmap(requireContext().contentResolver, selectedImage)
+                }
+                fileListener?.imageUriSelectedFromGallery(bitmap)
+            }
+
+        }
+
     }
+
 
 }

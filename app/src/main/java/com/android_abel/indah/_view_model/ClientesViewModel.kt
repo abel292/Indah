@@ -18,4 +18,9 @@ class ClientesViewModel(application: Application) : BaseViewModel(application) {
             clientesRepository.insert(clienteEntity)
         }
     }
+    fun delete(clienteEntity: ClienteEntity) {
+        GlobalScope.launch {
+            clientesRepository.delete(clienteEntity)
+        }
+    }
 }

@@ -12,5 +12,5 @@ abstract class HolderBaseTwo<T>(
 ) :
     HolderBase<T>(inflater,parent,viewInflater) {
 
-    abstract fun bind(objeto: T, objeto2: ClienteEntity, position: Int)
+    abstract fun bind(objeto: T, objeto2: ClienteEntity?, position: Int)
 }

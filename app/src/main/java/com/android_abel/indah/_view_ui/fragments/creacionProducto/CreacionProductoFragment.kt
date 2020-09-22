@@ -1,5 +1,8 @@
 package com.android_abel.indah._view_ui.fragments.creacionProducto
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +17,7 @@ import com.android_abel.indah._view_ui.base.BasicMethods
 import com.android_abel.indah._view_ui.base.EscanerListener
 import com.android_abel.indah._view_ui.base.FileListener
 import com.android_abel.indah.utils.CustomsConstantes
+import com.android_abel.indah.utils.base.Base64
 import com.android_abel.indah.utils.extensiones.functionWithParams
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_creacion_producto.*
@@ -90,7 +94,7 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, 
         }
 
         imageViewSelectPhoto.setOnClickListener {
-            pickUserImage(this)
+            SelectImage(this)
         }
     }
 
@@ -161,6 +165,11 @@ class CreacionProductoFragment : BaseFragment(), BasicMethods, EscanerListener, 
             .error(R.drawable.ic_scan)
             .centerCrop()
             .into(imageViewImageProducto)
+    }
+
+    override fun imageUriSelectedFromGallery(url: Bitmap) {
+        imageViewImageProducto.setImageBitmap(url)
+        creacionProductoViewModel.uploadImage(url)
     }
 
 
